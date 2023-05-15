@@ -6,10 +6,16 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	score.visible = false
-	var profile :Dictionary = await OAuth2.get_profile_info()
+	label.visible = false
+	
+	OAuth2.get_profile.connect(_get_profile)
+	OAuth2.get_profile_info()
+	
+func _get_profile(profile :Dictionary):
 	if profile.is_empty():
 		return
 		
+	label.visible = true
 	label.text = "Welcome : %s" % profile["given_name"]
 	
 func _on_play_pressed():

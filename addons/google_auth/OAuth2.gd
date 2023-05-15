@@ -2,6 +2,7 @@ extends Node
 
 signal sign_in_completed
 signal sign_in_expired
+signal get_profile
 
 var redirect_server :TCPServer = TCPServer.new()
 var redirect_uri :String = "http://%s:%s" % [Credentials.LOCAL_BINDING, Credentials.PORT]
@@ -25,6 +26,7 @@ var simple_delay :Timer = Timer.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	is_web_app = ["Web"].has(OS.get_name())
+	is_android_app =  ["Android"].has(OS.get_name())
 	
 	# because browser use broken as CORS stupid bitch
 	# this will solve it
@@ -33,9 +35,8 @@ func _ready():
 		http_request_refresh_tokens.accept_gzip = false
 		http_request_validate_tokens.accept_gzip = false
 		http_request_profile_info.accept_gzip = false
-		
-	if ["Android"].has(OS.get_name()):
-		is_android_app = true
+	
+	if is_android_app:
 		android_webview_popup_plugin = Engine.get_singleton("WebViewPopUp")
 	
 	add_child(http_request_token_from_auth)
@@ -58,14 +59,14 @@ func _process(delta):
 		if request:
 			set_process(false)
 			
-			if is_android_app:
+			if is_android_app and android_webview_popup_plugin != null:
 				android_webview_popup_plugin.ClosePopUp()
 				
 			var auth_code = request.split("&scope")[0].split("=")[1]
 			_get_token_from_auth(auth_code)
 			
 			connection.put_data(("HTTP/1.1 %d\r\n" % 200).to_ascii_buffer())
-			connection.put_data(load_HTML("res://addons/google_auth/display_page.csv").to_ascii_buffer())
+			connection.put_data(_load_HTML("res://addons/google_auth/display_page.csv").to_ascii_buffer())
 			redirect_server.stop()
 	
 func _get_token_from_auth(auth_code :String):
@@ -125,7 +126,7 @@ func check_sign_in_status():
 		return
 		
 	if token == null:
-		emit_signal("sign_in_expired")
+		_failed_sign_in_exipired()
 		return
 		
 	var token_valid :bool = await _is_token_valid()
@@ -133,17 +134,21 @@ func check_sign_in_status():
 		
 		# try refresh if not valid
 		if refresh_token == null:
-			emit_signal("sign_in_expired")
+			_failed_sign_in_exipired()
 			return
 			
 		var ok = await _refresh_tokens()
 		if not ok:
-			emit_signal("sign_in_expired")
+			_failed_sign_in_exipired()
 			return
 			
 		
 	emit_signal("sign_in_completed")
-
+	
+func _failed_sign_in_exipired():
+	_delete_tokens()
+	emit_signal("sign_in_expired")
+	
 func _get_code_from_url_query() -> bool:
 	if is_web_app:
 		var auth_code = JavaScriptBridge.eval("""
@@ -170,43 +175,54 @@ func _get_code_from_url_query() -> bool:
 	return false
 
 func _get_auth_code():
-	var body_parts :Array
-	var os :String = OS.get_name()
-	
-	var client_id :String = "client_id=%s" % Credentials.CLIENT_ID
-	var scope :String = "scope=https://www.googleapis.com/auth/userinfo.profile"
-	var response_type :String = "response_type=code"
-	
+	# for web
 	if is_web_app:
-		body_parts = [
-			client_id,
+		var body_parts :Array = [
+			"client_id=%s" % Credentials.CLIENT_ID,
 			"redirect_uri=%s" % Credentials.WEB_REDIRECT_URL,
-			response_type,
-			scope,
+			"response_type=code",
+			"scope=https://www.googleapis.com/auth/userinfo.profile",
 		]
 		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		JavaScriptBridge.eval('window.location.replace("%s")' % url)
-		return
 		
-	set_process(true)
-	
-	if not redirect_server.is_listening():
-		redirect_server.listen(Credentials.PORT, Credentials.LOCAL_BINDING)
-	
-	body_parts = [
-		client_id,
-		"redirect_uri=%s" % redirect_uri,
-		response_type,
-		scope,
-	]
-	
-	var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
-	if is_android_app:
-		android_webview_popup_plugin.OpenUrl(url)
-		return
-	
-	OS.shell_open(url)
-
+	# for android
+	elif is_android_app:
+		set_process(true)
+		
+		if not redirect_server.is_listening():
+			redirect_server.listen(Credentials.PORT, Credentials.LOCAL_BINDING)
+		
+		var body_parts :Array = [
+			"client_id=%s" % Credentials.CLIENT_ID,
+			"redirect_uri=%s" % redirect_uri,
+			"response_type=code",
+			"scope=https://www.googleapis.com/auth/userinfo.profile",
+		]
+		
+		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
+		
+		if android_webview_popup_plugin != null:
+			android_webview_popup_plugin.OpenUrl(url)
+		
+	# for else
+	# open browser
+	else:
+		set_process(true)
+		
+		if not redirect_server.is_listening():
+			redirect_server.listen(Credentials.PORT, Credentials.LOCAL_BINDING)
+			
+		var body_parts :Array = [
+			"client_id=%s" % Credentials.CLIENT_ID,
+			"redirect_uri=%s" % redirect_uri,
+			"response_type=code",
+			"scope=https://www.googleapis.com/auth/userinfo.profile",
+		]
+		
+		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
+		OS.shell_open(url)
+		
 func _refresh_tokens() -> bool:
 	if refresh_token == null:
 		return false
@@ -276,9 +292,9 @@ func _is_token_valid() -> bool:
 		
 	return false
 	
-func get_profile_info() -> Dictionary:
+func get_profile_info():
 	if token == null:
-		return {}
+		return
 		
 	var request_url := "https://www.googleapis.com/oauth2/v1/userinfo?alt=json"
 	var headers := [
@@ -289,15 +305,15 @@ func get_profile_info() -> Dictionary:
 	var error = http_request_profile_info.request(request_url, PackedStringArray(headers))
 	if error != OK:
 		push_error("ERROR OCCURED @ FUNC get_LiveBroadcastResource() : %s" % error)
-		return {}
+		return
 	
 	var response :Array = await http_request_profile_info.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		return {}
+		return
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
 	
-	return response_body
+	emit_signal("get_profile", response_body)
 	
 # SAVE/LOAD
 const SAVE_PATH = 'user://token.dat'
@@ -344,7 +360,17 @@ func _load_tokens():
 	file.close()
 	
 	
-func load_HTML(path :String) -> String:
+func _delete_tokens():
+	token = null
+	refresh_token = null
+	redirect_code = null
+	
+	if not FileAccess.file_exists(SAVE_PATH):
+		return
+		
+	DirAccess.remove_absolute(SAVE_PATH)
+	
+func _load_HTML(path :String) -> String:
 	if FileAccess.file_exists(path):
 		var file = FileAccess.open(path, FileAccess.READ)
 		var HTML = file.get_as_text().replace("    ", "\t").insert(0, "\n")
