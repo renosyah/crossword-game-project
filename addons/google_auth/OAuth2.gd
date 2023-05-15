@@ -189,7 +189,10 @@ func _get_code_from_url_query() -> bool:
 		_save_tokens()
 		
 		await _get_token_from_auth(redirect_code)
-		JavaScriptBridge.eval('window.location.replace("%s")' % Credentials.WEB_REDIRECT_URL)
+		
+		JavaScriptBridge.eval("""
+			window.history.replaceState({}, document.title, "/");
+		""")
 		return true
 		
 	return false

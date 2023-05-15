@@ -25,11 +25,11 @@ func _on_play_pressed():
 	Global.reset_player()
 	Global.generate_words()
 	get_tree().change_scene_to_file("res://gameplay/gameplay.tscn")
-
+	
 func _on_score_button_pressed():
 	score.visible = true
 	score.display_score(Global.get_scores())
-
+	
 func _on_sign_out_pressed():
 	if loading.visible:
 		return

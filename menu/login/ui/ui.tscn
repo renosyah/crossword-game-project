@@ -93,6 +93,7 @@ visible = false
 layout_mode = 1
 
 [node name="loading" parent="CanvasLayer/Control" instance=ExtResource("6_p7102")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer/login" to="." method="_on_login_pressed"]
