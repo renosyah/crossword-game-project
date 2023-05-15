@@ -9,8 +9,7 @@ link : not yet release
 
 ## Cover
 
-<img src="https://raw.githubusercontent.com/renosyah/nation-conquest/master/ss/cover.png" />
-
+<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/icn.png" />
 
 ## Gameplay Web
 
