@@ -5,8 +5,14 @@ signal sign_in_expired
 signal get_profile
 signal sign_out_completed
 
+const PORT := 31419
+const LOCAL_BINDING :String = "127.0.0.1"
+const AUTH_SERVER :String = "https://accounts.google.com/o/oauth2/v2/auth"
+const TOKEN_REQ_SERVER :String = "https://oauth2.googleapis.com/token"
+const TOKEN_REVOKE_SERVER :String = "https://accounts.google.com/o/oauth2/revoke"
+
 var redirect_server :TCPServer = TCPServer.new()
-var redirect_uri :String = "http://%s:%s" % [Credentials.LOCAL_BINDING, Credentials.PORT]
+var redirect_uri :String = "http://%s:%s" % [LOCAL_BINDING, PORT]
 
 var redirect_code
 var token
@@ -96,7 +102,7 @@ func _get_token_from_auth(auth_code :String):
 	var body = "&".join(PackedStringArray(body_parts))
 	
 	var error = http_request_token_from_auth.request(
-		Credentials.TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
+		TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
@@ -197,7 +203,7 @@ func _get_auth_code():
 			"response_type=code",
 			"scope=https://www.googleapis.com/auth/userinfo.profile",
 		]
-		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
+		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		JavaScriptBridge.eval('window.location.replace("%s")' % url)
 		
 	# for android
@@ -205,7 +211,7 @@ func _get_auth_code():
 		set_process(true)
 		
 		if not redirect_server.is_listening():
-			redirect_server.listen(Credentials.PORT, Credentials.LOCAL_BINDING)
+			redirect_server.listen(PORT, LOCAL_BINDING)
 		
 		var body_parts :Array = [
 			"client_id=%s" % Credentials.CLIENT_ID,
@@ -214,7 +220,7 @@ func _get_auth_code():
 			"scope=https://www.googleapis.com/auth/userinfo.profile",
 		]
 		
-		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
+		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		
 		if android_webview_popup_plugin != null:
 			android_webview_popup_plugin.OpenUrl(url)
@@ -225,7 +231,7 @@ func _get_auth_code():
 		set_process(true)
 		
 		if not redirect_server.is_listening():
-			redirect_server.listen(Credentials.PORT, Credentials.LOCAL_BINDING)
+			redirect_server.listen(PORT, LOCAL_BINDING)
 			
 		var body_parts :Array = [
 			"client_id=%s" % Credentials.CLIENT_ID,
@@ -234,7 +240,7 @@ func _get_auth_code():
 			"scope=https://www.googleapis.com/auth/userinfo.profile",
 		]
 		
-		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
+		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		OS.shell_open(url)
 		
 		
@@ -246,7 +252,7 @@ func _revoke_auth_code():
 		"Content-Type: application/x-www-form-urlencoded",
 	])
 	
-	var url :String = Credentials.TOKEN_REVOKE_SERVER + "?token=%s" % token
+	var url :String = TOKEN_REVOKE_SERVER + "?token=%s" % token
 	var error = http_request_revoke_token_from_auth.request(
 		url, headers, HTTPClient.METHOD_POST, ""
 	)
@@ -278,7 +284,7 @@ func _refresh_tokens() -> bool:
 	var body = "&".join(body_parts)
 	
 	var error = http_request_refresh_tokens.request(
-		Credentials.TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
+		TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
@@ -309,7 +315,7 @@ func _is_token_valid() -> bool:
 	var body = "access_token=%s" % token
 	
 	var error = http_request_validate_tokens.request(
-		Credentials.TOKEN_REQ_SERVER + "info", headers, HTTPClient.METHOD_POST, body
+		TOKEN_REQ_SERVER + "info", headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
@@ -425,15 +431,6 @@ func _load_HTML(path :String) -> String:
 	
 
 class OAuth2UserInfo:
-#	{
-#	  "id": "106485650054118962173",
-#	  "name": "Reno “Renosyah” Syahputra",
-#	  "given_name": "Reno",
-#	  "family_name": "Syahputra",
-#	  "picture": "https://lh3.googleusercontent.com/a/AGNmyxbHss9Kn8mfyqqtP3iVQhtRxHKm5_4D4C1Uc3T1=s96-c",
-#	  "locale": "id"
-#	}
-
 	var id :String
 	var full_name :String
 	var given_name :String
