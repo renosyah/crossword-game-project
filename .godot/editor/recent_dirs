@@ -1,10 +1,9 @@
-res://menu/loading
 C:/project/godot/export
+res://menu/loading
 res://menu/login
 res://menu/login/ui
 res://menu/main_menu/ui
 res://addons/google_auth
-C:/project/godot/crossword-game/addons/google_auth
 res://addons/network/lobby-manager
 res://addons/network
 C:/Users/USER/.android

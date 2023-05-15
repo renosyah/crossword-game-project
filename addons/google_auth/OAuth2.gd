@@ -189,13 +189,14 @@ func _get_code_from_url_query() -> bool:
 		_save_tokens()
 		
 		await _get_token_from_auth(redirect_code)
-		#JavaScriptBridge.eval('window.location.replace("%s")' % Credentials.WEB_REDIRECT_URL)
+		JavaScriptBridge.eval('window.location.replace("%s")' % Credentials.WEB_REDIRECT_URL)
 		return true
 		
 	return false
 
 func _get_auth_code():
 	# for web
+	# redirect to google login
 	if is_web_app:
 		var body_parts :Array = [
 			"client_id=%s" % Credentials.CLIENT_ID,
@@ -207,6 +208,7 @@ func _get_auth_code():
 		JavaScriptBridge.eval('window.location.replace("%s")' % url)
 		
 	# for android
+	# open in app webview
 	elif is_android_app:
 		set_process(true)
 		
