@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnf0uximpm7ow"]
+
+[ext_resource type="Script" path="res://entity/word_tile/word_tile.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://yggvhy7bwijx" path="res://entity/word_tile/dynamic_font_label.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://cvcr6j7sqo5f2" path="res://entity/word_tile/tile_background.png" id="3"]
+
+[node name="word_tile" type="MarginContainer"]
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("1")
+
+[node name="bg" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.854902)
+layout_mode = 2
+texture = ExtResource("3")
+expand_mode = 1
+
+[node name="bg_solved" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.854902)
+layout_mode = 2
+color = Color(0.117647, 0.6, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+theme_override_font_sizes/font_size = 14
+text = "i"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="bg_empty" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.603922)
+layout_mode = 2
+color = Color(0.792157, 0.792157, 0.792157, 1)

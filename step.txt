@@ -1,0 +1,8 @@
+cross word project : 
+(phase 1)
+- core gameplay
+- generate level & data level
+- login & api login (fix stupid web login && add wording in mobile login tell user to back to app after click google account)
+- leaderboard & api leaderboard
+- kbbi & api kbbi
+- admob
