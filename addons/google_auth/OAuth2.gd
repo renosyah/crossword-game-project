@@ -78,12 +78,19 @@ func _get_token_from_auth(auth_code :String):
 		"Content-Type: application/x-www-form-urlencoded",
 	])
 	
+	var _redirect_uri_value :String = redirect_uri
+	
+	if is_web_app:
+		_redirect_uri_value = Credentials.WEB_REDIRECT_URL
+	
 	var body_parts :Array = [
 		"code=%s" % auth_code, 
 		"client_id=%s" % Credentials.CLIENT_ID,
 		"client_secret=%s" % Credentials.WEB_CLIENT_SECRET,
-		("redirect_uri=%s" % Credentials.WEB_REDIRECT_URL) if is_web_app else ("redirect_uri=%s" % redirect_uri),
-		"grant_type=authorization_code"
+		"redirect_uri=%s" % _redirect_uri_value,
+		"grant_type=authorization_code",
+		"access_type=offline",
+		"prompt=consent"
 	]
 	
 	var body = "&".join(PackedStringArray(body_parts))
@@ -344,7 +351,7 @@ func get_profile_info():
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
 	
-	emit_signal("get_profile", response_body)
+	emit_signal("get_profile", OAuth2UserInfo.new(response_body))
 	
 # SAVE/LOAD
 const SAVE_PATH = 'user://token.dat'
@@ -417,7 +424,30 @@ func _load_HTML(path :String) -> String:
 	return ""
 	
 
+class OAuth2UserInfo:
+#	{
+#	  "id": "106485650054118962173",
+#	  "name": "Reno “Renosyah” Syahputra",
+#	  "given_name": "Reno",
+#	  "family_name": "Syahputra",
+#	  "picture": "https://lh3.googleusercontent.com/a/AGNmyxbHss9Kn8mfyqqtP3iVQhtRxHKm5_4D4C1Uc3T1=s96-c",
+#	  "locale": "id"
+#	}
 
+	var id :String
+	var full_name :String
+	var given_name :String
+	var family_name :String
+	var picture :String
+	var locale :String
+
+	func _init(_response :Dictionary):
+		self.id = _response["id"]
+		self.full_name  = _response["name"]
+		self.given_name  = _response["given_name"]
+		self.family_name = _response["family_name"]
+		self.picture = _response["picture"]
+		self.locale = _response["locale"]
 
 
 

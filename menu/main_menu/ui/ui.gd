@@ -12,12 +12,9 @@ func _ready():
 	OAuth2.sign_out_completed.connect(_sign_out_completed)
 	OAuth2.get_profile_info()
 	
-func _get_profile(profile :Dictionary):
-	if profile.is_empty():
-		return
-		
+func _get_profile(profile : OAuth2.OAuth2UserInfo):
 	label.visible = true
-	label.text = "Welcome : %s" % profile["given_name"]
+	label.text = "Welcome : %s" % profile.given_name
 	
 func _sign_out_completed():
 	get_tree().change_scene_to_file("res://menu/login/login.tscn")
