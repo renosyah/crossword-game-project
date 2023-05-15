@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx3nb20kadwnk"]
+[gd_scene load_steps=8 format=3 uid="uid://bx3nb20kadwnk"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_d8y6e"]
 [ext_resource type="Script" path="res://menu/login/ui/ui.gd" id="1_jisnu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bw35lbtdef67s" path="res://assets/ui/icons/signin_button.png" id="3_uuj1x"]
 [ext_resource type="PackedScene" uid="uid://dr5rj4h6xgctj" path="res://menu/score/score.tscn" id="4_qhvws"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://menu/loading/loading.tscn" id="6_p7102"]
+[ext_resource type="PackedScene" uid="uid://f6l4g35fkt25" path="res://menu/popup_message/popup_message.tscn" id="7_2tayk"]
 
 [node name="ui" type="Control"]
 layout_mode = 3
@@ -90,6 +91,9 @@ layout_mode = 2
 
 [node name="score" parent="CanvasLayer/Control" instance=ExtResource("4_qhvws")]
 visible = false
+layout_mode = 1
+
+[node name="popup_message" parent="CanvasLayer/Control" instance=ExtResource("7_2tayk")]
 layout_mode = 1
 
 [node name="loading" parent="CanvasLayer/Control" instance=ExtResource("6_p7102")]

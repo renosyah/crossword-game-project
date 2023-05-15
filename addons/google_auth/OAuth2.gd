@@ -1,9 +1,11 @@
 extends Node
 
 signal sign_in_completed
+signal no_session
 signal sign_in_expired
 signal profile_info
 signal sign_out_completed
+signal failed(message)
 
 const PORT := 31419
 const LOCAL_BINDING :String = "127.0.0.1"
@@ -44,9 +46,13 @@ func _ready():
 		http_request_validate_tokens.accept_gzip = false
 		http_request_profile_info.accept_gzip = false
 		http_request_revoke_token_from_auth.accept_gzip = false
+		
 	
 	if is_android_app:
 		android_webview_popup_plugin = Engine.get_singleton("WebViewPopUp")
+		android_webview_popup_plugin.on_dialog_open.connect(_webview_popup_on_dialog_open)
+		android_webview_popup_plugin.on_dialog_dismiss.connect(_webview_popup_on_dialog_dismiss)
+		android_webview_popup_plugin.on_error.connect(_webview_popup_on_error)
 	
 	add_child(http_request_token_from_auth)
 	add_child(http_request_refresh_tokens)
@@ -70,7 +76,7 @@ func _process(delta):
 			set_process(false)
 			
 			if is_android_app and android_webview_popup_plugin != null:
-				android_webview_popup_plugin.ClosePopUp()
+				android_webview_popup_plugin.close_dialog()
 				
 			var auth_code = request.split("&scope")[0].split("=")[1]
 			_get_token_from_auth(auth_code)
@@ -105,11 +111,12 @@ func _get_token_from_auth(auth_code :String):
 		TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
-		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
+		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return
 		
 	var result = await http_request_token_from_auth.request_completed
 	if result[0] != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("failed", "failed get token, response not success!")
 		return
 		
 	var response_body :Dictionary = JSON.parse_string((result[3] as PackedByteArray).get_string_from_utf8())
@@ -130,6 +137,16 @@ func sign_in():
 	_get_auth_code()
 	
 func sign_out():
+	# just simple delay
+	# to prevent request
+	# on page loaded
+	simple_delay.start()
+	await simple_delay.timeout
+	
+	if token == null:
+		emit_signal("failed", "failed sign out, no session!")
+		return
+		
 	_revoke_auth_code()
 	
 func check_sign_in_status():
@@ -146,7 +163,7 @@ func check_sign_in_status():
 		return
 		
 	if token == null:
-		_failed_sign_in_exipired()
+		emit_signal("no_session")
 		return
 		
 	var token_valid :bool = await _is_token_valid()
@@ -228,7 +245,7 @@ func _get_auth_code():
 		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		
 		if android_webview_popup_plugin != null:
-			android_webview_popup_plugin.OpenUrl(url)
+			android_webview_popup_plugin.open_url(url)
 		
 	# for else
 	# open browser
@@ -250,9 +267,6 @@ func _get_auth_code():
 		
 		
 func _revoke_auth_code():
-	if token == null:
-		return
-		
 	var headers = PackedStringArray([
 		"Content-Type: application/x-www-form-urlencoded",
 	])
@@ -262,20 +276,18 @@ func _revoke_auth_code():
 		url, headers, HTTPClient.METHOD_POST, ""
 	)
 	if error != OK:
-		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
+		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return
 		
 	var response :Array = await http_request_revoke_token_from_auth.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("failed", "failed sign out, response not success!")
 		return
 		
 	_delete_tokens()
 	emit_signal("sign_out_completed")
 	
 func _refresh_tokens() -> bool:
-	if refresh_token == null:
-		return false
-		
 	var headers = PackedStringArray([
 		"Content-Type: application/x-www-form-urlencoded",
 	])
@@ -292,11 +304,12 @@ func _refresh_tokens() -> bool:
 		TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
-		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
+		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return false
 	
 	var response :Array = await http_request_refresh_tokens.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("failed", "failed refresh token, response not success!")
 		return false
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
@@ -310,9 +323,6 @@ func _refresh_tokens() -> bool:
 		return false
 		
 func _is_token_valid() -> bool:
-	if token == null:
-		return false
-	
 	var headers = PackedStringArray([
 		"Content-Type: application/x-www-form-urlencoded"
 	])
@@ -323,11 +333,12 @@ func _is_token_valid() -> bool:
 		TOKEN_REQ_SERVER + "info", headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
-		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
+		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return false
 	
 	var response :Array = await http_request_validate_tokens.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("failed", "failed checking token, response not success!")
 		return false
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
@@ -343,6 +354,7 @@ func _is_token_valid() -> bool:
 	
 func get_profile_info():
 	if token == null:
+		emit_signal("failed", "failed get profile, no session!")
 		return
 		
 	var request_url := "https://www.googleapis.com/oauth2/v1/userinfo?alt=json"
@@ -353,16 +365,39 @@ func get_profile_info():
 	
 	var error = http_request_profile_info.request(request_url, PackedStringArray(headers))
 	if error != OK:
-		push_error("ERROR OCCURED @ FUNC get_LiveBroadcastResource() : %s" % error)
+		emit_signal("failed", "ERROR OCCURED @ FUNC get_LiveBroadcastResource() : %s" % error)
 		return
 	
 	var response :Array = await http_request_profile_info.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("failed", "failed get profile, response not success!")
 		return
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
 	
 	emit_signal("profile_info", OAuth2UserInfo.new(response_body))
+	
+	
+func _webview_popup_on_dialog_open():
+	pass
+	
+func _webview_popup_on_dialog_dismiss():
+	set_process(false)
+	
+	if redirect_server.is_listening():
+		redirect_server.stop()
+		
+	emit_signal("failed", "login form has been dismissed!")
+	
+func _webview_popup_on_error():
+	set_process(false)
+	
+	if redirect_server.is_listening():
+		redirect_server.stop()
+	
+	if android_webview_popup_plugin != null:
+		var _error_messages :PackedStringArray = android_webview_popup_plugin.get_error_messages()
+		emit_signal("failed", ", ".join(_error_messages))
 	
 # SAVE/LOAD
 const SAVE_PATH = 'user://token.dat'

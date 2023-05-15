@@ -59,13 +59,12 @@ func generate_words():
 @onready var scores :Array = load_scores()
 
 func load_scores() -> Array:
-	var scores = SaveLoad.load_save("scores.dat")
-	if scores == null:
+	var _scores = SaveLoad.load_save("scores.dat")
+	if _scores == null:
 		return []
 		
-	scores.sort_custom(Callable(ScoreSorter, "sort"))
-		
-	return scores
+	_scores.sort_custom(Callable(ScoreSorter, "sort"))
+	return _scores
 	
 func get_scores() -> Array:
 	var _scores :Array = []
