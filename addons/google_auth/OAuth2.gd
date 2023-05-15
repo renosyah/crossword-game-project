@@ -319,8 +319,11 @@ func get_profile_info():
 const SAVE_PATH = 'user://token.dat'
 
 func _save_tokens():
-	#var file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, Credentials.FILE_PASSWORD)
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	# var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, Credentials.FILE_PASSWORD)
+	if file == null:
+		return
+		
 	var tokens :Dictionary = {}
 	
 	if redirect_code != null:
@@ -342,8 +345,11 @@ func _load_tokens():
 	if not FileAccess.file_exists(SAVE_PATH):
 		return
 		
-	#var file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.READ, Credentials.FILE_PASSWORD)
-	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	# var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.READ, Credentials.FILE_PASSWORD)
+	if file == null:
+		return
+		
 	var tokens = file.get_var()
 	if tokens == null:
 		return
