@@ -9,3 +9,5 @@ res://menu/main_menu/main_menu.tscn
 res://menu/login/login.tscn
 res://addons/google_auth/OAuth2UserInfo.gd
 res://menu/login/login.gd
+res://menu/login/ui/ui.gd
+res://addons/LANServerBroadcast/server_listener/ServerListener.gd

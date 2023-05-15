@@ -1,9 +1,12 @@
+Control
+AnimationPlayer
+TextureRect
 CenterContainer
+MarginContainer
+ColorRect
 Button
 HTTPRequest
-MarginContainer
 Label
-Control
 Node
 GridContainer
 AspectRatioContainer

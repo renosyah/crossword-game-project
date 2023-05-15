@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://071ix4tfv54t"]
+[gd_scene load_steps=9 format=3 uid="uid://071ix4tfv54t"]
 
 [ext_resource type="FontFile" path="res://assets/ui/fonts/montserrat_eb_48.tres" id="1"]
 [ext_resource type="Script" path="res://menu/main_menu/ui/ui.gd" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://cs1nhg4hgf0v2" path="res://assets/ui/fonts/montserrat_eb_32.tres" id="3_dfpds"]
 [ext_resource type="PackedScene" uid="uid://dr5rj4h6xgctj" path="res://menu/score/score.tscn" id="4"]
 [ext_resource type="Texture2D" uid="uid://cfc0mxfhd0c40" path="res://assets/ui/icons/score.png" id="5"]
+[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://menu/loading/loading.tscn" id="8_633u8"]
 
 [node name="ui" type="Control"]
 layout_mode = 3
@@ -122,6 +123,9 @@ layout_mode = 2
 
 [node name="score" parent="CanvasLayer/Control" instance=ExtResource("4")]
 visible = false
+layout_mode = 1
+
+[node name="loading" parent="CanvasLayer/Control" instance=ExtResource("8_633u8")]
 layout_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/HBoxContainer/CenterContainer/sign_out" to="." method="_on_sign_out_pressed"]
