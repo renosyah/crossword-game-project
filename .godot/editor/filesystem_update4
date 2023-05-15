@@ -1,9 +1,7 @@
 res://default_env.tres
-res://menu/main_menu/ui/ui.tscn
 res://menu/login/ui/ui.tscn
-res://addons/google_auth/OAuth2.gd
-res://menu/login/ui/ui.gd
 res://menu/loading/loading.tscn
 res://menu/popup_message/popup_message.tscn
-res://menu/popup_message/popup_message.gd
-res://global/global.gd
+res://menu/login/login.tscn
+res://menu/login/login.gd
+res://gameplay/gameplay.tscn

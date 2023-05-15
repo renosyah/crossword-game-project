@@ -50,7 +50,6 @@ func _ready():
 	
 	if is_android_app:
 		android_webview_popup_plugin = Engine.get_singleton("WebViewPopUp")
-		android_webview_popup_plugin.on_dialog_open.connect(_webview_popup_on_dialog_open)
 		android_webview_popup_plugin.on_dialog_dismiss.connect(_webview_popup_on_dialog_dismiss)
 		android_webview_popup_plugin.on_error.connect(_webview_popup_on_error)
 	
@@ -376,10 +375,6 @@ func get_profile_info():
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
 	
 	emit_signal("profile_info", OAuth2UserInfo.new(response_body))
-	
-	
-func _webview_popup_on_dialog_open():
-	pass
 	
 func _webview_popup_on_dialog_dismiss():
 	set_process(false)
