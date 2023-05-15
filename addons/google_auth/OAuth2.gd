@@ -2,7 +2,7 @@ extends Node
 
 signal sign_in_completed
 signal sign_in_expired
-signal get_profile
+signal profile_info
 signal sign_out_completed
 
 const PORT := 31419
@@ -357,7 +357,7 @@ func get_profile_info():
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
 	
-	emit_signal("get_profile", OAuth2UserInfo.new(response_body))
+	emit_signal("profile_info", OAuth2UserInfo.new(response_body))
 	
 # SAVE/LOAD
 const SAVE_PATH = 'user://token.dat'

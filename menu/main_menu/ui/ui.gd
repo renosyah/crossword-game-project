@@ -9,11 +9,11 @@ func _ready():
 	score.visible = false
 	loading.visible = true
 	
-	OAuth2.get_profile.connect(_get_profile)
+	OAuth2.profile_info.connect(_profile_info)
 	OAuth2.sign_out_completed.connect(_sign_out_completed)
 	OAuth2.get_profile_info()
 	
-func _get_profile(profile : OAuth2.OAuth2UserInfo):
+func _profile_info(profile : OAuth2.OAuth2UserInfo):
 	loading.visible = false
 	label.text = "Welcome : %s" % profile.given_name
 	
