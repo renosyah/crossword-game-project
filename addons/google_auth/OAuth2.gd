@@ -3,6 +3,7 @@ extends Node
 signal sign_in_completed
 signal sign_in_expired
 signal get_profile
+signal sign_out_completed
 
 var redirect_server :TCPServer = TCPServer.new()
 var redirect_uri :String = "http://%s:%s" % [Credentials.LOCAL_BINDING, Credentials.PORT]
@@ -20,6 +21,7 @@ var http_request_token_from_auth = HTTPRequest.new()
 var http_request_refresh_tokens = HTTPRequest.new()
 var http_request_validate_tokens = HTTPRequest.new()
 var http_request_profile_info = HTTPRequest.new()
+var http_request_revoke_token_from_auth = HTTPRequest.new()
 
 var simple_delay :Timer = Timer.new()
 
@@ -30,11 +32,12 @@ func _ready():
 	
 	# because browser use broken as CORS stupid bitch
 	# this will solve it
-	if (is_web_app):
+	if is_web_app:
 		http_request_token_from_auth.accept_gzip = false
 		http_request_refresh_tokens.accept_gzip = false
 		http_request_validate_tokens.accept_gzip = false
 		http_request_profile_info.accept_gzip = false
+		http_request_revoke_token_from_auth.accept_gzip = false
 	
 	if is_android_app:
 		android_webview_popup_plugin = Engine.get_singleton("WebViewPopUp")
@@ -43,6 +46,7 @@ func _ready():
 	add_child(http_request_refresh_tokens)
 	add_child(http_request_validate_tokens)
 	add_child(http_request_profile_info)
+	add_child(http_request_revoke_token_from_auth)
 	
 	simple_delay.wait_time = 1
 	simple_delay.one_shot = true
@@ -111,6 +115,9 @@ func _get_token_from_auth(auth_code :String):
 	
 func sign_in():
 	_get_auth_code()
+	
+func sign_out():
+	_revoke_auth_code()
 	
 func check_sign_in_status():
 	# just simple delay
@@ -223,6 +230,30 @@ func _get_auth_code():
 		var url :String = Credentials.AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		OS.shell_open(url)
 		
+		
+func _revoke_auth_code():
+	if token == null:
+		return
+		
+	var headers = PackedStringArray([
+		"Content-Type: application/x-www-form-urlencoded",
+	])
+	
+	var url :String = Credentials.TOKEN_REVOKE_SERVER + "?token=%s" % token
+	var error = http_request_revoke_token_from_auth.request(
+		url, headers, HTTPClient.METHOD_POST, ""
+	)
+	if error != OK:
+		push_error("An error occurred in the HTTP request with ERR Code: %s" % error)
+		return
+		
+	var response :Array = await http_request_revoke_token_from_auth.request_completed
+	if response[0] != HTTPRequest.RESULT_SUCCESS:
+		return
+		
+	_delete_tokens()
+	emit_signal("sign_out_completed")
+	
 func _refresh_tokens() -> bool:
 	if refresh_token == null:
 		return false

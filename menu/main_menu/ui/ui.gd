@@ -9,6 +9,7 @@ func _ready():
 	label.visible = false
 	
 	OAuth2.get_profile.connect(_get_profile)
+	OAuth2.sign_out_completed.connect(_sign_out_completed)
 	OAuth2.get_profile_info()
 	
 func _get_profile(profile :Dictionary):
@@ -18,6 +19,9 @@ func _get_profile(profile :Dictionary):
 	label.visible = true
 	label.text = "Welcome : %s" % profile["given_name"]
 	
+func _sign_out_completed():
+	get_tree().change_scene_to_file("res://menu/login/login.tscn")
+	
 func _on_play_pressed():
 	Global.reset_player()
 	Global.generate_words()
@@ -26,3 +30,6 @@ func _on_play_pressed():
 func _on_score_button_pressed():
 	score.visible = true
 	score.display_score(Global.get_scores())
+
+func _on_sign_out_pressed():
+	OAuth2.sign_out()

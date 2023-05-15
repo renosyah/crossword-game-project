@@ -4,3 +4,6 @@ res://addons/google_auth/OAuth2.gd
 res://menu/main_menu/ui/ui.tscn
 res://menu/main_menu/ui/ui.gd
 res://addons/google_auth/credentials_example.gd
+res://addons/google_auth/credentials.gd
+res://menu/main_menu/main_menu.tscn
+res://menu/login/login.tscn
