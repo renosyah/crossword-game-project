@@ -12,9 +12,6 @@ func _ready():
 	
 	OAuth2.check_sign_in_status()
 	
-	for i in range(10):
-		popup_message.show_popup_message("Error", "error at : %s" % i)
-	
 func _sign_in_completed():
 	loading.visible = false
 	get_tree().change_scene_to_file("res://menu/main_menu/main_menu.tscn")
