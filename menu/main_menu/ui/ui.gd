@@ -11,11 +11,20 @@ func _ready():
 	
 	OAuth2.profile_info.connect(_profile_info)
 	OAuth2.sign_out_completed.connect(_sign_out_completed)
-	OAuth2.get_profile_info()
 	
+	if Global.player_id.is_empty():
+		OAuth2.get_profile_info()
+		
+	else:
+		loading.visible = false
+		label.text = "Welcome : %s" % Global.player_name
+		
 func _profile_info(profile : OAuth2.OAuth2UserInfo):
 	loading.visible = false
-	label.text = "Welcome : %s" % profile.given_name
+	Global.player_id = profile.id
+	Global.player_name = profile.given_name
+	
+	label.text = "Welcome : %s" % Global.player_name
 	
 func _sign_out_completed():
 	loading.visible = false

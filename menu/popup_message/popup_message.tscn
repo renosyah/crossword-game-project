@@ -134,12 +134,14 @@ vertical_alignment = 1
 
 [node name="message" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("1_551ce")
 theme_override_font_sizes/font_size = 24
 text = "..."
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -151,7 +153,7 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

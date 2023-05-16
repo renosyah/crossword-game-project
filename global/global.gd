@@ -3,6 +3,9 @@ extends Node
 
 @onready var wordData = WordsData.new()
 
+@onready var player_id :String = ""
+@onready var player_name :String = ""
+
 @onready var player_hint :int = 10
 @onready var player_max_hint :int = 10
 @onready var player_hp :int = 5
