@@ -4,3 +4,6 @@ res://menu/main_menu/ui/ui.tscn
 res://global/global.gd
 res://menu/main_menu/ui/ui.gd
 res://menu/popup_message/popup_message.tscn
+res://menu/popup_message/popup_message.gd
+res://menu/login/ui/ui.gd
+res://menu/main_menu/main_menu.tscn
