@@ -3,6 +3,7 @@ extends Control
 @onready var score = $CanvasLayer/Control/score
 @onready var label = $CanvasLayer/Control/SafeArea/VBoxContainer/HBoxContainer/Label
 @onready var loading = $CanvasLayer/Control/loading
+@onready var popup_message = $CanvasLayer/Control/popup_message
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +12,7 @@ func _ready():
 	
 	OAuth2.profile_info.connect(_profile_info)
 	OAuth2.sign_out_completed.connect(_sign_out_completed)
+	OAuth2.failed.connect(_failed)
 	
 	if Global.player_id.is_empty():
 		OAuth2.get_profile_info()
@@ -29,6 +31,10 @@ func _profile_info(profile : OAuth2.OAuth2UserInfo):
 func _sign_out_completed():
 	loading.visible = false
 	get_tree().change_scene_to_file("res://menu/login/login.tscn")
+	
+func _failed(message :String):
+	loading.visible = false
+	popup_message.show_popup_message("Error", message)
 	
 func _on_play_pressed():
 	Global.reset_player()
