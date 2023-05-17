@@ -16,9 +16,9 @@ signal banner_closed
 signal banner_recorded_impression
 signal banner_destroyed
 
-signal interstitial_failed_to_load(code)
+signal interstitial_failed_to_load
 signal interstitial_loaded
-signal interstitial_failed_to_show(code)
+signal interstitial_failed_to_show
 signal interstitial_opened
 signal interstitial_clicked
 signal interstitial_closed
@@ -33,6 +33,7 @@ signal rewarded_ad_closed
 signal rewarded_ad_recorded_impression
 signal user_earned_rewarded(reward_type, amount)
 
+# beta, maybe latter
 signal rewarded_interstitial_ad_failed_to_load(code)
 signal rewarded_interstitial_ad_loaded
 signal rewarded_interstitial_ad_failed_to_show(code)
@@ -83,6 +84,15 @@ func _ready():
 		_android_admob_plugin.banner_recorded_impression.connect(_banner_recorded_impression)
 		_android_admob_plugin.banner_destroyed.connect(_banner_destroyed)
 		
+		#interstitial
+		_android_admob_plugin.interstitial_failed_to_load.connect(_interstitial_failed_to_load)
+		_android_admob_plugin.interstitial_loaded.connect(_interstitial_loaded)
+		_android_admob_plugin.interstitial_failed_to_show.connect(_interstitial_failed_to_show)
+		_android_admob_plugin.interstitial_opened.connect(_interstitial_opened)
+		_android_admob_plugin.interstitial_clicked.connect(_interstitial_clicked)
+		_android_admob_plugin.interstitial_closed.connect(_interstitial_closed)
+		_android_admob_plugin.interstitial_recorded_impression.connect(_interstitial_recorded_impression)
+		
 		
 func _is_valid() -> bool:
 	if not _is_android_app:
@@ -112,14 +122,12 @@ func _is_valid() -> bool:
 #-----------------------------------------------------------------------------#
 # initialize
 func initialize():
-	if not _is_android_app:
+	# if other platform running, just set to valid :)
+	if not _is_android_app or _is_initialize_valid:
+		emit_signal("initialization_finish")
 		return
 		
 	if _android_admob_plugin == null:
-		return
-		
-	if _is_initialize_valid:
-		emit_signal("initialization_finish")
 		return
 		
 	_android_admob_plugin.initialize(
@@ -220,7 +228,7 @@ func get_banner_height_in_pixels() -> int:
 		
 	return _android_admob_plugin.get_banner_height_in_pixels()
 	
-func get_is_banner_loaded() ->bool:
+func get_is_banner_loaded() -> bool:
 	if not _is_valid():
 		return false
 		
@@ -249,12 +257,51 @@ func _banner_destroyed():
 	emit_signal("banner_destroyed")
 	
 #-----------------------------------------------------------------------------#
+# interstitia
+# default value is id testing
+@export var interstitial_ad_unit_id :String = "ca-app-pub-3940256099942544/1033173712"
+
 # interstitial
 func load_interstitial():
-	pass
-func show_interstitial():
-	pass
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.load_interstitial(interstitial_ad_unit_id)
 	
+func show_interstitial():
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.show_interstitial()
+	
+func get_is_interstitial_loaded() -> bool:
+	if not _is_valid():
+		return false
+		
+	return _android_admob_plugin.get_is_interstitial_loaded()
+	
+func _interstitial_failed_to_load():
+	emit_signal("interstitial_failed_to_load")
+	
+func _interstitial_loaded():
+	emit_signal("interstitial_loaded")
+	
+func _interstitial_failed_to_show():
+	emit_signal("interstitial_failed_to_show")
+	
+func _interstitial_opened():
+	emit_signal("interstitial_opened")
+	
+func _interstitial_clicked():
+	emit_signal("interstitial_clicked")
+	
+func _interstitial_closed():
+	emit_signal("interstitial_closed")
+	
+func _interstitial_recorded_impression():
+	emit_signal("interstitial_recorded_impression")
+	
+
 #-----------------------------------------------------------------------------#
 # rewarded
 # default value is id testing
@@ -272,16 +319,13 @@ func show_rewarded():
 		
 	_android_admob_plugin.show_rewarded()
 	
-func _get_is_rewarded_loaded() -> bool:
+func get_is_rewarded_loaded() -> bool:
 	if not _is_valid():
 		return false
 		
 	return _android_admob_plugin.get_is_rewarded_loaded()
 	
 func _rewarded_ad_loaded():
-	if not _get_is_rewarded_loaded():
-		return
-		
 	emit_signal("rewarded_ad_loaded")
 	
 func _rewarded_ad_failed_to_load():
@@ -308,8 +352,6 @@ func _user_earned_rewarded():
 func load_rewarded_interstitial():
 	pass
 func show_rewarded_interstitial():
-	pass
-func get_is_interstitial_loaded():
 	pass
 func get_is_rewarded_interstitial_loaded():
 	pass

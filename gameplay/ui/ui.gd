@@ -72,6 +72,20 @@ func _ready():
 	_build_crossword_grid()
 	_display_clue()
 	
+	# test interstitial
+	if not Admob.get_is_interstitial_loaded():
+		Admob.interstitial_ad_unit_id = "ca-app-pub-3940256099942544/1033173712"
+		Admob.load_interstitial()
+		
+	# test admob banner
+	if Admob.get_is_banner_loaded():
+		Admob.show_banner()
+		
+	else:
+		Admob.banner_ad_unit_id = "ca-app-pub-3940256099942544/6300978111"
+		Admob.load_banner()
+		
+		
 func _calculate_tile_size():
 	var trimed :Dictionary = util.trim(crossword.rows, crossword.grid)
 	var row_x_size = (default_size.x + 8) * util.rows
@@ -257,6 +271,20 @@ func _show_solved():
 	
 	Global.level += 1
 	Global.generate_words()
+	
+	if Admob.get_is_interstitial_loaded():
+		# hide banner!
+		# prevent from overlapping
+		# with interstitial
+		Admob.hide_banner()
+		
+		Admob.interstitial_closed.connect(_interstitial_finished)
+		Admob.interstitial_failed_to_load.connect(_interstitial_finished)
+		Admob.show_interstitial()
+		
+	#get_tree().reload_current_scene()
+	
+func _interstitial_finished():
 	get_tree().reload_current_scene()
 	
 func _on_clear_pressed():

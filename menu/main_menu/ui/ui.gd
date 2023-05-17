@@ -27,22 +27,29 @@ func _ready():
 	test_reward_adds.disabled = true
 	
 	# test admob reward
-	Admob.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
-	Admob.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
-	Admob.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
-	Admob.user_earned_rewarded.connect(_user_earned_rewarded)
-	
-	Admob.reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
-	Admob.load_rewarded()
-	
+	if Admob.get_is_rewarded_loaded():
+		test_reward_adds.disabled = false
+		
+	else:
+		Admob.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
+		Admob.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
+		Admob.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
+		Admob.user_earned_rewarded.connect(_user_earned_rewarded)
+		
+		Admob.reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
+		Admob.load_rewarded()
+		
 	# test admob banner
-	Admob.banner_loaded.connect(_banner_loaded)
-	Admob.banner_failed_to_load.connect(_banner_failed_to_load)
-	
-	if not Admob.get_is_banner_loaded():
+	if Admob.get_is_banner_loaded():
+		Admob.show_banner()
+		
+	else:
+		Admob.banner_loaded.connect(_banner_loaded)
+		Admob.banner_failed_to_load.connect(_banner_failed_to_load)
+		
 		Admob.banner_ad_unit_id = "ca-app-pub-3940256099942544/6300978111"
 		Admob.load_banner()
-	
+		
 func _rewarded_ad_failed_to_load():
 	print("rewarded_ad_failed_to_load")
 	
@@ -53,6 +60,9 @@ func _rewarded_ad_failed_to_show():
 	print("rewarded_ad_failed_to_show")
 	
 func _on_test_adds_pressed():
+	# hide banner!
+	# prevent from overlapping
+	# with reward
 	Admob.hide_banner()
 	Admob.show_rewarded()
 	

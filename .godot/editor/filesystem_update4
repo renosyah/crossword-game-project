@@ -4,3 +4,5 @@ res://menu/main_menu/ui/ui.gd
 res://addons/google_admob/Admob.gd
 res://menu/login/ui/ui.tscn
 res://menu/login/ui/ui.gd
+res://gameplay/ui/ui.tscn
+res://gameplay/ui/ui.gd
