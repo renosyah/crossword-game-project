@@ -303,12 +303,10 @@ func _refresh_tokens() -> bool:
 		TOKEN_REQ_SERVER, headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
-		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return false
 	
 	var response :Array = await http_request_refresh_tokens.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("failed", "failed refresh token, response not success!")
 		return false
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
@@ -332,12 +330,10 @@ func _is_token_valid() -> bool:
 		TOKEN_REQ_SERVER + "info", headers, HTTPClient.METHOD_POST, body
 	)
 	if error != OK:
-		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
 		return false
 	
 	var response :Array = await http_request_validate_tokens.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("failed", "failed checking token, response not success!")
 		return false
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
