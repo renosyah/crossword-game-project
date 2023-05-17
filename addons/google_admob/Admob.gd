@@ -1,7 +1,6 @@
 extends Node
 
-signal initialization_complete
-signal initialization_failed(error)
+signal initialization_finish
 
 signal consent_form_dismissed
 signal consent_status_changed(message)
@@ -10,7 +9,7 @@ signal consent_info_update_success(message)
 signal consent_info_update_failure(code, error)
 
 signal banner_loaded
-signal banner_failed_to_load(code)
+signal banner_failed_to_load
 signal banner_opened
 signal banner_clicked
 signal banner_closed
@@ -25,14 +24,14 @@ signal interstitial_clicked
 signal interstitial_closed
 signal interstitial_recorded_impression
 
-signal rewarded_ad_failed_to_load(code)
+signal rewarded_ad_failed_to_load
 signal rewarded_ad_loaded
-signal rewarded_ad_failed_to_show(code)
+signal rewarded_ad_failed_to_show
 signal rewarded_ad_opened
 signal rewarded_ad_clicked
 signal rewarded_ad_closed
 signal rewarded_ad_recorded_impression
-signal user_earned_rewarded(text_type, amount)
+signal user_earned_rewarded(reward_type, amount)
 
 signal rewarded_interstitial_ad_failed_to_load(code)
 signal rewarded_interstitial_ad_loaded
@@ -52,11 +51,57 @@ signal rewarded_interstitial_ad_recorded_impression
 #Native Advanced ca-app-pub-3940256099942544/2247696110
 #Native Advanced Video ca-app-pub-3940256099942544/1044960115
 
+var _android_admob_plugin
+var _is_android_app :bool = false
+var _is_initialize_valid :bool = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	_is_android_app = ["Android"].has(OS.get_name())
+	
+	if _is_android_app:
+		_android_admob_plugin = Engine.get_singleton("AdMob")
+		
+		# initialization signal
+		_android_admob_plugin.initialization_complete.connect(_initialization_complete)
+		
+		# rewarded ad signal
+		_android_admob_plugin.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
+		_android_admob_plugin.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
+		_android_admob_plugin.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
+		_android_admob_plugin.rewarded_ad_opened.connect(_rewarded_ad_opened)
+		_android_admob_plugin.rewarded_ad_clicked.connect(_rewarded_ad_clicked)
+		_android_admob_plugin.rewarded_ad_closed.connect(_rewarded_ad_closed)
+		_android_admob_plugin.user_earned_rewarded.connect(_user_earned_rewarded)
+		
+		# banner ad signal
+		_android_admob_plugin.banner_loaded.connect(_banner_loaded)
+		_android_admob_plugin.banner_failed_to_load.connect(_banner_failed_to_load)
+		_android_admob_plugin.banner_opened.connect(_banner_opened)
+		_android_admob_plugin.banner_clicked.connect(_banner_clicked)
+		_android_admob_plugin.banner_closed.connect(_banner_closed)
+		_android_admob_plugin.banner_recorded_impression.connect(_banner_recorded_impression)
+		_android_admob_plugin.banner_destroyed.connect(_banner_destroyed)
+		
+		
+func _is_valid() -> bool:
+	if not _is_android_app:
+		return false
+		
+	if _android_admob_plugin == null:
+		return false
+		
+	if not _is_initialize_valid:
+		return false
+		
+	return true
+	
+#-----------------------------------------------------------------------------#
 # is_for_child
 @export var is_for_child :bool = false
 
-# G, PG ,T and MA
-@export var content_rating :String = "PG"
+#G : GAY?, MA : Mature, PG : Parent Guide,T :Teen, :All?
+@export var content_rating :String = ""
 
 # becarefull, set to true if prod only
 @export var is_real :bool = false 
@@ -64,101 +109,153 @@ signal rewarded_interstitial_ad_recorded_impression
 # idk, just set false
 @export var is_test_europe_user_consent :bool = false
 
-var android_admob_plugin
-var is_android_app = false
-var is_initialize_valid = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	is_android_app = ["Android"].has(OS.get_name())
-	
-	if is_android_app:
-		android_admob_plugin = Engine.get_singleton("AdMob")
-		# initialization signal
-		android_admob_plugin.initialization_complete.connect(_initialization_complete)
-		
-		# rewarded ad signal
-		android_admob_plugin.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
-		android_admob_plugin.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
-		android_admob_plugin.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
-		android_admob_plugin.rewarded_ad_opened.connect(_rewarded_ad_opened)
-		android_admob_plugin.rewarded_ad_clicked.connect(_rewarded_ad_clicked)
-		android_admob_plugin.rewarded_ad_closed.connect(_rewarded_ad_closed)
-		android_admob_plugin.rewarded_ad_recorded_impression.connect(_rewarded_ad_recorded_impression)
-		
-func _is_valid() -> bool:
-	if not is_android_app:
-		return false
-		
-	if android_admob_plugin == null:
-		return false
-		
-	if not is_initialize_valid:
-		return false
-		
-	return true
-	
+#-----------------------------------------------------------------------------#
 # initialize
 func initialize():
-	if not is_android_app:
+	if not _is_android_app:
 		return
 		
-	if android_admob_plugin == null:
+	if _android_admob_plugin == null:
 		return
 		
-	android_admob_plugin.initialize(
+	if _is_initialize_valid:
+		emit_signal("initialization_finish")
+		return
+		
+	_android_admob_plugin.initialize(
 		is_for_child, content_rating, is_real, is_test_europe_user_consent
 	)
 	
-func _initialization_complete(code :int, text :String):
-	if not _get_is_initialized():
-		emit_signal("initialization_failed", _get_initialization_description())
+func _initialization_complete():
+	var _description :String = _android_admob_plugin.get_initialization_description()
+	var _is_initialized :bool = _android_admob_plugin.get_is_initialized()
+	emit_signal("initialization_finish")
+	
+	if not _is_initialized:
+		print("initialization_failed : %s " % _description)
 		return
 	
-	is_initialize_valid = true
-	emit_signal("initialization_complete")
+	_is_initialize_valid = true
+	print("initialization_complete : %s " % _description)
 	
-func _get_is_initialized() -> bool:
-	if not _is_valid():
-		return false
-		
-	return android_admob_plugin.get_is_initialized() 
-	
-func _get_initialization_description() -> String:
-	return android_admob_plugin.get_initialization_description()
-	
+#-----------------------------------------------------------------------------#
 # user_consent
 func request_user_consent():
 	pass
 func reset_consent_state():
 	pass
 	
+#-----------------------------------------------------------------------------#
+
+const size_banner = "BANNER"
+const size_banner_large = "LARGE_BANNER"
+const size_banner_medium = "MEDIUM_RECTANGLE"
+const size_banner_full = "FULL_BANNER"
+const size_banner_leaderboard = "LEADERBOARD"
+const size_banner_adaptive = "ADAPTIVE"
+
+const position_bottom = 0
+const position_top = 1
+
+# banner
+# default value is id testing
+@export var banner_ad_unit_id :String = "ca-app-pub-3940256099942544/6300978111"
+@export var banner_position :int = position_bottom
+@export var banner_size :String = size_banner
+@export var banner_show_instantly :bool = false
+@export var respect_safe_area :bool = true
+
 # banner
 func load_banner():
-	pass
-func destroy_banner():
-	pass
-func show_banner():
-	pass
-func hide_banner():
-	pass
-func get_banner_width():
-	pass
-func get_banner_height():
-	pass
-func get_banner_width_in_pixels():
-	pass
-func get_banner_height_in_pixels():
-	pass
-func get_is_banner_loaded():
-	pass
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.load_banner(
+		banner_ad_unit_id,
+		banner_position,
+		banner_size,
+		banner_show_instantly,
+		respect_safe_area
+	)
 	
+func destroy_banner():
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.destroy_banner()
+	
+func show_banner():
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.show_banner()
+	
+func hide_banner():
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.hide_banner()
+	
+func get_banner_width() -> int:
+	if not _is_valid():
+		return 0
+		
+	return _android_admob_plugin.get_banner_width()
+	
+func get_banner_height() -> int:
+	if not _is_valid():
+		return 0
+		
+	return _android_admob_plugin.get_banner_height()
+	
+func get_banner_width_in_pixels() -> int:
+	if not _is_valid():
+		return 0
+		
+	return _android_admob_plugin.get_banner_width_in_pixels()
+	
+func get_banner_height_in_pixels() -> int:
+	if not _is_valid():
+		return 0
+		
+	return _android_admob_plugin.get_banner_height_in_pixels()
+	
+func get_is_banner_loaded() ->bool:
+	if not _is_valid():
+		return false
+		
+	return _android_admob_plugin.get_is_banner_loaded()
+	
+	
+func _banner_loaded():
+	emit_signal("banner_loaded")
+	
+func _banner_failed_to_load():
+	emit_signal("banner_failed_to_load")
+	
+func _banner_opened():
+	emit_signal("banner_opened")
+	
+func _banner_clicked():
+	emit_signal("banner_clicked")
+	
+func _banner_closed():
+	emit_signal("banner_closed")
+	
+func _banner_recorded_impression():
+	emit_signal("banner_recorded_impression")
+	
+func _banner_destroyed():
+	emit_signal("banner_destroyed")
+	
+#-----------------------------------------------------------------------------#
 # interstitial
 func load_interstitial():
 	pass
 func show_interstitial():
 	pass
 	
+#-----------------------------------------------------------------------------#
 # rewarded
 # default value is id testing
 @export var reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
@@ -167,25 +264,31 @@ func load_rewarded():
 	if not _is_valid():
 		return
 		
-	android_admob_plugin.load_rewarded(reward_ad_unit_id)
+	_android_admob_plugin.load_rewarded(reward_ad_unit_id)
 	
 func show_rewarded():
 	if not _is_valid():
 		return
 		
-	android_admob_plugin.show_rewarded()
+	_android_admob_plugin.show_rewarded()
 	
-func get_is_rewarded_loaded():
-	pass
+func _get_is_rewarded_loaded() -> bool:
+	if not _is_valid():
+		return false
+		
+	return _android_admob_plugin.get_is_rewarded_loaded()
 	
 func _rewarded_ad_loaded():
+	if not _get_is_rewarded_loaded():
+		return
+		
 	emit_signal("rewarded_ad_loaded")
 	
-func _rewarded_ad_failed_to_load(code :int):
-	emit_signal("rewarded_ad_failed_to_load", code)
+func _rewarded_ad_failed_to_load():
+	emit_signal("rewarded_ad_failed_to_load")
 	
-func _rewarded_ad_failed_to_show(code :int):
-	emit_signal("rewarded_ad_failed_to_show", code)
+func _rewarded_ad_failed_to_show():
+	emit_signal("rewarded_ad_failed_to_show")
 	
 func _rewarded_ad_opened():
 	emit_signal("rewarded_ad_opened")
@@ -196,9 +299,10 @@ func _rewarded_ad_clicked():
 func _rewarded_ad_closed():
 	emit_signal("rewarded_ad_closed")
 	
-func _rewarded_ad_recorded_impression():
-	emit_signal("rewarded_ad_recorded_impression")
-	
+
+func _user_earned_rewarded():
+	var data :PackedStringArray = _android_admob_plugin.get_user_earned_rewarded_data()
+	emit_signal("user_earned_rewarded", data[0], int(data[1]))
 	
 # rewarded interstitial
 func load_rewarded_interstitial():
@@ -209,6 +313,8 @@ func get_is_interstitial_loaded():
 	pass
 func get_is_rewarded_interstitial_loaded():
 	pass
+func _rewarded_ad_recorded_impression():
+	emit_signal("rewarded_ad_recorded_impression")
 	
 	
 

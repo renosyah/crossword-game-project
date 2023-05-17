@@ -4,6 +4,8 @@ extends Control
 @onready var label = $CanvasLayer/Control/SafeArea/VBoxContainer/HBoxContainer/Label
 @onready var loading = $CanvasLayer/Control/loading
 @onready var popup_message = $CanvasLayer/Control/popup_message
+@onready var test_reward_adds = $CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer/test_reward_adds
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,27 +23,48 @@ func _ready():
 		loading.visible = false
 		label.text = "Welcome : %s" % Global.player_name
 	
-	# test admob
-	Admob.initialization_complete.connect(_initialization_complete)
+	
+	test_reward_adds.disabled = true
+	
+	# test admob reward
 	Admob.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
 	Admob.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
 	Admob.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
-	Admob.initialize()
+	Admob.user_earned_rewarded.connect(_user_earned_rewarded)
 	
-func _initialization_complete():
+	Admob.reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
 	Admob.load_rewarded()
 	
-func _rewarded_ad_loaded(code :int):
+	# test admob banner
+	Admob.banner_loaded.connect(_banner_loaded)
+	Admob.banner_failed_to_load.connect(_banner_failed_to_load)
+	
+	if not Admob.get_is_banner_loaded():
+		Admob.banner_ad_unit_id = "ca-app-pub-3940256099942544/6300978111"
+		Admob.load_banner()
+	
+func _rewarded_ad_failed_to_load():
+	print("rewarded_ad_failed_to_load")
+	
+func _rewarded_ad_loaded():
+	test_reward_adds.disabled = false
+	
+func _rewarded_ad_failed_to_show():
+	print("rewarded_ad_failed_to_show")
+	
+func _on_test_adds_pressed():
+	Admob.hide_banner()
 	Admob.show_rewarded()
 	
-func _rewarded_ad_failed_to_show(code :int):
-	print("_rewarded_ad_failed_to_show, code : %s" % code)
+func _user_earned_rewarded(reward_type :String, amount :int):
+	print("user_earned_rewarded : reward_type =%s & amount=%s" % [reward_type, amount])
+	Admob.show_banner()
 	
-func _rewarded_ad_failed_to_load(code :int):
-	print("_rewarded_ad_failed_to_load, code : %s" % code)
+func _banner_loaded():
+	Admob.show_banner()
 	
-	
-	
+func _banner_failed_to_load():
+	print("banner_failed_to_load")
 	
 func _profile_info(profile : OAuth2.OAuth2UserInfo):
 	loading.visible = false
@@ -73,6 +96,9 @@ func _on_sign_out_pressed():
 		
 	loading.visible = true
 	OAuth2.sign_out()
+
+
+
 
 
 

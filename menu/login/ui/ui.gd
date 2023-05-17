@@ -5,11 +5,16 @@ extends Control
 
 func _ready():
 	loading.visible = true
+	Admob.initialization_finish.connect(_admob_initialization_finish)
+	
 	OAuth2.sign_in_completed.connect(_sign_in_completed)
 	OAuth2.sign_in_expired.connect(_no_session_or_expired)
 	OAuth2.no_session.connect(_no_session_or_expired)
 	OAuth2.failed.connect(_failed)
 	
+	Admob.initialize()
+	
+func _admob_initialization_finish():
 	OAuth2.check_sign_in_status()
 	
 func _sign_in_completed():

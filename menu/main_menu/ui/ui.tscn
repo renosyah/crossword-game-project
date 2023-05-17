@@ -118,6 +118,18 @@ anchor_bottom = 1.0
 texture = ExtResource("3")
 expand_mode = 1
 
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="test_reward_adds" type="Button" parent="CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dfpds")
+theme_override_font_sizes/font_size = 18
+disabled = true
+text = "Test reward"
+
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SafeArea/VBoxContainer"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -136,3 +148,4 @@ layout_mode = 1
 [connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/HBoxContainer/CenterContainer/sign_out" to="." method="_on_sign_out_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/HBoxContainer/score_button" to="." method="_on_score_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/SafeArea/VBoxContainer/VBoxContainer/VBoxContainer/test_reward_adds" to="." method="_on_test_adds_pressed"]
