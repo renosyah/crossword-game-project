@@ -20,7 +20,29 @@ func _ready():
 	else:
 		loading.visible = false
 		label.text = "Welcome : %s" % Global.player_name
-		
+	
+	# test admob
+	Admob.initialization_complete.connect(_initialization_complete)
+	Admob.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
+	Admob.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
+	Admob.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
+	Admob.initialize()
+	
+func _initialization_complete():
+	Admob.load_rewarded()
+	
+func _rewarded_ad_loaded(code :int):
+	Admob.show_rewarded()
+	
+func _rewarded_ad_failed_to_show(code :int):
+	print("_rewarded_ad_failed_to_show, code : %s" % code)
+	
+func _rewarded_ad_failed_to_load(code :int):
+	print("_rewarded_ad_failed_to_load, code : %s" % code)
+	
+	
+	
+	
 func _profile_info(profile : OAuth2.OAuth2UserInfo):
 	loading.visible = false
 	Global.player_id = profile.id

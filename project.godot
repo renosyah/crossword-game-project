@@ -22,6 +22,7 @@ NetworkLobbyManager="*res://addons/network/lobby-manager/NetworkLobbyManager.gd"
 WebGameModule="*res://addons/web_game/WebGameModule.gd"
 Global="*res://global/global.gd"
 OAuth2="*res://addons/google_auth/OAuth2.gd"
+Admob="*res://addons/google_admob/Admob.gd"
 
 [display]
 
