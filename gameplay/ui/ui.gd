@@ -278,8 +278,9 @@ func _show_solved():
 		# with interstitial
 		Admob.hide_banner()
 		Admob.show_interstitial()
+		return
 		
-	#get_tree().reload_current_scene()
+	_interstitial_finished()
 	
 func _interstitial_finished():
 	get_tree().reload_current_scene()
