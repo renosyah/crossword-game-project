@@ -73,6 +73,9 @@ func _ready():
 	_display_clue()
 	
 	# test interstitial
+	Admob.interstitial_closed.connect(_interstitial_finished)
+	Admob.interstitial_failed_to_show.connect(_interstitial_finished)
+	
 	if not Admob.get_is_interstitial_loaded():
 		Admob.load_interstitial()
 		
@@ -274,9 +277,6 @@ func _show_solved():
 		# prevent from overlapping
 		# with interstitial
 		Admob.hide_banner()
-		
-		Admob.interstitial_closed.connect(_interstitial_finished)
-		Admob.interstitial_failed_to_load.connect(_interstitial_finished)
 		Admob.show_interstitial()
 		
 	#get_tree().reload_current_scene()
