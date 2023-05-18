@@ -55,9 +55,16 @@ signal rewarded_interstitial_ad_recorded_impression
 var _android_admob_plugin
 var _is_android_app :bool = false
 var _is_initialize_valid :bool = false
+var _simple_timer :Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_simple_timer = Timer.new()
+	_simple_timer.wait_time = 1
+	_simple_timer.one_shot = true
+	_simple_timer.autostart = false
+	add_child(_simple_timer)
+	
 	_is_android_app = ["Android"].has(OS.get_name())
 	
 	if _is_android_app:
@@ -129,6 +136,10 @@ func _is_valid() -> bool:
 #-----------------------------------------------------------------------------#
 # initialize
 func initialize():
+	
+	_simple_timer.start()
+	await _simple_timer.timeout
+	
 	# if other platform running, just set to valid :)
 	if not _is_android_app or _is_initialize_valid:
 		emit_signal("initialization_finish")

@@ -133,6 +133,7 @@ func _on_sign_out_pressed():
 		return
 		
 	loading.visible = true
+	Admob.destroy_banner()
 	OAuth2.sign_out()
 
 
