@@ -66,6 +66,13 @@ func _ready():
 		# initialization signal
 		_android_admob_plugin.initialization_complete.connect(_initialization_complete)
 		
+		# consent signal
+		_android_admob_plugin.consent_form_dismissed.connect(_consent_form_dismissed)
+		_android_admob_plugin.consent_status_changed.connect(_consent_status_changed)
+		_android_admob_plugin.consent_form_load_failure.connect(_consent_form_load_failure)
+		_android_admob_plugin.consent_info_update_success.connect(_consent_info_update_success)
+		_android_admob_plugin.consent_info_update_failure.connect(_consent_info_update_failure)
+
 		# rewarded ad signal
 		_android_admob_plugin.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
 		_android_admob_plugin.rewarded_ad_failed_to_load.connect(_rewarded_ad_failed_to_load)
@@ -114,7 +121,7 @@ func _is_valid() -> bool:
 @export var content_rating :String = ""
 
 # becarefull, set to true if prod only
-@export var is_real :bool = false 
+@export var is_real :bool = AdmobConfig.IS_REAL
 
 # idk, just set false
 @export var is_test_europe_user_consent :bool = false
@@ -149,10 +156,37 @@ func _initialization_complete():
 #-----------------------------------------------------------------------------#
 # user_consent
 func request_user_consent():
-	pass
-func reset_consent_state():
-	pass
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.request_user_consent()
 	
+func reset_consent_state():
+	if not _is_valid():
+		return
+		
+	_android_admob_plugin.reset_consent_state()
+	
+func _consent_form_dismissed():
+	emit_signal("consent_form_dismissed")
+	
+func _consent_status_changed():
+	var message :String = _android_admob_plugin.get_user_consent_status_message()
+	emit_signal("consent_status_changed",message)
+	
+func _consent_form_load_failure():
+	var error_data :PackedStringArray = _android_admob_plugin.get_form_consent_load_error()
+	emit_signal("consent_form_load_failure", int(error_data[0]), error_data[1])
+	
+func _consent_info_update_success():
+	var message :String = _android_admob_plugin.get_consent_info_update_message()
+	emit_signal("consent_info_update_success", message)
+	
+func _consent_info_update_failure():
+	var error_data :PackedStringArray = _android_admob_plugin.get_consent_info_update_failure()
+	emit_signal("consent_info_update_failure", int(error_data[0]), error_data[1])
+	
+
 #-----------------------------------------------------------------------------#
 
 const size_banner = "BANNER"
@@ -167,7 +201,7 @@ const position_top = 1
 
 # banner
 # default value is id testing
-@export var banner_ad_unit_id :String = "ca-app-pub-3940256099942544/6300978111"
+@export var banner_ad_unit_id :String = AdmobConfig.BANNER_AD_UNIT_ID
 @export var banner_position :int = position_bottom
 @export var banner_size :String = size_banner
 @export var banner_show_instantly :bool = false
@@ -259,7 +293,7 @@ func _banner_destroyed():
 #-----------------------------------------------------------------------------#
 # interstitia
 # default value is id testing
-@export var interstitial_ad_unit_id :String = "ca-app-pub-3940256099942544/1033173712"
+@export var interstitial_ad_unit_id :String = AdmobConfig.INTERSTITIAL_AD_UNIT_ID
 
 # interstitial
 func load_interstitial():
@@ -305,7 +339,7 @@ func _interstitial_recorded_impression():
 #-----------------------------------------------------------------------------#
 # rewarded
 # default value is id testing
-@export var reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
+@export var reward_ad_unit_id = AdmobConfig.REWARD_AD_UNIT_ID
 
 func load_rewarded():
 	if not _is_valid():
@@ -343,7 +377,6 @@ func _rewarded_ad_clicked():
 func _rewarded_ad_closed():
 	emit_signal("rewarded_ad_closed")
 	
-
 func _user_earned_rewarded():
 	var data :PackedStringArray = _android_admob_plugin.get_user_earned_rewarded_data()
 	emit_signal("user_earned_rewarded", data[0], int(data[1]))

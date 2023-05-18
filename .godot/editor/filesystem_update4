@@ -1,8 +1,11 @@
 res://default_env.tres
-res://menu/main_menu/ui/ui.tscn
-res://menu/main_menu/ui/ui.gd
-res://addons/google_admob/Admob.gd
-res://menu/login/ui/ui.tscn
-res://menu/login/ui/ui.gd
 res://gameplay/ui/ui.tscn
+res://addons/google_admob/config.gd
+res://addons/google_admob/Admob.gd
+res://menu/main_menu/ui/ui.gd
 res://gameplay/ui/ui.gd
+res://menu/login/ui/ui.tscn
+res://menu/main_menu/ui/ui.tscn
+res://menu/login/ui/ui.gd
+res://menu/popup_message/popup_message.tscn
+res://menu/popup_message/popup_message.gd

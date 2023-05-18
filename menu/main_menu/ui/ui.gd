@@ -36,28 +36,52 @@ func _ready():
 		Admob.rewarded_ad_failed_to_show.connect(_rewarded_ad_failed_to_show)
 		Admob.user_earned_rewarded.connect(_user_earned_rewarded)
 		
-		Admob.reward_ad_unit_id = "ca-app-pub-3940256099942544/5224354917"
 		Admob.load_rewarded()
 		
 	# test admob banner
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
-		
 	else:
 		Admob.banner_loaded.connect(_banner_loaded)
 		Admob.banner_failed_to_load.connect(_banner_failed_to_load)
 		
-		Admob.banner_ad_unit_id = "ca-app-pub-3940256099942544/6300978111"
 		Admob.load_banner()
 		
+	# test admob request user consent
+	Admob.consent_status_changed.connect(_consent_status_changed)
+	Admob.consent_form_load_failure.connect(_consent_form_load_failure)
+	Admob.consent_info_update_success.connect(_consent_info_update_success)
+	Admob.consent_info_update_failure.connect(_consent_info_update_failure)
+	Admob.request_user_consent()
+	
+	
+func _consent_status_changed(message :String):
+	popup_message.show_popup_message(
+		"Info consent Status Changed", message,
+		popup_message.color_success
+	)
+	
+func _consent_info_update_success(message :String):
+	popup_message.show_popup_message(
+		"Info Consent info update success", message,
+		popup_message.color_success
+	)
+	
+func _consent_form_load_failure(code :int, error :String):
+	popup_message.show_popup_message("Error", "Form consent load error : %s" % error)
+	
+func _consent_info_update_failure(code :int, error :String):
+	popup_message.show_popup_message("Error", "Consent info update failure : %s" % error)
+	
+	
 func _rewarded_ad_failed_to_load():
-	print("rewarded_ad_failed_to_load")
+	popup_message.show_popup_message("Error", "rewarded_ad_failed_to_load")
 	
 func _rewarded_ad_loaded():
 	test_reward_adds.disabled = false
 	
 func _rewarded_ad_failed_to_show():
-	print("rewarded_ad_failed_to_show")
+	popup_message.show_popup_message("Error", "rewarded_ad_failed_to_show")
 	
 func _on_test_adds_pressed():
 	# hide banner!
@@ -67,14 +91,18 @@ func _on_test_adds_pressed():
 	Admob.show_rewarded()
 	
 func _user_earned_rewarded(reward_type :String, amount :int):
-	print("user_earned_rewarded : reward_type =%s & amount=%s" % [reward_type, amount])
+	popup_message.show_popup_message(
+		"Success", "user_earned_rewarded : reward_type =%s & amount=%s" % [reward_type, amount],
+		popup_message.color_success
+	)
+	await popup_message.on_all_popup_closed
 	Admob.show_banner()
 	
 func _banner_loaded():
 	Admob.show_banner()
 	
 func _banner_failed_to_load():
-	print("banner_failed_to_load")
+	popup_message.show_popup_message("Error", "banner_failed_to_load")
 	
 func _profile_info(profile : OAuth2.OAuth2UserInfo):
 	loading.visible = false

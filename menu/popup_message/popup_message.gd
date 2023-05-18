@@ -2,8 +2,10 @@ extends Control
 class_name PopUpMessage
 
 signal on_popup_closed
+signal on_all_popup_closed
 
 const color_error = Color(0.64705884456635, 0, 0, 0.74901962280273)
+const color_success = Color(0.14117647707462, 0.49803921580315, 0, 0.74901962280273)
 
 @export var display_time :float = 4.0
 
@@ -53,5 +55,6 @@ func _display_in_queue_message():
 		_queue_messages.remove_at(0)
 	
 	_queue_run = false
+	emit_signal("on_all_popup_closed")
 
 

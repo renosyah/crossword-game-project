@@ -74,15 +74,12 @@ func _ready():
 	
 	# test interstitial
 	if not Admob.get_is_interstitial_loaded():
-		Admob.interstitial_ad_unit_id = "ca-app-pub-3940256099942544/1033173712"
 		Admob.load_interstitial()
 		
 	# test admob banner
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
-		
 	else:
-		Admob.banner_ad_unit_id = "ca-app-pub-3940256099942544/6300978111"
 		Admob.load_banner()
 		
 		
