@@ -150,7 +150,11 @@ func _initialization_complete():
 #-----------------------------------------------------------------------------#
 # user_consent
 func request_user_consent():
+	_simple_timer.start()
+	await _simple_timer.timeout
+	
 	if not _is_valid():
+		emit_signal("consent_form_load_failure", -1, "invalid platform")
 		return
 		
 	_android_admob_plugin.request_user_consent()
@@ -203,7 +207,11 @@ const position_top = 1
 
 # banner
 func load_banner():
+	_simple_timer.start()
+	await _simple_timer.timeout
+	
 	if not _is_valid():
+		emit_signal("banner_failed_to_load")
 		return
 		
 	_android_admob_plugin.load_banner(
@@ -291,7 +299,11 @@ func _banner_destroyed():
 
 # interstitial
 func load_interstitial():
+	_simple_timer.start()
+	await _simple_timer.timeout
+	
 	if not _is_valid():
+		emit_signal("interstitial_failed_to_load")
 		return
 		
 	_android_admob_plugin.load_interstitial(interstitial_ad_unit_id)
@@ -336,7 +348,11 @@ func _interstitial_recorded_impression():
 @export var reward_ad_unit_id = AdmobConfig.REWARD_AD_UNIT_ID
 
 func load_rewarded():
+	_simple_timer.start()
+	await _simple_timer.timeout
+	
 	if not _is_valid():
+		emit_signal("rewarded_ad_failed_to_load")
 		return
 		
 	_android_admob_plugin.load_rewarded(reward_ad_unit_id)

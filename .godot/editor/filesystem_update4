@@ -1,1 +1,3 @@
-res://addons/google_auth/OAuth2.gd
+res://default_env.tres
+res://menu/login/login.tscn
+res://addons/google_admob/Admob.gd
