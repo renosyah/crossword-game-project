@@ -45,15 +45,38 @@ signal rewarded_interstitial_ad_recorded_impression
 var _android_admob_plugin
 var _is_android_app :bool = false
 var _is_initialize_valid :bool = false
-var _simple_timer :Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_simple_timer = Timer.new()
-	_simple_timer.wait_time = 1
-	_simple_timer.one_shot = true
-	_simple_timer.autostart = false
-	add_child(_simple_timer)
+	_initialize_delay_timer = Timer.new()
+	_initialize_delay_timer.wait_time = 1
+	_initialize_delay_timer.one_shot = true
+	_initialize_delay_timer.autostart = false
+	add_child(_initialize_delay_timer)
+	
+	_user_consent_delay_timer = Timer.new()
+	_user_consent_delay_timer.wait_time = 1
+	_user_consent_delay_timer.one_shot = true
+	_user_consent_delay_timer.autostart = false
+	add_child(_user_consent_delay_timer)
+	
+	_banner_delay_timer = Timer.new()
+	_banner_delay_timer.wait_time = 1
+	_banner_delay_timer.one_shot = true
+	_banner_delay_timer.autostart = false
+	add_child(_banner_delay_timer)
+	
+	_reward_delay_timer = Timer.new()
+	_reward_delay_timer.wait_time = 1
+	_reward_delay_timer.one_shot = true
+	_reward_delay_timer.autostart = false
+	add_child(_reward_delay_timer)
+	
+	_interstitial_delay_timer = Timer.new()
+	_interstitial_delay_timer.wait_time = 1
+	_interstitial_delay_timer.one_shot = true
+	_interstitial_delay_timer.autostart = false
+	add_child(_interstitial_delay_timer)
 	
 	_is_android_app = ["Android"].has(OS.get_name())
 	
@@ -123,12 +146,12 @@ func _is_valid() -> bool:
 # idk, just set false
 @export var is_test_europe_user_consent :bool = false
 
-#-----------------------------------------------------------------------------#
+var _initialize_delay_timer :Timer
+
 # initialize
 func initialize():
-	
-	_simple_timer.start()
-	await _simple_timer.timeout
+	_initialize_delay_timer.start()
+	await _initialize_delay_timer.timeout
 	
 	# if other platform running, just set to valid :)
 	if not _is_android_app or _is_initialize_valid:
@@ -148,10 +171,13 @@ func _initialization_complete():
 	emit_signal("initialization_finish")
 	
 #-----------------------------------------------------------------------------#
+
+var _user_consent_delay_timer :Timer
+
 # user_consent
 func request_user_consent():
-	_simple_timer.start()
-	await _simple_timer.timeout
+	_user_consent_delay_timer.start()
+	await _user_consent_delay_timer.timeout
 	
 	if not _is_valid():
 		emit_signal("consent_form_load_failure", -1, "invalid platform")
@@ -205,10 +231,12 @@ const position_top = 1
 @export var banner_show_instantly :bool = false
 @export var respect_safe_area :bool = true
 
+var _banner_delay_timer :Timer
+
 # banner
 func load_banner():
-	_simple_timer.start()
-	await _simple_timer.timeout
+	_banner_delay_timer.start()
+	await _banner_delay_timer.timeout
 	
 	if not _is_valid():
 		emit_signal("banner_failed_to_load")
@@ -297,10 +325,12 @@ func _banner_destroyed():
 # default value is id testing
 @export var interstitial_ad_unit_id :String = AdmobConfig.INTERSTITIAL_AD_UNIT_ID
 
+var _interstitial_delay_timer :Timer
+
 # interstitial
 func load_interstitial():
-	_simple_timer.start()
-	await _simple_timer.timeout
+	_interstitial_delay_timer.start()
+	await _interstitial_delay_timer.timeout
 	
 	if not _is_valid():
 		emit_signal("interstitial_failed_to_load")
@@ -347,9 +377,11 @@ func _interstitial_recorded_impression():
 # default value is id testing
 @export var reward_ad_unit_id = AdmobConfig.REWARD_AD_UNIT_ID
 
+var _reward_delay_timer :Timer
+
 func load_rewarded():
-	_simple_timer.start()
-	await _simple_timer.timeout
+	_reward_delay_timer.start()
+	await _reward_delay_timer.timeout
 	
 	if not _is_valid():
 		emit_signal("rewarded_ad_failed_to_load")

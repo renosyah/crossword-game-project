@@ -1,3 +1,4 @@
 res://default_env.tres
 res://menu/login/login.tscn
+res://menu/main_menu/ui/ui.tscn
 res://addons/google_admob/Admob.gd

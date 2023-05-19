@@ -1,6 +1,6 @@
 bdbec74c6e5bd72edee867077d70896c
-::res://::1684505924
-default_env.tres::Environment::4726245171833308622::1684409901::0::1::::<><>::
+::res://::1684507395
+default_env.tres::Environment::4726245171833308622::1684506047::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1684332842::0::1::::<><>::
 icn.png::CompressedTexture2D::2549206936460589369::1684149898::1684149898::1::::<><>::
 icon.png::CompressedTexture2D::7202419658726670494::1684149898::1684149898::1::::<><>::
@@ -9,8 +9,8 @@ step.txt::TextFile::-1::1684149898::0::1::::<><>::
 ::res://addons/::1684323357
 ::res://addons/crossword_gen_remake/::1684149898
 crossword_gen_remake.gd::GDScript::-1::1684149898::0::1::::<>Node<>::
-::res://addons/google_admob/::1684409901
-Admob.gd::GDScript::-1::1684409881::0::1::::<>Node<>::
+::res://addons/google_admob/::1684506043
+Admob.gd::GDScript::-1::1684506043::0::1::::<>Node<>::
 AdmobConfig.gd::GDScript::-1::1684409901::0::1::::AdmobConfig<>Node<>::
 ::res://addons/google_auth/::1684498726
 credentials.gd::GDScript::-1::1684152784::0::1::::Credentials<>Node<>::
@@ -169,9 +169,9 @@ utils.gd::GDScript::-1::1684149898::0::1::::Utils<>Node<>::
 ::res://menu/::1684161014
 ::res://menu/loading/::1684197452
 loading.tscn::PackedScene::8315592145805101035::1684197452::0::1::::<><>::uid://dyv8qbl6v77mf
-::res://menu/login/::1684197452
+::res://menu/login/::1684506047
 login.gd::GDScript::-1::1684175677::0::1::::<>Node<>::
-login.tscn::PackedScene::8198256114030064149::1684197452::0::1::::<><>::uid://bx3nb20kadwnk<>res://menu/login/login.gd
+login.tscn::PackedScene::8198256114030064149::1684506047::0::1::::<><>::uid://bx3nb20kadwnk<>res://menu/login/login.gd
 ::res://menu/login/ui/::1684409283
 ui.gd::GDScript::-1::1684378058::0::1::::<>Control<>::
 ui.tscn::PackedScene::4059359228386450868::1684409283::0::1::::<><>::res://addons/SafeArea/SafeArea.gd<>res://menu/login/ui/ui.gd<>res://assets/ui/fonts/montserrat_eb_48.tres<>uid://bw35lbtdef67s<>uid://dr5rj4h6xgctj<>uid://dqqet8nw8jrnv<>uid://f6l4g35fkt25
