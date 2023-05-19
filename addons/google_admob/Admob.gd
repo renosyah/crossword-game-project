@@ -42,16 +42,6 @@ signal rewarded_interstitial_ad_clicked
 signal rewarded_interstitial_ad_closed
 signal rewarded_interstitial_ad_recorded_impression
 
-
-#App Open ca-app-pub-3940256099942544/3419835294
-#Banner ca-app-pub-3940256099942544/6300978111
-#Interstitial ca-app-pub-3940256099942544/1033173712
-#Interstitial Video ca-app-pub-3940256099942544/8691691433
-#Rewarded ca-app-pub-3940256099942544/5224354917
-#Rewarded Interstitial ca-app-pub-3940256099942544/5354046379
-#Native Advanced ca-app-pub-3940256099942544/2247696110
-#Native Advanced Video ca-app-pub-3940256099942544/1044960115
-
 var _android_admob_plugin
 var _is_android_app :bool = false
 var _is_initialize_valid :bool = false
@@ -98,7 +88,7 @@ func _ready():
 		_android_admob_plugin.banner_recorded_impression.connect(_banner_recorded_impression)
 		_android_admob_plugin.banner_destroyed.connect(_banner_destroyed)
 		
-		#interstitial
+		# interstitial
 		_android_admob_plugin.interstitial_failed_to_load.connect(_interstitial_failed_to_load)
 		_android_admob_plugin.interstitial_loaded.connect(_interstitial_loaded)
 		_android_admob_plugin.interstitial_failed_to_show.connect(_interstitial_failed_to_show)
@@ -154,15 +144,8 @@ func initialize():
 	
 func _initialization_complete():
 	var _description :String = _android_admob_plugin.get_initialization_description()
-	var _is_initialized :bool = _android_admob_plugin.get_is_initialized()
+	_is_initialize_valid = _android_admob_plugin.get_is_initialized()
 	emit_signal("initialization_finish")
-	
-	if not _is_initialized:
-		print("initialization_failed : %s " % _description)
-		return
-	
-	_is_initialize_valid = true
-	print("initialization_complete : %s " % _description)
 	
 #-----------------------------------------------------------------------------#
 # user_consent

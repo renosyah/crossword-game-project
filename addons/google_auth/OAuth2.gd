@@ -146,7 +146,10 @@ func sign_out():
 		emit_signal("failed", "failed sign out, no session!")
 		return
 		
-	_revoke_auth_code()
+	await _revoke_auth_code()
+	
+	_delete_tokens()
+	emit_signal("sign_out_completed")
 	
 func check_sign_in_status():
 	# just simple delay
@@ -265,7 +268,7 @@ func _get_auth_code():
 		OS.shell_open(url)
 		
 		
-func _revoke_auth_code():
+func _revoke_auth_code() -> bool:
 	var headers = PackedStringArray([
 		"Content-Type: application/x-www-form-urlencoded",
 	])
@@ -275,16 +278,13 @@ func _revoke_auth_code():
 		url, headers, HTTPClient.METHOD_POST, ""
 	)
 	if error != OK:
-		emit_signal("failed", "An error occurred in the HTTP request with ERR Code: %s" % error)
-		return
+		return false
 		
 	var response :Array = await http_request_revoke_token_from_auth.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("failed", "failed sign out, response not success!")
-		return
+		return false
 		
-	_delete_tokens()
-	emit_signal("sign_out_completed")
+	return true
 	
 func _refresh_tokens() -> bool:
 	var headers = PackedStringArray([
