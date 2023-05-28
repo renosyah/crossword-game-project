@@ -268,7 +268,7 @@ func _get_auth_code():
 		OS.shell_open(url)
 		
 		
-func _revoke_auth_code() -> bool:
+func _revoke_auth_code():
 	var headers = PackedStringArray([
 		"Content-Type: application/x-www-form-urlencoded",
 	])
@@ -278,13 +278,12 @@ func _revoke_auth_code() -> bool:
 		url, headers, HTTPClient.METHOD_POST, ""
 	)
 	if error != OK:
-		return false
+		return
 		
 	var response :Array = await http_request_revoke_token_from_auth.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		return false
+		return
 		
-	return true
 	
 func _refresh_tokens() -> bool:
 	var headers = PackedStringArray([

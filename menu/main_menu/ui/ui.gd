@@ -47,33 +47,6 @@ func _ready():
 		
 		Admob.load_banner()
 		
-	# test admob request user consent
-	Admob.consent_status_changed.connect(_consent_status_changed)
-	Admob.consent_form_load_failure.connect(_consent_form_load_failure)
-	Admob.consent_info_update_success.connect(_consent_info_update_success)
-	Admob.consent_info_update_failure.connect(_consent_info_update_failure)
-	Admob.request_user_consent()
-	
-	
-func _consent_status_changed(message :String):
-	popup_message.show_popup_message(
-		"Info consent Status Changed", message,
-		popup_message.color_success
-	)
-	
-func _consent_info_update_success(message :String):
-	popup_message.show_popup_message(
-		"Info Consent info update success", message,
-		popup_message.color_success
-	)
-	
-func _consent_form_load_failure(code :int, error :String):
-	popup_message.show_popup_message("Error", "Form consent load error : %s" % error)
-	
-func _consent_info_update_failure(code :int, error :String):
-	popup_message.show_popup_message("Error", "Consent info update failure : %s" % error)
-	
-	
 func _rewarded_ad_failed_to_load():
 	popup_message.show_popup_message("Error", "rewarded_ad_failed_to_load")
 	

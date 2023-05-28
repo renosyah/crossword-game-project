@@ -1,4 +1,7 @@
 res://default_env.tres
+res://assets/ui/animated_background/animated_background.tscn
+res://gameplay/gameplay.gd
+res://gameplay/gameplay.tscn
+res://menu/loading/loading.tscn
+res://menu/main_menu/main_menu.tscn
 res://menu/login/login.tscn
-res://menu/main_menu/ui/ui.tscn
-res://addons/google_admob/Admob.gd
