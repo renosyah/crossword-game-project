@@ -13,7 +13,6 @@ config_version=5
 config/name="crossword-game"
 run/main_scene="res://menu/login/login.tscn"
 config/features=PackedStringArray("4.0")
-boot_splash/bg_color=Color(0.439216, 0.160784, 0.443137, 1)
 config/icon="res://icn.png"
 
 [autoload]
@@ -53,7 +52,7 @@ common/enable_pause_aware_picking=true
 
 renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.439216, 0.160784, 0.443137, 1)
+environment/defaults/default_clear_color=Color(0.254902, 0.662745, 0.615686, 1)
 environment/defaults/default_environment="res://default_env.tres"
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
