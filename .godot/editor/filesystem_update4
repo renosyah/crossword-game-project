@@ -4,3 +4,7 @@ res://main/main.tscn
 res://main/sub_main_scene/login/login.tscn
 res://assets/ui/animated_background/animated_background.gd
 res://main/main.gd
+res://main/sub_main_scene/main_menu/main_menu.tscn
+res://main/sub_main_scene/main_menu/main_menu.gd
+res://global/global.gd
+res://addons/google_auth/OAuth2.gd

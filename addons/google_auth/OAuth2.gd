@@ -348,7 +348,7 @@ func _is_token_valid() -> bool:
 	
 func get_profile_info():
 	if token == null:
-		emit_signal("failed", "failed get profile, no session!")
+		emit_signal("profile_info", null)
 		return
 		
 	var request_url := "https://www.googleapis.com/oauth2/v1/userinfo?alt=json"
@@ -359,12 +359,12 @@ func get_profile_info():
 	
 	var error = http_request_profile_info.request(request_url, PackedStringArray(headers))
 	if error != OK:
-		emit_signal("failed", "ERROR OCCURED @ FUNC get_LiveBroadcastResource() : %s" % error)
+		emit_signal("profile_info", null)
 		return
 	
 	var response :Array = await http_request_profile_info.request_completed
 	if response[0] != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("failed", "failed get profile, response not success!")
+		emit_signal("profile_info", null)
 		return
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
