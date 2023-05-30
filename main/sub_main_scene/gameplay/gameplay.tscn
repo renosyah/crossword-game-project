@@ -80,6 +80,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7wq1f")
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer2/back_button"]
+modulate = Color(1, 0.894118, 0.635294, 1)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 8
@@ -109,7 +110,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(20, 0)
+custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 mouse_filter = 2
 

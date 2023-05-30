@@ -29,6 +29,7 @@ var grid_container_size :Vector2
 var trimed_crossword :Dictionary
 
 func generate_puzzle():
+	solved_tiles.clear()
 	_on_clear_word_pressed()
 	
 	crossword = crossword_lib.Crossword.new(24, 24, '', 5000, Global.word_list)
