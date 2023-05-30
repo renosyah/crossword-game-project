@@ -15,8 +15,8 @@ func save_data(filename : String):
 	SaveLoad.save(filename,data)
 	
 func load_data(filename : String):
-	var data = SaveLoad.load_save(filename)
-	if not data:
+	var data  = SaveLoad.load_save(filename)
+	if data == null:
 		return
 		
 	from_dictionary(data)

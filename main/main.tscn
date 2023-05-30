@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://v68208pndkv8"]
+[gd_scene load_steps=8 format=3 uid="uid://v68208pndkv8"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
 [ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_shwhi"]
 [ext_resource type="PackedScene" uid="uid://bvhmhj8eit6p6" path="res://main/sub_main_scene/login/login.tscn" id="5_jyxho"]
 [ext_resource type="PackedScene" uid="uid://55468m5u6r47" path="res://main/sub_main_scene/main_menu/main_menu.tscn" id="6_14dly"]
+[ext_resource type="PackedScene" uid="uid://dqu1dnmrn7ay2" path="res://main/sub_main_scene/gameplay/gameplay.tscn" id="7_stpuy"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -53,6 +54,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="gameplay" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("7_stpuy")]
+visible = false
+layout_mode = 2
+
 [connection signal="on_sign_in_press" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_on_sign_in_press"]
 [connection signal="play" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_play"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_rank"]
+[connection signal="back_press" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_back_press"]

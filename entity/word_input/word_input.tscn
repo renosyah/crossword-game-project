@@ -1,8 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cuwv64pi8t15n"]
 
 [ext_resource type="FontFile" uid="uid://cs1nhg4hgf0v2" path="res://assets/ui/fonts/montserrat_eb_32.tres" id="1"]
-[ext_resource type="Texture2D" uid="uid://cvcr6j7sqo5f2" path="res://entity/word_tile/tile_background.png" id="2"]
 [ext_resource type="Script" path="res://entity/word_input/word_input.gd" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b6ih"]
+bg_color = Color(1, 0.894118, 0.635294, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
 
 [node name="word_input" type="MarginContainer"]
 custom_minimum_size = Vector2(70, 70)
@@ -11,18 +19,13 @@ offset_bottom = 70.0
 mouse_filter = 2
 script = ExtResource("3")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8b6ih")
+
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
 flat = true
-
-[node name="bg" type="TextureRect" parent="Button"]
-self_modulate = Color(1, 1, 1, 0.854902)
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-texture = ExtResource("2")
-expand_mode = 1
 
 [node name="Label" type="Label" parent="Button"]
 modulate = Color(0, 0, 0, 1)
@@ -35,12 +38,4 @@ text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="bg_empty" type="ColorRect" parent="Button"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color(0.792157, 0.792157, 0.792157, 1)
-
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

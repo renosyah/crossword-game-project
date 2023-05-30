@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://doe07i8wiyh8p"]
 
-[ext_resource type="FontFile" path="res://assets/ui/fonts/montserrat_eb_32.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://cs1nhg4hgf0v2" path="res://assets/ui/fonts/montserrat_eb_32.tres" id="1"]
 [ext_resource type="Script" path="res://entity/word_output/word_output.gd" id="3"]
 
 [node name="word_output" type="MarginContainer"]
@@ -12,7 +12,9 @@ script = ExtResource("3")
 [node name="Label" type="Label" parent="."]
 modulate = Color(0.878431, 0.878431, 0.878431, 1)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 32
 text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1

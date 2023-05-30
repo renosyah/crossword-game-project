@@ -1,16 +1,16 @@
 extends Node
 ######################################################################
 
-@onready var wordData = WordsData.new()
+const player_data_file = "player.data"
 
-@onready var player_id :String = ""
-@onready var player_name :String = ""
-@onready var player_avatar :String = ""
+@onready var wordData :WordsData = WordsData.new()
+@onready var player :PlayerData = PlayerData.new()
 
 @onready var player_hint :int = 10
 @onready var player_max_hint :int = 10
 @onready var player_hp :int = 5
 @onready var player_max_hp :int = 5
+
 @onready var player_score :int = 0
 
 @onready var level :int = 1
@@ -21,6 +21,8 @@ extends Node
 func _ready():
 	wordData.difficulty = wordData.easy
 	wordData.load_words_data()
+	
+	player.load_data(player_data_file)
 	
 func reset_player():
 	level = 1
@@ -74,14 +76,14 @@ func get_scores() -> Array:
 	var _scores :Array = []
 	
 	for i in scores:
-		var score = ScoreData.new()
+		var score :ScoreData = ScoreData.new()
 		score.from_dictionary(i)
 		_scores.append(score)
 	
 	return _scores
 	
 func save_score():
-	var score = ScoreData.new()
+	var score :ScoreData = ScoreData.new()
 	score.level = level
 	score.score = player_score
 	

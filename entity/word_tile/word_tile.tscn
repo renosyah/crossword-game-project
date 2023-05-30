@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://yggvhy7bwijx" path="res://entity/word_tile/dynamic_font_label.tres" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cleo"]
+resource_name = "MyStyleBoxFlat"
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4

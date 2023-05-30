@@ -6,9 +6,13 @@ class_name WordTile
 @export var is_show :bool
 
 @onready var label = $Label
+@onready var panel_style :StyleBoxFlat = $Panel.get_theme_stylebox(StringName("panel")).duplicate()
+@onready var panel = $Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	panel.remove_theme_stylebox_override("panel")
+	panel.add_theme_stylebox_override("panel", panel_style)
 	label.text = ""
 	
 func show_data():
@@ -16,6 +20,7 @@ func show_data():
 	label.text = data.to_upper()
 	
 func solved():
+	panel_style.bg_color = Color("#FFE4A2")
 	show_data()
 	
 func tile_size_updated():
