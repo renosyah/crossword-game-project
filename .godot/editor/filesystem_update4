@@ -1,10 +1,6 @@
 res://default_env.tres
 res://assets/ui/animated_background/animated_background.tscn
+res://main/main.tscn
+res://main/sub_main_scene/login/login.tscn
 res://assets/ui/animated_background/animated_background.gd
-res://menu/login/ui/ui.tscn
-res://menu/main_menu/ui/ui.tscn
-res://assets/ui/loading/loading.tscn
-res://main.tscn
-res://main.gd
-res://sub_main_scene/login/login.tscn
-res://sub_main_scene/login/login.gd
+res://main/main.gd

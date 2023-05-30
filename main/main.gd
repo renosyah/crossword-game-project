@@ -16,6 +16,7 @@ func _ready():
 	await get_tree().create_timer(1).timeout
 	animated_background.set_stage(1)
 	
+	login.visible = true
 	login.show_icon()
 	
 	await get_tree().create_timer(2).timeout
@@ -26,9 +27,12 @@ func _on_login_on_sign_in_press():
 	OAuth2.sign_in()
 	
 func _sign_in_completed():
-	login.visible = false
+	login.hide_login_form()
+	await login.login_form_hide
+	
+	loading.visible = false
 	loading.visible = true
-	animated_background.set_stage(3, "_empty")
+	animated_background.set_stage(3, true)
 	Admob.initialize()
 	
 func _admob_initialization_finish():

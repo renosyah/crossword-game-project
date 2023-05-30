@@ -1,5 +1,6 @@
-MarginContainer
+AnimationTree
 Panel
+MarginContainer
 NinePatchRect
 HBoxContainer
 TextureRect
@@ -12,7 +13,6 @@ SafeArea
 CanvasLayer
 HSplitContainer
 Node
-AnimationTree
 Timer
 ColorRect
 CenterContainer

@@ -7,18 +7,9 @@ class_name WordTile
 
 @onready var label = $Label
 
-@onready var bg_empty = $bg_empty
-@onready var bg = $bg
-@onready var bg_solved = $bg_solved
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	label.text = ""
-	
-	bg_solved.visible = false
-	
-	bg.visible = not data.is_empty()
-	bg_empty.visible = data.is_empty()
 	
 func show_data():
 	is_show = true
@@ -26,7 +17,6 @@ func show_data():
 	
 func solved():
 	show_data()
-	bg_solved.visible = true
 	
 func tile_size_updated():
 	var size = 32

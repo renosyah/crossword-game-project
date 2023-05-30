@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cagf8fmituacb"]
+[gd_scene load_steps=6 format=3 uid="uid://v68208pndkv8"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
 [ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
-[ext_resource type="Script" path="res://main.gd" id="1_rsvg3"]
+[ext_resource type="Script" path="res://main/main.gd" id="1_rsvg3"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_shwhi"]
-[ext_resource type="PackedScene" uid="uid://ksjwhsxel25y" path="res://sub_main_scene/login/login.tscn" id="5_jyxho"]
+[ext_resource type="PackedScene" uid="uid://bvhmhj8eit6p6" path="res://main/sub_main_scene/login/login.tscn" id="5_jyxho"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -45,6 +45,7 @@ mouse_filter = 2
 script = ExtResource("1_4bk0j")
 
 [node name="login" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("5_jyxho")]
+visible = false
 layout_mode = 2
 
 [connection signal="on_sign_in_press" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_on_sign_in_press"]

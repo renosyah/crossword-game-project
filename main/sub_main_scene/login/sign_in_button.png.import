@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpj4l4esr777w"
-path="res://.godot/imported/panel_login.png-9f889d1965b603b02b132fd8865a7823.ctex"
+uid="uid://cxb72domjgkum"
+path="res://.godot/imported/sign_in_button.png-cb2c765289e97f23235585192e7f84f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sub_main_scene/login/panel_login.png"
-dest_files=["res://.godot/imported/panel_login.png-9f889d1965b603b02b132fd8865a7823.ctex"]
+source_file="res://main/sub_main_scene/login/sign_in_button.png"
+dest_files=["res://.godot/imported/sign_in_button.png-cb2c765289e97f23235585192e7f84f4.ctex"]
 
 [params]
 

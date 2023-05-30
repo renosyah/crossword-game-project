@@ -1,11 +1,11 @@
 extends Control
 class_name AnimatedBackground
 
-@onready var _animation_tree_playback = $AnimationTree.get("parameters/playback")
+@onready var animation_player = $AnimationPlayer
 
-func _ready():
-	_animation_tree_playback.travel("Start")
-
-func set_stage(stage :int, extra :String = ""):
-	_animation_tree_playback.travel("stage_%s%s" % [stage, extra])
+func set_stage(stage :int, reverse :bool = false):
+	if reverse:
+		animation_player.play_backwards("stage_%s" % stage)
+	else:
+		animation_player.play("stage_%s" % stage)
 	
