@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://071ix4tfv54t"]
+[gd_scene load_steps=10 format=3 uid="uid://cfbvfpoe5g1r2"]
 
 [ext_resource type="FontFile" path="res://assets/ui/fonts/montserrat_eb_48.tres" id="1"]
 [ext_resource type="Script" path="res://menu/main_menu/ui/ui.gd" id="2"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dr5rj4h6xgctj" path="res://menu/score/score.tscn" id="4"]
 [ext_resource type="Texture2D" uid="uid://cfc0mxfhd0c40" path="res://assets/ui/icons/score.png" id="5"]
 [ext_resource type="PackedScene" uid="uid://f6l4g35fkt25" path="res://menu/popup_message/popup_message.tscn" id="8_0i2j1"]
-[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://menu/loading/loading.tscn" id="8_633u8"]
+[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="8_633u8"]
 
 [node name="ui" type="Control"]
 layout_mode = 3

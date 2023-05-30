@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://cagf8fmituacb"]
+
+[ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
+[ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
+[ext_resource type="Script" path="res://main.gd" id="1_rsvg3"]
+[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_shwhi"]
+[ext_resource type="PackedScene" uid="uid://ksjwhsxel25y" path="res://sub_main_scene/login/login.tscn" id="5_jyxho"]
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_rsvg3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="animated_background" parent="CanvasLayer/Control" instance=ExtResource("1_887v3")]
+layout_mode = 1
+
+[node name="loading" parent="CanvasLayer/Control" instance=ExtResource("2_shwhi")]
+visible = false
+layout_mode = 1
+
+[node name="SafeArea" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4bk0j")
+
+[node name="login" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("5_jyxho")]
+layout_mode = 2
+
+[connection signal="on_sign_in_press" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_on_sign_in_press"]
