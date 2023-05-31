@@ -31,6 +31,12 @@ func _ready():
 	animated_background.set_stage(2)
 	login.show_login_form()
 	
+	Admob.initialize()
+	await Admob.initialization_finish
+	
+	if not Admob.get_is_banner_loaded():
+		Admob.load_banner()
+	
 func _on_login_on_sign_in_press():
 	OAuth2.sign_in()
 	
@@ -52,19 +58,20 @@ func _sign_in_completed():
 func _to_main_menu():
 	login.visible = false
 	animated_background.set_stage(3, true)
-	
 	loading.visible = true
 	
-	Admob.initialize()
-	await Admob.initialization_finish
-	
-	if Admob.get_is_banner_loaded():
-		Admob.load_banner()
+	# simple delay
+	# future probably to init score data
+	# idk
+	await get_tree().create_timer(3).timeout
 	
 	animated_background.set_stage(3)
 	loading.visible = false
 	
 	main_menu.visible = true
+	
+	Global.reset_player()
+	Global.generate_words()
 	main_menu.show_menu()
 	
 func _admob_banner_loaded():
@@ -73,9 +80,6 @@ func _admob_banner_loaded():
 func _on_main_menu_play():
 	animated_background.set_stage(4)
 	gameplay.visible = true
-	
-	Global.reset_player()
-	Global.generate_words()
 	gameplay.generate_puzzle()
 
 func _on_main_menu_rank():

@@ -36,6 +36,10 @@ var trimed_crossword :Dictionary
 
 @onready var animation_player = $AnimationPlayer
 
+func _ready():
+	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
+	Admob.interstitial_closed.connect(_interstitial_closed)
+
 func generate_puzzle():
 	level.text = "Level %s" % Global.level
 	
@@ -47,6 +51,11 @@ func generate_puzzle():
 	
 	crossword = crossword_lib.Crossword.new(24, 24, '', 5000, Global.word_list)
 	crossword.compute_crossword(0)
+	
+	# to make sure same generate display as before
+	Global.word_list.clear()
+	for word in crossword.current_word_list:
+		Global.word_list.append([word.word, "clue"])
 	
 	trimed_crossword = util.trim(crossword.rows, crossword.grid)
 	
@@ -64,6 +73,12 @@ func generate_puzzle():
 	
 	animation_player.play("show_puzzle")
 	
+	if not Admob.get_is_interstitial_loaded():
+		Admob.load_interstitial()
+		
+	if Admob.get_is_banner_loaded():
+		Admob.show_banner()
+		
 func _display_input_tile():
 	var characters = []
 	for key in trimed_crossword.keys():
@@ -242,8 +257,14 @@ func _show_solved():
 		Admob.show_interstitial()
 		return
 		
+	_interstitial_closed()
+	
+func _interstitial_closed():
 	# reset puzzle
 	generate_puzzle()
+	
+	if Admob.get_is_banner_loaded():
+		Admob.show_banner()
 	
 func _display_hint():
 	var rand = grid.get_children().duplicate()
