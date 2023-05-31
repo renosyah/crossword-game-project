@@ -10,6 +10,7 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+expand_margin_bottom = 1.0
 shadow_color = Color(0.305882, 0.305882, 0.305882, 0.6)
 shadow_size = 4
 shadow_offset = Vector2(0, 3)
@@ -33,11 +34,17 @@ grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 theme_override_styles/panel = SubResource("StyleBoxFlat_3cleo")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Control/Panel"]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_qitni")
 theme_override_font_sizes/font_size = 14
 text = "i"
 horizontal_alignment = 1
+vertical_alignment = 1
 clip_text = true

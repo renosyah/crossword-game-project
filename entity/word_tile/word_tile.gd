@@ -6,7 +6,7 @@ class_name WordTile
 @export var is_show :bool
 @export var is_solved :bool
 
-@onready var label = $Label
+@onready var label = $Control/Panel/Label
 @onready var panel_style :StyleBoxFlat = $Control/Panel.get_theme_stylebox(StringName("panel")).duplicate()
 @onready var panel = $Control/Panel
 
