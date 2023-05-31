@@ -1,7 +1,5 @@
 res://default_env.tres
-res://main/sub_main_scene/main_menu/main_menu.tscn
-res://main/main.gd
 res://main/sub_main_scene/login/login.tscn
+res://main/sub_main_scene/main_menu/main_menu.tscn
 res://main/main.tscn
 res://main/sub_main_scene/gameplay/gameplay.tscn
-res://main/sub_main_scene/gameplay/gameplay.gd
