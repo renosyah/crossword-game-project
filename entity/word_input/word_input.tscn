@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuwv64pi8t15n"]
+[gd_scene load_steps=5 format=3 uid="uid://cuwv64pi8t15n"]
 
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="2_237my"]
 [ext_resource type="Script" path="res://entity/word_input/word_input.gd" id="3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gb4y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8b6ih"]
 bg_color = Color(1, 0.894118, 0.635294, 1)
@@ -13,9 +15,9 @@ shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
 [node name="word_input" type="MarginContainer"]
-custom_minimum_size = Vector2(80, 80)
-offset_right = 80.0
-offset_bottom = 80.0
+custom_minimum_size = Vector2(50, 50)
+offset_right = 50.0
+offset_bottom = 50.0
 mouse_filter = 2
 script = ExtResource("3")
 
@@ -24,20 +26,18 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Button" type="Button" parent="CenterContainer"]
-custom_minimum_size = Vector2(68, 68)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -34.0
-offset_right = 34.0
-offset_bottom = 34.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(34, 34)
+pivot_offset = Vector2(20, 20)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7gb4y")
 flat = true
 
 [node name="Panel" type="Panel" parent="CenterContainer/Button"]
@@ -52,13 +52,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8b6ih")
 
 [node name="Label" type="Label" parent="CenterContainer/Button"]
 modulate = Color(0, 0, 0, 1)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_237my")
-theme_override_font_sizes/font_size = 46
+theme_override_font_sizes/font_size = 14
 text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [connection signal="pressed" from="CenterContainer/Button" to="." method="_on_button_pressed"]

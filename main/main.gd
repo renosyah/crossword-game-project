@@ -89,11 +89,22 @@ func _on_main_menu_play():
 	animated_background.set_stage(4)
 	gameplay.visible = true
 	gameplay.generate_puzzle()
-
-func _on_main_menu_rank():
-	pass
 	
-func _on_gameplay_back_press():
+func _on_main_menu_rank():
+	animated_background.set_stage(4)
+	
+func _on_gameplay_rank():
+	animated_background.set_stage(4, true)
+	
+func _on_main_menu_back_press():
+	animated_background.set_stage(4, true)
+	main_menu.show_menu(true)
+	
+func _on_gameplay_back_press(_is_on_rank_menu :bool):
+	if _is_on_rank_menu:
+		animated_background.set_stage(4)
+		return
+		
 	animated_background.set_stage(4, true)
 	gameplay.visible = false
 	main_menu.show_menu(true)
@@ -110,6 +121,11 @@ func _on_main_menu_setting():
 	Global.player.delete_data(Global.player_data_file)
 	Global.player = PlayerData.new()
 	get_tree().reload_current_scene()
+
+
+
+
+
 
 
 

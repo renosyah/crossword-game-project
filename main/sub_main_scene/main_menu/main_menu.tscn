@@ -1,13 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://55468m5u6r47"]
+[gd_scene load_steps=26 format=3 uid="uid://55468m5u6r47"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/main_menu/main_menu.gd" id="1_rtsvp"]
-[ext_resource type="Texture2D" uid="uid://ds408pe2o1ex7" path="res://main/sub_main_scene/main_menu/rank.png" id="2_rxqhd"]
+[ext_resource type="Texture2D" uid="uid://cjl1tg7ijoc71" path="res://main/sub_main_scene/main_menu/rank.png" id="2_rxqhd"]
 [ext_resource type="Texture2D" uid="uid://rerywpejgvl3" path="res://main/sub_main_scene/main_menu/google.png" id="2_yqyhc"]
-[ext_resource type="Texture2D" uid="uid://b50i44cncy5t2" path="res://main/sub_main_scene/main_menu/setting.png" id="3_c06dm"]
+[ext_resource type="Texture2D" uid="uid://b0sspcmntsoei" path="res://main/sub_main_scene/main_menu/setting.png" id="3_c06dm"]
 [ext_resource type="Texture2D" uid="uid://b5b1hw3vyngd7" path="res://main/sub_main_scene/main_menu/play.png" id="3_e51hk"]
 [ext_resource type="FontFile" uid="uid://bbrfaxdq70s53" path="res://assets/fonts/ttf/Poppins-Regular.ttf" id="3_vl7e3"]
+[ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="4_jedey"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="6_5bjqo"]
 [ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="8_hbux8"]
+[ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="10_r0q0d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob5f8"]
 bg_color = Color(1, 1, 1, 0.658824)
@@ -19,6 +21,17 @@ shadow_color = Color(0.262745, 0.262745, 0.262745, 0.6)
 shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kuuol"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dhoi"]
+bg_color = Color(0.415686, 0.415686, 0.415686, 0.631373)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qeehs"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvwp2"]
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 20
@@ -26,6 +39,10 @@ corner_radius_bottom_left = 20
 shadow_color = Color(0.380392, 0.380392, 0.380392, 0.6)
 shadow_size = 4
 shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbh47"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxeem"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4iar"]
 bg_color = Color(0, 0, 0, 1)
@@ -159,6 +176,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [0.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_r1dmb"]
 resource_name = "play"
@@ -195,8 +224,8 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -267,7 +296,7 @@ tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [-56.0]
 }
 tracks/9/type = "value"
@@ -279,8 +308,20 @@ tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_l4ea7"]
@@ -406,6 +447,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [0.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_t0yh6"]
 resource_name = "show_menu"
@@ -530,6 +583,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [0.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_q6mlt"]
 resource_name = "to_rank"
@@ -652,6 +717,18 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 163.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_7ky2o"]
@@ -776,6 +853,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [-56.0, 106.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HBoxContainer2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aiwbi"]
 _data = {
@@ -822,7 +911,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="MarginContainer4" type="MarginContainer" parent="login_notif/CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="login_notif/CenterContainer/HBoxContainer"]
@@ -859,12 +948,61 @@ theme_override_font_sizes/font_size = 13
 text = "Signed "
 
 [node name="MarginContainer5" type="MarginContainer" parent="login_notif/CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+offset_top = 32.0
+offset_right = 69.0
+offset_bottom = 77.0
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="back_button" type="Button" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kuuol")
+flat = true
+
+[node name="Panel2" type="Panel" parent="HBoxContainer2/back_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5dhoi")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer2/back_button"]
+modulate = Color(1, 0.894118, 0.635294, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -13.5
+offset_right = 12.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("10_r0q0d")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="rank_button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(56, 81)
+custom_minimum_size = Vector2(57, 81)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -876,6 +1014,7 @@ offset_top = -471.0
 offset_bottom = -390.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qeehs")
 flat = true
 
 [node name="Panel2" type="Panel" parent="rank_button"]
@@ -885,23 +1024,37 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hvwp2")
 
-[node name="TextureRect2" type="TextureRect" parent="rank_button"]
-custom_minimum_size = Vector2(20, 20)
+[node name="VBoxContainer" type="VBoxContainer" parent="rank_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="rank_button/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 texture = ExtResource("2_rxqhd")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Label" type="Label" parent="rank_button/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_jedey")
+theme_override_font_sizes/font_size = 13
+text = "Rank"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="setting_button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(56, 81)
+custom_minimum_size = Vector2(57, 81)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -913,6 +1066,7 @@ offset_top = -382.0
 offset_bottom = -301.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xbh47")
 flat = true
 
 [node name="Panel2" type="Panel" parent="setting_button"]
@@ -922,19 +1076,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hvwp2")
 
-[node name="TextureRect2" type="TextureRect" parent="setting_button"]
-custom_minimum_size = Vector2(20, 20)
+[node name="VBoxContainer" type="VBoxContainer" parent="setting_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="setting_button/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 texture = ExtResource("3_c06dm")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Label" type="Label" parent="setting_button/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_jedey")
+theme_override_font_sizes/font_size = 13
+text = "You"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -984,6 +1152,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uxeem")
 flat = true
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/play"]
@@ -1034,6 +1203,7 @@ libraries = {
 "": SubResource("AnimationLibrary_aiwbi")
 }
 
+[connection signal="pressed" from="HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="rank_button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="setting_button" to="." method="_on_setting_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/play" to="." method="_on_play_pressed"]

@@ -12,6 +12,7 @@ var tween :Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	label.add_theme_font_size_override("font_size", custom_minimum_size.x * 0.8)
 	label.text = data.to_upper()
 	
 func _on_button_pressed():

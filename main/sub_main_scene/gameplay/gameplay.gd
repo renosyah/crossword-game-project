@@ -1,6 +1,7 @@
 extends Control
 
-signal back_press
+signal rank
+signal back_press(is_from_rank_menu)
 
 const crossword_lib = preload("res://addons/crossword_gen_remake/crossword_gen_remake.gd")
 
@@ -19,6 +20,9 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var menu_input_container = $VBoxContainer/Control
 @onready var menu_input = $VBoxContainer/Control/MarginContainer3
 
+@onready var hit_point_display = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/hit_point_display
+@onready var hint_left = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer/hint_left
+
 @onready var clear_word = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
 @onready var timer_delay = $TimerDelay
 @onready var timer = $Timer
@@ -27,7 +31,7 @@ var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
 var output_sets: Array = []
-var max_row_grid = 5
+var max_row_grid = 8
 var solved_tiles :Array = []
 
 var default_size :Vector2 = Vector2(50, 50)
@@ -42,6 +46,9 @@ func _ready():
 
 func generate_puzzle():
 	level.text = "Level %s" % Global.level
+	hit_point_display.hp = Global.player_hp
+	hit_point_display.max_hp = Global.player_max_hp
+	hit_point_display.display_hp()
 	
 	animation_player.play("RESET")
 	await animation_player.animation_finished
@@ -231,7 +238,22 @@ func _find_and_show_word(word :String):
 			return
 			
 	# not found
-	# player_hurt()
+	_player_hurt()
+	
+func _player_hurt():
+	Global.player_hp -= 1
+	hit_point_display.pop_hp()
+	
+	if Global.player_hp == 0:
+		_player_lose()
+		
+func _player_lose():
+	Global.reset_player()
+	Global.generate_words()
+	
+	animation_player.play_backwards("show_puzzle")
+	await animation_player.animation_finished
+	_on_back_button_pressed()
 	
 func _check_if_solved():
 	for i in grid.get_children():
@@ -282,9 +304,6 @@ func _display_hint():
 			i.show_data()
 			return
 	
-func _on_back_button_pressed():
-	emit_signal("back_press")
-
 func _on_check_word_pressed():
 	var word :String
 	for i in output_sets:
@@ -301,6 +320,11 @@ func _on_check_word_pressed():
 	_find_and_show_word(word)
 
 func _on_hint_button_pressed():
+	if Global.player_hint == 0:
+		return
+		
+	Global.player_hint -= 1
+	hint_left.text = str(Global.player_hint)
 	_display_hint()
 	_on_clear_word_pressed()
 	
@@ -309,6 +333,21 @@ func _on_clear_word_pressed():
 	_clear_output()
 	output_sets.clear()
 	
+var _is_on_rank_menu :bool = false
 	
+func _on_back_button_pressed():
+	emit_signal("back_press", _is_on_rank_menu)
+	
+	if _is_on_rank_menu:
+		animation_player.play_backwards("to_rank")
+		_is_on_rank_menu = false
+		
+func _on_rank_button_pressed():
+	_is_on_rank_menu = true
+	animation_player.play("to_rank")
+	emit_signal("rank")
+	
+
+
 
 

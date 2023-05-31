@@ -35,14 +35,4 @@ func solved():
 	show_data()
 	
 func tile_size_updated():
-	var size = 32
-	if custom_minimum_size.x < 50 and custom_minimum_size.x >= 40:
-		size = 24
-	elif custom_minimum_size.x < 40 and custom_minimum_size.x >= 30:
-		size = 16
-	elif custom_minimum_size.x < 30 and custom_minimum_size.x >= 20:
-		size = 14
-	elif custom_minimum_size.x < 20:
-		size = 8
-		
-	label.add_theme_font_size_override("font_size",size)
+	label.add_theme_font_size_override("font_size", custom_minimum_size.x * 0.8)

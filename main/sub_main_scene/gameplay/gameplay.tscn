@@ -1,10 +1,27 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=24 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
+[ext_resource type="Texture2D" uid="uid://cjl1tg7ijoc71" path="res://main/sub_main_scene/main_menu/rank.png" id="2_qsp4u"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="3_dg1nc"]
 [ext_resource type="Texture2D" uid="uid://cye5qtksbpuoa" path="res://assets/ui/icons/clear.png" id="4_jyn5d"]
+[ext_resource type="Texture2D" uid="uid://chcbehml5x53s" path="res://main/sub_main_scene/gameplay/list.png" id="4_k458k"]
 [ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="4_y6d7x"]
+[ext_resource type="Texture2D" uid="uid://de1qukub4idoi" path="res://main/sub_main_scene/gameplay/hint.png" id="6_mi1bp"]
+[ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="7_qsvik"]
+[ext_resource type="PackedScene" uid="uid://bac3jnsksju3k" path="res://assets/ui/hit_point_display/hit_point_display.tscn" id="8_bmk5m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_apy4m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt85e"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.380392, 0.380392, 0.380392, 0.6)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8msew"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wq1f"]
 bg_color = Color(0.415686, 0.415686, 0.415686, 0.631373)
@@ -12,6 +29,8 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_miers"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63eri"]
 bg_color = Color(0, 0, 0, 1)
@@ -31,6 +50,8 @@ corner_radius_top_left = 16
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkvja"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tw2nr"]
 bg_color = Color(0, 0, 0, 1)
@@ -117,6 +138,54 @@ tracks/5/keys = {
 "update": 1,
 "values": [259.0]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VBoxContainer/HBoxContainer2/level:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("rank_button:offset_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("rank_button:offset_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-57.0]
+}
 
 [sub_resource type="Animation" id="Animation_2m7x0"]
 resource_name = "show_puzzle"
@@ -192,11 +261,148 @@ tracks/5/keys = {
 "update": 0,
 "values": [259.0, 0.0]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w6oj0"]
+resource_name = "to_rank"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/Control/MarginContainer3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Control/MarginContainer3:offset_bottom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.00012207, 527.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/Control/MarginContainer3:offset_top")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 527.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer/MarginContainer4/Control/Control/gameplay_helper:offset_left")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-56.0, 203.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer/MarginContainer4/Control/Control/gameplay_helper:offset_right")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 259.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("VBoxContainer/HBoxContainer2/level:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("rank_button:offset_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 257.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("rank_button:offset_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-57.0, 200.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_khwdh"]
 _data = {
 "RESET": SubResource("Animation_on13o"),
-"show_puzzle": SubResource("Animation_2m7x0")
+"show_puzzle": SubResource("Animation_2m7x0"),
+"to_rank": SubResource("Animation_w6oj0")
 }
 
 [node name="gameplay" type="Control"]
@@ -208,6 +414,57 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_kxjxo")
+
+[node name="rank_button" type="Button" parent="."]
+custom_minimum_size = Vector2(57, 81)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -471.0
+offset_bottom = -390.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_apy4m")
+flat = true
+
+[node name="Panel2" type="Panel" parent="rank_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gt85e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="rank_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="rank_button/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_qsp4u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="rank_button/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_y6d7x")
+theme_override_font_sizes/font_size = 13
+text = "Rank"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -233,6 +490,7 @@ layout_mode = 2
 [node name="back_button" type="Button" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8msew")
 flat = true
 
 [node name="Panel2" type="Panel" parent="VBoxContainer/HBoxContainer2/back_button"]
@@ -294,7 +552,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(44, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 mouse_filter = 2
 
@@ -307,7 +565,7 @@ layout_mode = 2
 columns = 9
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(44, 0)
+custom_minimum_size = Vector2(56, 0)
 layout_mode = 2
 mouse_filter = 2
 
@@ -341,8 +599,9 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="list_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper"]
-custom_minimum_size = Vector2(56, 81)
+custom_minimum_size = Vector2(57, 81)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_miers")
 flat = true
 
 [node name="Panel2" type="Panel" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button"]
@@ -355,13 +614,25 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_63eri")
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_k458k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
 text = "List"
@@ -373,8 +644,9 @@ custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
 [node name="hint_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper"]
-custom_minimum_size = Vector2(56, 100)
+custom_minimum_size = Vector2(57, 100)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_miers")
 flat = true
 
 [node name="Panel2" type="Panel" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
@@ -387,16 +659,37 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_63eri")
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_mi1bp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
 text = "Hint"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hint_left" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 1, 0.709804, 1)
+theme_override_fonts/font = ExtResource("7_qsvik")
+theme_override_font_sizes/font_size = 15
+text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -404,9 +697,42 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
+[node name="Control2" type="Control" parent="VBoxContainer/MarginContainer4/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -27.0
+offset_right = 72.0
+offset_bottom = 27.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 1, 0.709804, 1)
+theme_override_fonts/font = ExtResource("7_qsvik")
+theme_override_font_sizes/font_size = 13
+text = "KESEMPATAN:"
+vertical_alignment = 1
+
+[node name="hit_point_display" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer" instance=ExtResource("8_bmk5m")]
+layout_mode = 2
+
 [node name="Control" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 290)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/Control"]
 modulate = Color(1, 1, 1, 0)
@@ -426,6 +752,7 @@ color = Color(0.141176, 0.141176, 0.141176, 0.654902)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Control/MarginContainer3"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 24)
@@ -452,6 +779,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5ul3h")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -487,6 +815,7 @@ expand_mode = 1
 [node name="check_word" type="Button" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wkvja")
 flat = true
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word"]
@@ -526,10 +855,12 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="grid_input_container" type="VBoxContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
@@ -547,6 +878,7 @@ libraries = {
 "": SubResource("AnimationLibrary_khwdh")
 }
 
+[connection signal="pressed" from="rank_button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button" to="." method="_on_hint_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word" to="." method="_on_clear_word_pressed"]

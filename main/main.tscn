@@ -59,7 +59,9 @@ visible = false
 layout_mode = 2
 
 [connection signal="on_sign_in_press" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_on_sign_in_press"]
+[connection signal="back_press" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_back_press"]
 [connection signal="play" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_play"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_rank"]
 [connection signal="setting" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_setting"]
 [connection signal="back_press" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_back_press"]
+[connection signal="rank" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_rank"]

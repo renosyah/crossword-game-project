@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjl1tg7ijoc71"
-path="res://.godot/imported/rank.png-0869efda745254d770b16f982fcf75e1.ctex"
+uid="uid://de1qukub4idoi"
+path="res://.godot/imported/hint.png-6f8218a061172aab2339c8f7fbfb0ee3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://main/sub_main_scene/main_menu/rank.png"
-dest_files=["res://.godot/imported/rank.png-0869efda745254d770b16f982fcf75e1.ctex"]
+source_file="res://main/sub_main_scene/gameplay/hint.png"
+dest_files=["res://.godot/imported/hint.png-6f8218a061172aab2339c8f7fbfb0ee3.ctex"]
 
 [params]
 

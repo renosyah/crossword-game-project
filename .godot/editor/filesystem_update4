@@ -1,5 +1,15 @@
 res://default_env.tres
+res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/login/login.tscn
 res://main/sub_main_scene/main_menu/main_menu.tscn
 res://main/main.tscn
-res://main/sub_main_scene/gameplay/gameplay.tscn
+res://entity/word_input/word_input.tscn
+res://entity/word_tile/word_tile.tscn
+res://entity/word_tile/word_tile.gd
+res://global/global.gd
+res://entity/word_input/word_input.gd
+res://main/sub_main_scene/gameplay/gameplay.gd
+res://assets/ui/hit_point_display/hit_point_display.tscn
+res://assets/ui/hit_point_display/hit_point_display.gd
+res://main/sub_main_scene/main_menu/main_menu.gd
+res://main/main.gd

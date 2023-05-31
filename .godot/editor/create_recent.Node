@@ -1,12 +1,12 @@
-Control
-MarginContainer
 VBoxContainer
+Control
+TextureRect
+HBoxContainer
+MarginContainer
 Label
 CenterContainer
 AnimationPlayer
-TextureRect
 Button
-HBoxContainer
 Panel
 AnimationTree
 NinePatchRect
