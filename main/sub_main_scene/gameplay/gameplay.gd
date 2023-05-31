@@ -54,6 +54,8 @@ func generate_puzzle():
 	
 	# to make sure same generate display as before
 	Global.word_list.clear()
+	Global.word_list_founded.clear()
+	
 	for word in crossword.current_word_list:
 		Global.word_list.append([word.word, "clue"])
 	

@@ -18,8 +18,14 @@ func _ready():
 	Admob.banner_loaded.connect(_admob_banner_loaded)
 	OAuth2.sign_in_completed.connect(_sign_in_completed)
 	
+	# have login session
 	if not Global.player.player_id.is_empty():
-		_to_main_menu()
+		loading.visible = true
+		await _init_admob()
+		
+		animated_background.set_stage(3)
+		loading.visible = false
+		_show_main_menu()
 		return
 		
 	await get_tree().create_timer(1).timeout
@@ -27,10 +33,11 @@ func _ready():
 	login.visible = true
 	login.show_icon()
 	
-	await get_tree().create_timer(2).timeout
+	await _init_admob()
 	animated_background.set_stage(2)
 	login.show_login_form()
 	
+func _init_admob():
 	Admob.initialize()
 	await Admob.initialization_finish
 	
@@ -67,9 +74,10 @@ func _to_main_menu():
 	
 	animated_background.set_stage(3)
 	loading.visible = false
+	_show_main_menu()
 	
+func _show_main_menu():
 	main_menu.visible = true
-	
 	Global.reset_player()
 	Global.generate_words()
 	main_menu.show_menu()
