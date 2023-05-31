@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnf0uximpm7ow"]
 
 [ext_resource type="Script" path="res://entity/word_tile/word_tile.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://yggvhy7bwijx" path="res://entity/word_tile/dynamic_font_label.tres" id="2"]
+[ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="2_qitni"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3cleo"]
 resource_name = "MyStyleBoxFlat"
@@ -26,7 +26,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3cleo")
 [node name="Label" type="Label" parent="."]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
+theme_override_fonts/font = ExtResource("2_qitni")
 theme_override_font_sizes/font_size = 14
 text = "i"
 horizontal_alignment = 1

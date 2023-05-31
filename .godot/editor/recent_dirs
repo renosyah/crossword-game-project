@@ -1,13 +1,10 @@
+res://assets/fonts
 res://assets/ui/icons
 res://
 C:/Users/USER/.android
 C:/project/playstore/production
 res://addons/google_admob
 C:/project/godot/export
-res://menu/popup_message
-res://menu/login
-res://menu/login/ui
-res://menu/main_menu/ui
 res://addons/google_auth
 res://addons/network/lobby-manager
 res://addons/network

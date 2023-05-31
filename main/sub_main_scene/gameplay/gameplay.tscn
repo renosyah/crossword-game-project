@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=13 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/montserrat_eb_48.tres" id="2_icitr"]
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="3_dg1nc"]
 [ext_resource type="Texture2D" uid="uid://cye5qtksbpuoa" path="res://assets/ui/icons/clear.png" id="4_jyn5d"]
+[ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="4_y6d7x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7wq1f"]
 bg_color = Color(0.415686, 0.415686, 0.415686, 0.631373)
@@ -268,7 +269,7 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_icitr")
+theme_override_fonts/font = ExtResource("3_dg1nc")
 theme_override_font_sizes/font_size = 24
 text = "Level 1"
 horizontal_alignment = 1
@@ -361,6 +362,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_y6d7x")
+theme_override_font_sizes/font_size = 13
 text = "List"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -391,6 +394,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_y6d7x")
+theme_override_font_sizes/font_size = 13
 text = "Hint"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -502,7 +507,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tw2nr")
 [node name="Label" type="Label" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word/MarginContainer4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.827451, 0.368627, 1)
-theme_override_fonts/font = ExtResource("2_icitr")
+theme_override_fonts/font = ExtResource("3_dg1nc")
 theme_override_font_sizes/font_size = 16
 text = "cek"
 horizontal_alignment = 1

@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvhmhj8eit6p6"]
+[gd_scene load_steps=12 format=3 uid="uid://bvhmhj8eit6p6"]
 
 [ext_resource type="Texture2D" uid="uid://curmu5oivd1km" path="res://assets/ui/icons/icon.png" id="1_4oi27"]
 [ext_resource type="Script" path="res://main/sub_main_scene/login/login.gd" id="1_qrl7g"]
-[ext_resource type="FontFile" path="res://assets/ui/fonts/montserrat_eb_48.tres" id="2_i3mkc"]
+[ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="3_vl616"]
 [ext_resource type="Texture2D" uid="uid://cxb72domjgkum" path="res://main/sub_main_scene/login/sign_in_button.png" id="4_pf4gr"]
+[ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="4_qxarm"]
+[ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="4_wbybf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x2nh"]
 bg_color = Color(1, 1, 1, 1)
@@ -243,14 +245,13 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="mainIcon"]
 layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 1
 theme_override_constants/shadow_offset_y = 1
 theme_override_constants/outline_size = 1
 theme_override_constants/shadow_outline_size = 1
 theme_override_constants/line_spacing = 1
-theme_override_fonts/font = ExtResource("2_i3mkc")
+theme_override_fonts/font = ExtResource("3_vl616")
 theme_override_font_sizes/font_size = 36
 text = "Apaan.tu"
 
@@ -283,7 +284,7 @@ layout_mode = 2
 [node name="Label2" type="Label" parent="panelLogin/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_i3mkc")
+theme_override_fonts/font = ExtResource("4_wbybf")
 theme_override_font_sizes/font_size = 18
 text = "Sign in"
 horizontal_alignment = 1
@@ -299,8 +300,8 @@ layout_mode = 2
 [node name="Label3" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 0.682353)
-theme_override_fonts/font = ExtResource("2_i3mkc")
+theme_override_colors/font_color = Color(0.380392, 0.380392, 0.380392, 1)
+theme_override_fonts/font = ExtResource("4_qxarm")
 theme_override_font_sizes/font_size = 16
 text = "Sign in with your Google account to take quiz and win the prize pool"
 horizontal_alignment = 1
