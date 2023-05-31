@@ -338,7 +338,6 @@ var _is_on_rank_menu :bool = false
 func _on_back_button_pressed():
 	if _is_on_rank_menu:
 		emit_signal("back_press", _is_on_rank_menu)
-		
 		animation_player.play_backwards("to_rank")
 		_is_on_rank_menu = false
 		

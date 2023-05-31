@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://v68208pndkv8"]
+[gd_scene load_steps=9 format=3 uid="uid://v68208pndkv8"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
 [ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bvhmhj8eit6p6" path="res://main/sub_main_scene/login/login.tscn" id="5_jyxho"]
 [ext_resource type="PackedScene" uid="uid://55468m5u6r47" path="res://main/sub_main_scene/main_menu/main_menu.tscn" id="6_14dly"]
 [ext_resource type="PackedScene" uid="uid://dqu1dnmrn7ay2" path="res://main/sub_main_scene/gameplay/gameplay.tscn" id="7_stpuy"]
+[ext_resource type="PackedScene" uid="uid://doevsa43xqs6q" path="res://main/sub_main_scene/rank/rank.tscn" id="8_1ytuf"]
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -55,6 +56,10 @@ visible = false
 layout_mode = 2
 
 [node name="gameplay" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("7_stpuy")]
+visible = false
+layout_mode = 2
+
+[node name="rank" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("8_1ytuf")]
 visible = false
 layout_mode = 2
 

@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=3 uid="uid://cte2n7vglya4s"]
+
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_3ikk3"]
+[ext_resource type="Script" path="res://assets/ui/rank_item/rank_item.gd" id="1_86cfo"]
+[ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="2_qx73i"]
+[ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="4_fo6el"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7ra5"]
+bg_color = Color(1, 0.972549, 0.901961, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="rank_item" type="MarginContainer"]
+custom_minimum_size = Vector2(332, 0)
+anchors_preset = -1
+offset_right = 332.0
+offset_bottom = 86.0
+mouse_filter = 2
+script = ExtResource("1_86cfo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y7ra5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="num" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_3ikk3")
+theme_override_font_sizes/font_size = 16
+text = "1."
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+
+[node name="avatar" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="avatar2" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+modulate = Color(1, 0.972549, 0.901961, 1)
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_fo6el")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="player_name" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_3ikk3")
+theme_override_font_sizes/font_size = 16
+text = "Devon Lane"
+
+[node name="player_level" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_qx73i")
+theme_override_font_sizes/font_size = 13
+text = "Level 568"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

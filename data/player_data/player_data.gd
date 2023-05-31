@@ -1,6 +1,8 @@
 extends BaseData
 class_name PlayerData
 
+signal avatar_image
+
 @export var player_id :String = ""
 @export var player_name :String = ""
 @export var player_email :String = ""

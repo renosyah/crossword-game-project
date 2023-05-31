@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtx0xwe6jlnv"]
+
+[ext_resource type="Texture2D" uid="uid://cl0uhrfojp4ro" path="res://assets/ui/podium/2_base.png" id="1_qtalk"]
+[ext_resource type="Texture2D" uid="uid://8biqmrvdj3nf" path="res://assets/ui/podium/2_top.png" id="1_sdjy2"]
+[ext_resource type="Texture2D" uid="uid://byoalmfu66o11" path="res://assets/ui/podium/1_base.png" id="2_1gihm"]
+[ext_resource type="Texture2D" uid="uid://dso5v06ufgc2r" path="res://assets/ui/podium/1_top.png" id="3_g7o2x"]
+[ext_resource type="Texture2D" uid="uid://c65qixrmg6h3i" path="res://assets/ui/podium/3_base.png" id="3_pi42n"]
+[ext_resource type="Texture2D" uid="uid://b8rqo4gsgbm1e" path="res://assets/ui/podium/3_top.png" id="5_fmyw1"]
+
+[node name="podium" type="MarginContainer"]
+custom_minimum_size = Vector2(320, 342)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 342.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="CenterContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 2
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(105, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("1_sdjy2")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(110, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("1_qtalk")
+expand_mode = 1
+
+[node name="CenterContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(110, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("3_g7o2x")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(110, 161)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("2_1gihm")
+expand_mode = 1
+
+[node name="CenterContainer3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 2
+
+[node name="TextureRect4" type="TextureRect" parent="HBoxContainer/CenterContainer3"]
+custom_minimum_size = Vector2(105, 18)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("5_fmyw1")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer/CenterContainer3"]
+custom_minimum_size = Vector2(105, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+texture = ExtResource("3_pi42n")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2

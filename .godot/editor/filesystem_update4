@@ -5,3 +5,10 @@ res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/main.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
 res://main/main.gd
+res://data/player_data/player_data.gd
+res://main/sub_main_scene/rank/rank.tscn
+res://main/sub_main_scene/rank/rank.gd
+res://assets/ui/rank_item/rank_item.tscn
+res://assets/ui/rank_item/rank_item.gd
+res://assets/ui/rank_item/rank_item.gdshader
+res://assets/ui/podium/podium.tscn

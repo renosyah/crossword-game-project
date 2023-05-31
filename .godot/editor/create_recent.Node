@@ -1,13 +1,15 @@
 VBoxContainer
+MarginContainer
+HBoxContainer
+CenterContainer
 Control
 TextureRect
-HBoxContainer
-MarginContainer
+HTTPRequest
+Panel
 Label
-CenterContainer
+ScrollContainer
 AnimationPlayer
 Button
-Panel
 AnimationTree
 NinePatchRect
 SafeArea
@@ -16,6 +18,5 @@ HSplitContainer
 Node
 Timer
 ColorRect
-HTTPRequest
 GridContainer
 AspectRatioContainer

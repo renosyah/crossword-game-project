@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://doevsa43xqs6q"]
+
+[ext_resource type="Script" path="res://main/sub_main_scene/rank/rank.gd" id="1_modur"]
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_xsod2"]
+[ext_resource type="PackedScene" uid="uid://dtx0xwe6jlnv" path="res://assets/ui/podium/podium.tscn" id="3_lxb23"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gy7q"]
+bg_color = Color(0, 0, 0, 0.4)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+
+[node name="rank" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_modur")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_xsod2")
+theme_override_font_sizes/font_size = 24
+text = "TOP GLOBAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 29)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="podium" parent="." instance=ExtResource("3_lxb23")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="ScrollContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gy7q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+
+[node name="ranks" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
