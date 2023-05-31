@@ -1,3 +1,6 @@
 res://default_env.tres
 res://main/main.tscn
 res://main/main.gd
+res://main/sub_main_scene/login/login.tscn
+res://main/sub_main_scene/main_menu/main_menu.tscn
+res://addons/google_auth/OAuth2.gd

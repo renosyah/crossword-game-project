@@ -284,7 +284,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_i3mkc")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "Sign in"
 horizontal_alignment = 1
 
@@ -301,7 +301,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 0.682353)
 theme_override_fonts/font = ExtResource("2_i3mkc")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 16
 text = "Sign in with your Google account to take quiz and win the prize pool"
 horizontal_alignment = 1
 autowrap_mode = 3

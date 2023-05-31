@@ -365,7 +365,6 @@ func get_profile_info():
 		return
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
-	print(response_body)
 	emit_signal("profile_info", OAuth2UserInfo.new(response_body))
 	
 func _webview_popup_on_dialog_dismiss():
