@@ -336,11 +336,17 @@ func _on_clear_word_pressed():
 var _is_on_rank_menu :bool = false
 	
 func _on_back_button_pressed():
-	emit_signal("back_press", _is_on_rank_menu)
-	
 	if _is_on_rank_menu:
+		emit_signal("back_press", _is_on_rank_menu)
+		
 		animation_player.play_backwards("to_rank")
 		_is_on_rank_menu = false
+		
+	else:
+		animation_player.play_backwards("show_puzzle")
+		await animation_player.animation_finished
+		emit_signal("back_press", _is_on_rank_menu)
+	
 		
 func _on_rank_button_pressed():
 	_is_on_rank_menu = true

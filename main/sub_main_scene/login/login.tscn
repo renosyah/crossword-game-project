@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvhmhj8eit6p6"]
+[gd_scene load_steps=13 format=3 uid="uid://bvhmhj8eit6p6"]
 
 [ext_resource type="Texture2D" uid="uid://curmu5oivd1km" path="res://assets/ui/icons/icon.png" id="1_4oi27"]
 [ext_resource type="Script" path="res://main/sub_main_scene/login/login.gd" id="1_qrl7g"]
@@ -13,6 +13,11 @@ corner_radius_top_left = 45
 corner_radius_top_right = 45
 corner_radius_bottom_right = 45
 corner_radius_bottom_left = 45
+shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i576"]
 
 [sub_resource type="Animation" id="Animation_beun6"]
 length = 0.001
@@ -340,6 +345,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8i576")
 flat = true
 
 [node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]

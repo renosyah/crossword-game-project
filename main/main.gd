@@ -106,8 +106,9 @@ func _on_gameplay_back_press(_is_on_rank_menu :bool):
 		return
 		
 	animated_background.set_stage(4, true)
-	gameplay.visible = false
 	main_menu.show_menu(true)
+	await get_tree().process_frame
+	gameplay.visible = false
 
 func _on_main_menu_setting():
 	loading.visible = true

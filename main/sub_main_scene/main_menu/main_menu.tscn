@@ -12,14 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="10_r0q0d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob5f8"]
-bg_color = Color(1, 1, 1, 0.658824)
+bg_color = Color(1, 1, 1, 0.7)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-shadow_color = Color(0.262745, 0.262745, 0.262745, 0.6)
+shadow_color = Color(0.47, 0.47, 0.47, 0.4)
 shadow_size = 4
-shadow_offset = Vector2(0, 4)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kuuol"]
 
@@ -36,9 +36,6 @@ corner_radius_bottom_left = 16
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 20
 corner_radius_bottom_left = 20
-shadow_color = Color(0.380392, 0.380392, 0.380392, 0.6)
-shadow_size = 4
-shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xbh47"]
 
@@ -50,9 +47,9 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-shadow_color = Color(0.364706, 0.364706, 0.364706, 0.6)
+shadow_color = Color(0.0980392, 0.0980392, 0.0980392, 0.4)
 shadow_size = 4
-shadow_offset = Vector2(0, 4)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="Animation" id="Animation_5s3ef"]
 length = 0.001
@@ -346,10 +343,10 @@ tracks/1/path = NodePath("setting_button:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -358,10 +355,10 @@ tracks/2/path = NodePath("rank_button:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -406,10 +403,10 @@ tracks/6/path = NodePath("setting_button:offset_right")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0.0]
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [136.0, 0.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -418,10 +415,10 @@ tracks/7/path = NodePath("setting_button:offset_left")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [-56.0]
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [79.0, -56.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false

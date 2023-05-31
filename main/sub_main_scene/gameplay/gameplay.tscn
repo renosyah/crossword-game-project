@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=23 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
@@ -17,9 +17,6 @@
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 20
 corner_radius_bottom_left = 20
-shadow_color = Color(0.380392, 0.380392, 0.380392, 0.6)
-shadow_size = 4
-shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8msew"]
 
@@ -31,14 +28,6 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_miers"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63eri"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0.380392, 0.380392, 0.380392, 0.6)
-shadow_size = 4
-shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ul3h"]
 bg_color = Color(1, 1, 1, 1)
@@ -612,7 +601,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_63eri")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gt85e")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button"]
 layout_mode = 1
@@ -657,7 +646,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_63eri")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gt85e")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
 layout_mode = 1
