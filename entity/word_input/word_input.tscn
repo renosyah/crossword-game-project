@@ -13,21 +13,32 @@ shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
 [node name="word_input" type="MarginContainer"]
-custom_minimum_size = Vector2(70, 70)
-offset_right = 70.0
-offset_bottom = 70.0
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
 mouse_filter = 2
 script = ExtResource("3")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8b6ih")
+mouse_filter = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="CenterContainer"]
+custom_minimum_size = Vector2(68, 68)
 layout_mode = 2
 flat = true
 
-[node name="Label" type="Label" parent="Button"]
+[node name="Panel" type="Panel" parent="CenterContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8b6ih")
+
+[node name="Label" type="Label" parent="CenterContainer/Button"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 anchor_right = 1.0
@@ -38,4 +49,4 @@ text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Button" to="." method="_on_button_pressed"]

@@ -8,14 +8,20 @@ const word_tile = preload("res://entity/word_tile/word_tile.tscn")
 const word_input = preload("res://entity/word_input/word_input.tscn")
 const word_output = preload("res://entity/word_output/word_output.tscn")
 
+@onready var level = $VBoxContainer/HBoxContainer2/level
+
 @onready var grid_container = $VBoxContainer/HBoxContainer/GridContainer
 @onready var grid = $VBoxContainer/HBoxContainer/GridContainer/grid
 
-@onready var grid_input_container = $VBoxContainer/MarginContainer3/VBoxContainer/CenterContainer/grid_input_container
-@onready var word_output_container = $VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer2
+@onready var grid_input_container = $VBoxContainer/Control/MarginContainer3/VBoxContainer/CenterContainer/grid_input_container
+@onready var word_output_container = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/HBoxContainer2
 
-@onready var clear_word = $VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
+@onready var menu_input_container = $VBoxContainer/Control
+@onready var menu_input = $VBoxContainer/Control/MarginContainer3
+
+@onready var clear_word = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
 @onready var timer_delay = $TimerDelay
+@onready var timer = $Timer
 
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
@@ -28,7 +34,14 @@ var default_size :Vector2 = Vector2(50, 50)
 var grid_container_size :Vector2
 var trimed_crossword :Dictionary
 
+@onready var animation_player = $AnimationPlayer
+
 func generate_puzzle():
+	level.text = "Level %s" % Global.level
+	
+	animation_player.play("RESET")
+	await animation_player.animation_finished
+	
 	solved_tiles.clear()
 	_on_clear_word_pressed()
 	
@@ -37,12 +50,31 @@ func generate_puzzle():
 	
 	trimed_crossword = util.trim(crossword.rows, crossword.grid)
 	
+	_display_input_tile()
+	
+	await get_tree().process_frame
+	menu_input_container.custom_minimum_size = menu_input.size
+	
 	await get_tree().process_frame
 	grid_container_size = grid_container.size
 	
 	_calculate_tile_size()
 	_build_crossword_grid()
 	_display_clue()
+	
+	animation_player.play("show_puzzle")
+	
+func _display_input_tile():
+	var characters = []
+	for key in trimed_crossword.keys():
+		var data :String = trimed_crossword[key]
+		if not data.is_empty() and not characters.has(data):
+			characters.append(data)
+			
+	randomize()
+	characters.shuffle()
+	
+	_set_input_character(characters)
 	
 func _calculate_tile_size():
 	var trimed :Dictionary = util.trim(crossword.rows, crossword.grid)
@@ -63,7 +95,6 @@ func _build_crossword_grid():
 		grid.remove_child(i)
 		i.queue_free()
 		
-	var characters = []
 	grid.columns = util.rows
 	
 	for key in trimed_crossword.keys():
@@ -80,16 +111,9 @@ func _build_crossword_grid():
 			
 			if solved_tiles.has(tile.id):
 				tile.solved()
-				
-			if not characters.has(tile.data):
-				characters.append(tile.data)
 		else:
 			grid.add_child(Control.new())
 			
-	randomize()
-	characters.shuffle()
-	
-	_set_input_character(characters)
 	
 func _set_input_character(characters :Array):
 	for i in grid_input_container.get_children():
@@ -185,13 +209,55 @@ func _find_and_show_word(word :String):
 					timer_delay.start()
 					await timer_delay.timeout
 				
-			#display_word_founded(word)
 			Global.word_list_founded.append(word)
-			#_check_if_solved()
+			_check_if_solved()
 			return
 			
 	# not found
-	#player_hurt()
+	# player_hurt()
+	
+func _check_if_solved():
+	for i in grid.get_children():
+		if not i is WordTile:
+			continue
+			
+		if not i.is_solved:
+			return
+			
+	_show_solved()
+	
+func _show_solved():
+	timer.wait_time = 1.3
+	timer.start()
+	await timer.timeout
+	
+	Global.level += 1
+	Global.generate_words()
+	
+	if Admob.get_is_interstitial_loaded():
+		# hide banner!
+		# prevent from overlapping
+		# with interstitial
+		Admob.hide_banner()
+		Admob.show_interstitial()
+		return
+		
+	# reset puzzle
+	generate_puzzle()
+	
+func _display_hint():
+	var rand = grid.get_children().duplicate()
+	
+	randomize()
+	rand.shuffle()
+	
+	for i in rand:
+		if not i is WordTile:
+			continue
+			
+		if not i.is_show:
+			i.show_data()
+			return
 	
 func _on_back_button_pressed():
 	emit_signal("back_press")
@@ -210,6 +276,10 @@ func _on_check_word_pressed():
 		return
 		
 	_find_and_show_word(word)
+
+func _on_hint_button_pressed():
+	_display_hint()
+	_on_clear_word_pressed()
 	
 func _on_clear_word_pressed():
 	clear_word.visible = false
@@ -217,3 +287,5 @@ func _on_clear_word_pressed():
 	output_sets.clear()
 	
 	
+
+

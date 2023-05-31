@@ -5,8 +5,7 @@ signal on_press(data)
 
 @export var data :String
 
-@onready var label = $Button/Label
-@onready var button = $Button
+@onready var label = $CenterContainer/Button/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -13,9 +13,10 @@ func _ready():
 	loading.visible = false
 	main_menu.visible = false
 	gameplay.visible = false
+	login.visible = false
 	
+	Admob.banner_loaded.connect(_admob_banner_loaded)
 	OAuth2.sign_in_completed.connect(_sign_in_completed)
-	Admob.initialization_finish.connect(_admob_initialization_finish)
 	
 	if not Global.player.player_id.is_empty():
 		_to_main_menu()
@@ -38,10 +39,11 @@ func _sign_in_completed():
 	var profile :OAuth2.OAuth2UserInfo = await OAuth2.profile_info
 	if profile != null:
 		Global.player.player_id = profile.id
+		Global.player.player_email = profile.email
 		Global.player.player_name = profile.given_name
 		Global.player.player_avatar = profile.picture
 		Global.player.save_data(Global.player_data_file)
-		
+	
 	login.hide_login_form()
 	await login.login_form_hide
 	
@@ -49,16 +51,24 @@ func _sign_in_completed():
 	
 func _to_main_menu():
 	login.visible = false
-	loading.visible = true
 	animated_background.set_stage(3, true)
-	Admob.initialize()
 	
-func _admob_initialization_finish():
-	loading.visible = false
+	loading.visible = true
+	
+	Admob.initialize()
+	await Admob.initialization_finish
+	
+	if Admob.get_is_banner_loaded():
+		Admob.load_banner()
+	
 	animated_background.set_stage(3)
+	loading.visible = false
 	
 	main_menu.visible = true
 	main_menu.show_menu()
+	
+func _admob_banner_loaded():
+	Admob.show_banner()
 	
 func _on_main_menu_play():
 	animated_background.set_stage(4)
@@ -75,6 +85,20 @@ func _on_gameplay_back_press():
 	animated_background.set_stage(4, true)
 	gameplay.visible = false
 	main_menu.show_menu(true)
+
+func _on_main_menu_setting():
+	loading.visible = true
+	OAuth2.sign_out()
+	await OAuth2.sign_out_completed
+	
+	loading.visible = false
+	animated_background.set_stage(3, true)
+	await animated_background.stage_finish
+	
+	Global.player.delete_data(Global.player_data_file)
+	Global.player = PlayerData.new()
+	get_tree().reload_current_scene()
+
 
 
 

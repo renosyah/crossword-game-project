@@ -3,7 +3,7 @@ extends Node
 signal sign_in_completed
 signal no_session
 signal sign_in_expired
-signal profile_info
+signal profile_info(profile)
 signal sign_out_completed
 signal failed(message)
 
@@ -142,12 +142,9 @@ func sign_out():
 	simple_delay.start()
 	await simple_delay.timeout
 	
-	if token == null:
-		emit_signal("failed", "failed sign out, no session!")
-		return
-		
-	await _revoke_auth_code()
-	
+	if token != null:
+		await _revoke_auth_code()
+
 	_delete_tokens()
 	emit_signal("sign_out_completed")
 	
@@ -224,7 +221,7 @@ func _get_auth_code():
 			"client_id=%s" % Credentials.CLIENT_ID,
 			"redirect_uri=%s" % Credentials.WEB_REDIRECT_URL,
 			"response_type=code",
-			"scope=https://www.googleapis.com/auth/userinfo.profile",
+			"scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
 		]
 		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
 		JavaScriptBridge.eval('window.location.replace("%s")' % url)
@@ -241,7 +238,7 @@ func _get_auth_code():
 			"client_id=%s" % Credentials.CLIENT_ID,
 			"redirect_uri=%s" % redirect_uri,
 			"response_type=code",
-			"scope=https://www.googleapis.com/auth/userinfo.profile",
+			"scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
 		]
 		
 		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
@@ -261,7 +258,7 @@ func _get_auth_code():
 			"client_id=%s" % Credentials.CLIENT_ID,
 			"redirect_uri=%s" % redirect_uri,
 			"response_type=code",
-			"scope=https://www.googleapis.com/auth/userinfo.profile",
+			"scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
 		]
 		
 		var url :String = AUTH_SERVER + "?" + "&".join(PackedStringArray(body_parts))
@@ -368,7 +365,7 @@ func get_profile_info():
 		return
 	
 	var response_body :Dictionary = JSON.parse_string((response[3] as PackedByteArray).get_string_from_utf8())
-	
+	print(response_body)
 	emit_signal("profile_info", OAuth2UserInfo.new(response_body))
 	
 func _webview_popup_on_dialog_dismiss():
@@ -462,6 +459,7 @@ func _load_HTML(path :String) -> String:
 
 class OAuth2UserInfo:
 	var id :String
+	var email :String
 	var full_name :String
 	var given_name :String
 	var family_name :String
@@ -470,6 +468,7 @@ class OAuth2UserInfo:
 
 	func _init(_response :Dictionary):
 		self.id = _response["id"]
+		self.email = _response["email"]
 		self.full_name  = _response["name"]
 		self.given_name  = _response["given_name"]
 		self.family_name = _response["family_name"]

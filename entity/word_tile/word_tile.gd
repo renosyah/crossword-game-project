@@ -4,6 +4,7 @@ class_name WordTile
 @export var id :String
 @export var data :String
 @export var is_show :bool
+@export var is_solved :bool
 
 @onready var label = $Label
 @onready var panel_style :StyleBoxFlat = $Panel.get_theme_stylebox(StringName("panel")).duplicate()
@@ -20,6 +21,7 @@ func show_data():
 	label.text = data.to_upper()
 	
 func solved():
+	is_solved = true
 	panel_style.bg_color = Color("#FFE4A2")
 	show_data()
 	
