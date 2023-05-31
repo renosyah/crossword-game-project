@@ -9,3 +9,4 @@ res://main/sub_main_scene/gameplay/gameplay.tscn
 res://entity/word_tile/word_tile.tscn
 res://entity/word_output/word_output.tscn
 res://entity/word_input/word_input.tscn
+res://entity/word_tile/word_tile.gd

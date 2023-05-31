@@ -7,8 +7,10 @@ class_name WordTile
 @export var is_solved :bool
 
 @onready var label = $Label
-@onready var panel_style :StyleBoxFlat = $Panel.get_theme_stylebox(StringName("panel")).duplicate()
-@onready var panel = $Panel
+@onready var panel_style :StyleBoxFlat = $Control/Panel.get_theme_stylebox(StringName("panel")).duplicate()
+@onready var panel = $Control/Panel
+
+var tween :Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +25,13 @@ func show_data():
 func solved():
 	is_solved = true
 	panel_style.bg_color = Color("#FFE4A2")
+	if tween:
+		tween.kill()
+	
+	tween = create_tween()
+	
+	panel.scale = Vector2.ONE * 1.3
+	tween.tween_property(panel, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_BOUNCE)
 	show_data()
 	
 func tile_size_updated():
