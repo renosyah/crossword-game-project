@@ -11,11 +11,29 @@ signal back_press
 @onready var level = $VBoxContainer/level
 @onready var back_button_container = $HBoxContainer2
 
+@onready var rank_label = $rank_button/MarginContainer/HBoxContainer/VBoxContainer/rank_label
+@onready var setting_label = $setting_button/MarginContainer/HBoxContainer/VBoxContainer/setting_label
+@onready var game_title = $VBoxContainer/game_title
+@onready var play_label = $VBoxContainer/HBoxContainer/play/HBoxContainer/play_label
+
+@onready var rank_container = $rank_button/MarginContainer
+@onready var setting_container = $setting_button/MarginContainer
+
 var _can_back :bool = false
 
+func _ready():
+	game_title.text = tr("GAME_TITLE")
+	play_label.text = tr("PLAY")
+	rank_label.text = tr("RANK")
+	setting_label.text = tr("SETTING")
+	
 func show_menu(re_show :bool = false):
-	level.text = "Level %s" % Global.level
-	login_name.text = "Login as %s" % Global.player.player_name
+	var size_max_x = max(rank_container.size.x, setting_container.size.x)
+	rank_container.custom_minimum_size.x = size_max_x
+	setting_container.custom_minimum_size.x = size_max_x
+	
+	level.text = "%s %s" % [tr("LEVEL") ,Global.level]
+	login_name.text = "%s %s" % [tr("SIGNED_IN_AS"),Global.player.player_name] 
 	login_email.text = Global.player.player_email
 	
 	if re_show:

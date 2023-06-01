@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=24 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
@@ -11,9 +11,9 @@
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="7_qsvik"]
 [ext_resource type="PackedScene" uid="uid://bac3jnsksju3k" path="res://assets/ui/hit_point_display/hit_point_display.tscn" id="8_bmk5m"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_apy4m"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k7lx3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt85e"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh62v"]
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 20
 corner_radius_bottom_left = 20
@@ -28,6 +28,11 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_miers"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt85e"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ul3h"]
 bg_color = Color(1, 1, 1, 1)
@@ -404,10 +409,9 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_kxjxo")
 
-[node name="rank_button" type="Button" parent="."]
+[node name="rank_button" type="Control" parent="."]
 custom_minimum_size = Vector2(57, 81)
 layout_mode = 1
-anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -417,43 +421,73 @@ offset_top = -471.0
 offset_bottom = -390.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_apy4m")
-flat = true
 
-[node name="Panel2" type="Panel" parent="rank_button"]
+[node name="MarginContainer" type="MarginContainer" parent="rank_button"]
+custom_minimum_size = Vector2(57, 0)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -40.5
+offset_bottom = 40.5
+grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gt85e")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="rank_button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="button" type="Button" parent="rank_button/MarginContainer"]
+custom_minimum_size = Vector2(57, 81)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k7lx3")
+flat = true
+
+[node name="Panel2" type="Panel" parent="rank_button/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jh62v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="rank_button/MarginContainer"]
+layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="rank_button/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="rank_button/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="rank_button/MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="rank_button/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="rank_button/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_qsp4u")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="rank_button/VBoxContainer"]
+[node name="rank_label" type="Label" parent="rank_button/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
 text = "Rank"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="rank_button/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -620,7 +654,7 @@ texture = ExtResource("4_k458k")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer"]
+[node name="list_label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
@@ -665,7 +699,7 @@ texture = ExtResource("6_mi1bp")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+[node name="hint_label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
@@ -707,7 +741,7 @@ offset_right = 72.0
 offset_bottom = 27.0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer"]
+[node name="chance_left" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.941176, 1, 0.709804, 1)
 theme_override_fonts/font = ExtResource("7_qsvik")
@@ -822,7 +856,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tw2nr")
 
-[node name="Label" type="Label" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word/MarginContainer4"]
+[node name="check_label" type="Label" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word/MarginContainer4"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.827451, 0.368627, 1)
 theme_override_fonts/font = ExtResource("3_dg1nc")
@@ -867,7 +901,7 @@ libraries = {
 "": SubResource("AnimationLibrary_khwdh")
 }
 
-[connection signal="pressed" from="rank_button" to="." method="_on_rank_button_pressed"]
+[connection signal="pressed" from="rank_button/MarginContainer/button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button" to="." method="_on_hint_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word" to="." method="_on_clear_word_pressed"]

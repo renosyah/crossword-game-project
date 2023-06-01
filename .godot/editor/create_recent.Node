@@ -1,14 +1,14 @@
+Control
+MarginContainer
+HBoxContainer
 Node
 TextureRect
-Control
 AnimationPlayer
 VisibleOnScreenNotifier2D
 VBoxContainer
 CenterContainer
-MarginContainer
 Panel
 Label
-HBoxContainer
 HTTPRequest
 ScrollContainer
 Button

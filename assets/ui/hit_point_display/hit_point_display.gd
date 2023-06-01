@@ -37,6 +37,9 @@ func display_hp():
 	
 func pop_hp(count :int = 1):
 	for i in count:
+		if hp_row.get_children().is_empty():
+			return
+			
 		if tween:
 			tween.kill()
 			

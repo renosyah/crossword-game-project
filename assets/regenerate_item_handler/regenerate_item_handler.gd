@@ -66,6 +66,12 @@ func _load_last_data():
 			item_count -= 1
 	
 func add_generate_item(count :int = 1):
+	if item_count <= 0:
+		return
+		
+	if item_count - count < 0:
+		return
+		
 	# add more cooldown currently in regenerate proccess
 	for i in regenerating_items:
 		var item :regenerateItem = i

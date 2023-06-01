@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bvhmhj8eit6p6"]
+[gd_scene load_steps=15 format=3 uid="uid://bvhmhj8eit6p6"]
 
 [ext_resource type="Texture2D" uid="uid://curmu5oivd1km" path="res://assets/ui/icons/icon.png" id="1_4oi27"]
 [ext_resource type="Script" path="res://main/sub_main_scene/login/login.gd" id="1_qrl7g"]
 [ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="3_vl616"]
-[ext_resource type="Texture2D" uid="uid://cxb72domjgkum" path="res://main/sub_main_scene/login/sign_in_button.png" id="4_pf4gr"]
 [ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="4_qxarm"]
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="4_wbybf"]
+[ext_resource type="Texture2D" uid="uid://rerywpejgvl3" path="res://main/sub_main_scene/main_menu/google.png" id="6_etqxc"]
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="7_cgl2e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x2nh"]
 bg_color = Color(1, 1, 1, 1)
@@ -18,6 +19,16 @@ shadow_size = 4
 shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i576"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pb7kr"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="Animation" id="Animation_beun6"]
 length = 0.001
@@ -260,7 +271,7 @@ texture = ExtResource("1_4oi27")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="mainIcon"]
+[node name="game_title" type="Label" parent="mainIcon"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 1
@@ -298,7 +309,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="panelLogin/VBoxContainer"]
+[node name="sign_in_title" type="Label" parent="panelLogin/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_wbybf")
@@ -314,7 +325,7 @@ alignment = 1
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer2"]
+[node name="sign_in_description" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.380392, 0.380392, 0.380392, 1)
@@ -348,15 +359,62 @@ size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8i576")
 flat = true
 
-[node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]
+[node name="Panel" type="Panel" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]
+custom_minimum_size = Vector2(375, 80)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_pf4gr")
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pb7kr")
+
+[node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_etqxc")
 expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="sign_in_button" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_cgl2e")
+theme_override_font_sizes/font_size = 16
+text = "Sign in with Google"
+vertical_alignment = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)

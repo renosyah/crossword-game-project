@@ -10,6 +10,11 @@ const word_input = preload("res://entity/word_input/word_input.tscn")
 const word_output = preload("res://entity/word_output/word_output.tscn")
 
 @onready var level = $VBoxContainer/HBoxContainer2/level
+@onready var rank_label = $rank_button/MarginContainer/HBoxContainer/VBoxContainer/rank_label
+@onready var list_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer/list_label
+@onready var hint_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer/hint_label
+@onready var check_label = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word/MarginContainer4/check_label
+@onready var chance_left = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/chance_left
 
 @onready var grid_container = $VBoxContainer/HBoxContainer/GridContainer
 @onready var grid = $VBoxContainer/HBoxContainer/GridContainer/grid
@@ -27,6 +32,9 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var timer_delay = $TimerDelay
 @onready var timer = $Timer
 
+@onready var button_rank_container = $rank_button/MarginContainer
+@onready var gameplay_helper = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper
+
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
@@ -41,6 +49,12 @@ var trimed_crossword :Dictionary
 @onready var animation_player = $AnimationPlayer
 
 func _ready():
+	rank_label.text = tr("RANK")
+	list_label.text = tr("DICTIONARY")
+	hint_label.text = tr("HINT")
+	check_label.text = tr("CHECK")
+	chance_left.text = tr("CHANCE_LEFT")
+	
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
 	
@@ -48,7 +62,9 @@ func _ready():
 	Global.regenerate_hint.regenerate_complete.connect(_regenerate_hint_complete)
 
 func generate_puzzle():
-	level.text = "Level %s" % Global.level
+	gameplay_helper.custom_minimum_size.x = button_rank_container.size.x
+	
+	level.text = "%s %s" % [tr("LEVEL") ,Global.level]
 	hit_point_display.hp = Global.regenerate_hp.item_count
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
@@ -358,7 +374,6 @@ func _on_back_button_pressed():
 		animation_player.play_backwards("show_puzzle")
 		await animation_player.animation_finished
 		emit_signal("back_press", _is_on_rank_menu)
-	
 		
 func _on_rank_button_pressed():
 	_is_on_rank_menu = true

@@ -24,3 +24,9 @@ res://assets/regenerate_hp_hint/regenerate_item_handler.gd
 res://assets/regenerate_item_handler/regenerate_item_handler.tscn
 res://assets/regenerate_item_handler/regenerate_item_handler.gd
 res://main/main.gd
+res://main/sub_main_scene/login/login.tscn
+res://main/sub_main_scene/login/login.gd
+res://translation/translation.en.translation
+res://translation/translation.id.translation
+res://main/sub_main_scene/main_menu/main_menu.gd
+res://assets/ui/hit_point_display/hit_point_display.gd

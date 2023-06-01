@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
+@onready var label = $HBoxContainer2/Label
 
 @onready var top_rank = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank
 @onready var ranks = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/ranks
@@ -10,6 +11,9 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var scroll_container = $ScrollContainer
 
 var _enabler_visibler :bool = false
+
+func _ready():
+	label.text = tr("RANK")
 
 func show_ranks():
 	scroll_container.mouse_filter = MOUSE_FILTER_IGNORE
@@ -33,6 +37,7 @@ func show_ranks():
 			
 	podium.top_3 = top_3
 	podium.show_rank()
+	
 	await get_tree().process_frame
 	podium_container.custom_minimum_size = podium.size
 	
@@ -51,7 +56,7 @@ func _remove_child(node :Node):
 		i.queue_free()
 		
 func _on_visible_on_screen_notifier_2d_screen_entered():
-	if not _enabler_visibler:
+	if not _enabler_visibler or not visible:
 		return
 		
 	animation_player.play_backwards("show_top_rank")
@@ -60,7 +65,7 @@ func _on_visible_on_screen_notifier_2d_screen_entered():
 	
 	
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	if not _enabler_visibler:
+	if not _enabler_visibler or not visible:
 		return
 		
 	animation_player.play("show_top_rank")

@@ -12,7 +12,7 @@ var player :PlayerData
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_name.text = player.player_name
-	player_level.text = "Level %s" % level
+	player_level.text = "%s %s" % [tr("LEVEL") ,level]
 	crown.texture = null
 	match (number):
 		1:

@@ -15,7 +15,7 @@ var player :PlayerData
 func _ready():
 	num.text = "%s." % number
 	player_name.text = player.player_name
-	player_level.text = "Level %s" % level
+	player_level.text = "%s %s" % [tr("LEVEL") ,level]
 	
 	crown.texture = null
 	match (number):
