@@ -11,3 +11,8 @@ res://assets/ui/podium/podium.gd
 res://assets/ui/podium/podium_item/podium_item.gd
 res://global/global.gd
 res://assets/ui/rank_item/rank_item.gd
+res://data/regenerate_hp_hint/regenerate_hp_hint.gd
+res://assets/regenerate_hp_hint/regenerate_hp_hint.tscn
+res://assets/regenerate_hp_hint/regenerate_hp_hint.gd
+res://assets/ui/hit_point_display/hit_point_display.tscn
+res://main/sub_main_scene/gameplay/gameplay.gd

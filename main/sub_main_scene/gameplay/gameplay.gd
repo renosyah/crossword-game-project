@@ -43,11 +43,13 @@ var trimed_crossword :Dictionary
 func _ready():
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
+	
+	Global.regenerate_hp_hint.regenerate_complete.connect(_regenerate_hp_hint_regenerate_complete)
 
 func generate_puzzle():
 	level.text = "Level %s" % Global.level
-	hit_point_display.hp = Global.player_hp
-	hit_point_display.max_hp = Global.player_max_hp
+	hit_point_display.hp = Global.regenerate_hp_hint.player_hp
+	hit_point_display.max_hp = Global.regenerate_hp_hint.player_max_hp
 	hit_point_display.display_hp()
 	
 	animation_player.play("RESET")
@@ -241,10 +243,11 @@ func _find_and_show_word(word :String):
 	_player_hurt()
 	
 func _player_hurt():
-	Global.player_hp -= 1
+	# hp decrease & regenerate
+	Global.regenerate_hp_hint.add_generate_item("hp")
 	hit_point_display.pop_hp()
 	
-	if Global.player_hp == 0:
+	if Global.regenerate_hp_hint.player_hp == 0:
 		_player_lose()
 		
 func _player_lose():
@@ -318,11 +321,12 @@ func _on_check_word_pressed():
 	_find_and_show_word(word)
 
 func _on_hint_button_pressed():
-	if Global.player_hint == 0:
+	if Global.regenerate_hp_hint.player_hint == 0:
 		return
 		
-	Global.player_hint -= 1
-	hint_left.text = str(Global.player_hint)
+	# hint decrease & regenerate
+	Global.regenerate_hp_hint.add_generate_item("hint")
+	hint_left.text = str(Global.regenerate_hp_hint.player_hint)
 	_display_hint()
 	_on_clear_word_pressed()
 	
@@ -330,6 +334,13 @@ func _on_clear_word_pressed():
 	clear_word.visible = false
 	_clear_output()
 	output_sets.clear()
+	
+func _regenerate_hp_hint_regenerate_complete():
+	hit_point_display.hp = Global.regenerate_hp_hint.player_hp
+	hit_point_display.max_hp = Global.regenerate_hp_hint.player_max_hp
+	hit_point_display.display_hp()
+	
+	hint_left.text = str(Global.regenerate_hp_hint.player_hint)
 	
 var _is_on_rank_menu :bool = false
 	

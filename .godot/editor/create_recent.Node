@@ -1,3 +1,4 @@
+Node
 TextureRect
 Control
 AnimationPlayer
@@ -16,7 +17,6 @@ NinePatchRect
 SafeArea
 CanvasLayer
 HSplitContainer
-Node
 Timer
 ColorRect
 GridContainer

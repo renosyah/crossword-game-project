@@ -6,13 +6,6 @@ const player_data_file = "player.data"
 @onready var wordData :WordsData = WordsData.new()
 @onready var player :PlayerData = PlayerData.new()
 
-@onready var player_hint :int = 10
-@onready var player_max_hint :int = 10
-@onready var player_hp :int = 5
-@onready var player_max_hp :int = 5
-
-@onready var player_score :int = 0
-
 @onready var level :int = 1
 @onready var words_count :int = 5
 @onready var word_list :Array = []
@@ -24,11 +17,10 @@ func _ready():
 	
 	player.load_data(player_data_file)
 	
+	setup_regenerate_hp_hint()
+
 func reset_player():
 	level = 1
-	player_hint = player_max_hint
-	player_hp = player_max_hp
-	player_score = 0
 	
 func generate_words():
 	word_list.clear()
@@ -58,57 +50,37 @@ func generate_words():
 		
 	for i in list:
 		word_list.append([i, "clue"])
-		
+	
 ######################################################################
 
-@onready var scores_limit :int = 20
-@onready var scores :Array = load_scores()
+var regenerate_hp_hint :RegenerateHpHint
 
-func load_scores() -> Array:
-	var _scores = SaveLoad.load_save("scores.dat")
-	if _scores == null:
-		return []
-		
-	_scores.sort_custom(Callable(ScoreSorter, "sort"))
-	return _scores
+func setup_regenerate_hp_hint():
+	regenerate_hp_hint = preload("res://assets/regenerate_hp_hint/regenerate_hp_hint.tscn").instantiate()
+	regenerate_hp_hint.error.connect(_regenerate_hp_hint_error)
+	regenerate_hp_hint.ready_to_regenerate.connect(_regenerate_hp_hint_ready_to_regenerate)
+	regenerate_hp_hint.regenerate_complete.connect(_regenerate_hp_hint_regenerate_complete)
+	regenerate_hp_hint.one_second_pass.connect(_regenerate_hp_hint_one_second_pass)
+	add_child(regenerate_hp_hint)
 	
-func get_scores() -> Array:
-	var _scores :Array = []
+func _regenerate_hp_hint_one_second_pass():
+	pass
 	
-	for i in scores:
-		var score :ScoreData = ScoreData.new()
-		score.from_dictionary(i)
-		_scores.append(score)
+func _regenerate_hp_hint_ready_to_regenerate():
+	pass
 	
-	return _scores
+func _regenerate_hp_hint_regenerate_complete():
+	pass
 	
-func save_score():
-	var score :ScoreData = ScoreData.new()
-	score.level = level
-	score.score = player_score
+func _regenerate_hp_hint_error(_msg :String):
+	pass
 	
-	scores.append(score.to_dictionary())
-	
-	if scores.size() > scores_limit:
-		scores.pop_back()
-		
-	scores.sort_custom(Callable(ScoreSorter, "sort"))
-	SaveLoad.save("scores.dat", scores)
-	
-class ScoreSorter:
-	static func sort(a, b):
-		if a["score"] > b["score"]:
-			return true
-		return false
-
 ######################################################################
-
 @onready var image_cache :Dictionary = {}
 
 func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
-	var empty = ImageTexture.new()
 	if player.player_avatar.is_empty():
-		return empty
+		return null
 		
 	if Global.image_cache.has(player.player_id):
 		return image_cache[player.player_id]
@@ -119,18 +91,18 @@ func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
 	var http_error = http_request.request(player.player_avatar)
 	if http_error != OK:
 		http_request.queue_free()
-		return empty
+		return null
 		
 	var result :Array = await http_request.request_completed
 	if result[0] != HTTPRequest.RESULT_SUCCESS:
-		return empty
+		return null
 		
 	http_request.queue_free()
 	
 	var img = Image.new()
 	var image_error = img.load_jpg_from_buffer(result[3])
 	if image_error != OK:
-		return empty
+		return null
 		
 	image_cache[player.player_id] = ImageTexture.create_from_image(img)
 	return image_cache[player.player_id]

@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjh8vhgf6yjvo"]
+[gd_scene load_steps=6 format=3 uid="uid://cjh8vhgf6yjvo"]
 
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_b35r6"]
 [ext_resource type="Script" path="res://assets/ui/podium/podium_item/podium_item.gd" id="1_y7sha"]
-[ext_resource type="Texture2D" uid="uid://cye5qtksbpuoa" path="res://assets/ui/icons/clear.png" id="2_0fx7k"]
 [ext_resource type="Texture2D" uid="uid://bi6e2hlycesqy" path="res://assets/ui/icons/rank_1.png" id="2_p0e1g"]
 [ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="3_68gym"]
 
@@ -52,7 +51,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_0fx7k")
 expand_mode = 1
 stretch_mode = 5
 
