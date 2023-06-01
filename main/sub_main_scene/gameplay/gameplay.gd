@@ -34,6 +34,7 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 
 @onready var button_rank_container = $rank_button/MarginContainer
 @onready var gameplay_helper = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper
+@onready var margin_right = $VBoxContainer/HBoxContainer/MarginContainer2
 
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
@@ -63,6 +64,7 @@ func _ready():
 
 func generate_puzzle():
 	gameplay_helper.custom_minimum_size.x = button_rank_container.size.x
+	margin_right.custom_minimum_size.x = button_rank_container.size.x
 	
 	level.text = "%s %s" % [tr("LEVEL") ,Global.level]
 	hit_point_display.hp = Global.regenerate_hp.item_count
