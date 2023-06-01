@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cte2n7vglya4s"]
+[gd_scene load_steps=7 format=3 uid="uid://cte2n7vglya4s"]
 
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_3ikk3"]
 [ext_resource type="Script" path="res://assets/ui/rank_item/rank_item.gd" id="1_86cfo"]
 [ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="2_qx73i"]
 [ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="4_fo6el"]
+[ext_resource type="Texture2D" uid="uid://bi6e2hlycesqy" path="res://assets/ui/icons/rank_1.png" id="5_pgi51"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7ra5"]
 bg_color = Color(1, 0.972549, 0.901961, 1)
@@ -14,7 +15,6 @@ corner_radius_bottom_left = 24
 
 [node name="rank_item" type="MarginContainer"]
 custom_minimum_size = Vector2(332, 0)
-anchors_preset = -1
 offset_right = 332.0
 offset_bottom = 86.0
 mouse_filter = 2
@@ -118,6 +118,13 @@ theme_override_fonts/font = ExtResource("2_qx73i")
 theme_override_font_sizes/font_size = 13
 text = "Level 568"
 
+[node name="crown" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_pgi51")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
@@ -132,7 +139,3 @@ mouse_filter = 2
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 mouse_filter = 2
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

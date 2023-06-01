@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjh8vhgf6yjvo"]
+
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_b35r6"]
+[ext_resource type="Script" path="res://assets/ui/podium/podium_item/podium_item.gd" id="1_y7sha"]
+[ext_resource type="Texture2D" uid="uid://cye5qtksbpuoa" path="res://assets/ui/icons/clear.png" id="2_0fx7k"]
+[ext_resource type="Texture2D" uid="uid://bi6e2hlycesqy" path="res://assets/ui/icons/rank_1.png" id="2_p0e1g"]
+[ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="3_68gym"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbrrb"]
+bg_color = Color(1, 1, 1, 0.2)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="podium_item" type="VBoxContainer"]
+offset_right = 83.0
+offset_bottom = 155.0
+script = ExtResource("1_y7sha")
+
+[node name="crown" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_p0e1g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(83, 34)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hbrrb")
+
+[node name="player_level" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.894118, 0.635294, 1)
+theme_override_fonts/font = ExtResource("1_b35r6")
+theme_override_font_sizes/font_size = 12
+text = "Level ..."
+horizontal_alignment = 1
+vertical_alignment = 2
+text_overrun_behavior = 3
+max_lines_visible = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+
+[node name="avatar" type="TextureRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_0fx7k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="avatar2" type="TextureRect" parent="MarginContainer"]
+modulate = Color(0.254902, 0.662745, 0.615686, 1)
+custom_minimum_size = Vector2(54, 54)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_68gym")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="player_name" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_b35r6")
+theme_override_font_sizes/font_size = 14
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 2
+text_overrun_behavior = 3
+max_lines_visible = 10
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

@@ -101,6 +101,43 @@ class ScoreSorter:
 			return true
 		return false
 
+######################################################################
+
+@onready var image_cache :Dictionary = {}
+
+func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
+	var empty = ImageTexture.new()
+	if player.player_avatar.is_empty():
+		return empty
+		
+	if Global.image_cache.has(player.player_id):
+		return image_cache[player.player_id]
+		
+	var http_request :HTTPRequest = HTTPRequest.new()
+	_node.add_child(http_request)
+	
+	var http_error = http_request.request(player.player_avatar)
+	if http_error != OK:
+		http_request.queue_free()
+		return empty
+		
+	var result :Array = await http_request.request_completed
+	if result[0] != HTTPRequest.RESULT_SUCCESS:
+		return empty
+		
+	http_request.queue_free()
+	
+	var img = Image.new()
+	var image_error = img.load_jpg_from_buffer(result[3])
+	if image_error != OK:
+		return empty
+		
+	image_cache[player.player_id] = ImageTexture.create_from_image(img)
+	return image_cache[player.player_id]
+
+
+
+
 
 
 

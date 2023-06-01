@@ -251,8 +251,6 @@ func _player_lose():
 	Global.reset_player()
 	Global.generate_words()
 	
-	animation_player.play_backwards("show_puzzle")
-	await animation_player.animation_finished
 	_on_back_button_pressed()
 	
 func _check_if_solved():
