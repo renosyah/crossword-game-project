@@ -54,14 +54,6 @@ grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_noe1a")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Control"]
-position = Vector2(295, 4)
-rect = Rect2(-10, -10, 10, 10)
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
@@ -170,6 +162,3 @@ mouse_filter = 2
 libraries = {
 "": SubResource("AnimationLibrary_n54cm")
 }
-
-[connection signal="screen_entered" from="Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

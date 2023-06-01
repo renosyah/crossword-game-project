@@ -57,6 +57,7 @@ func _init_admob():
 	
 	if not Admob.get_is_banner_loaded():
 		Admob.load_banner()
+		
 #------------------------------ login ------------------------------------#
 func _on_login_on_sign_in_press():
 	OAuth2.sign_in()

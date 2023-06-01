@@ -85,6 +85,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_skmri"]
 resource_name = "show_rank"
@@ -137,6 +149,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [-187.0, -342.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_lpa7c"]
 resource_name = "show_top_rank"
@@ -164,6 +188,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n7twm"]
@@ -234,6 +270,18 @@ custom_minimum_size = Vector2(0, 342)
 layout_mode = 2
 mouse_filter = 2
 
+[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="ScrollContainer/VBoxContainer/Control/Control"]
+position = Vector2(-2, 4)
+rect = Rect2(-10, -10, 10, 10)
+
 [node name="podium" parent="ScrollContainer/VBoxContainer/Control" instance=ExtResource("3_lxb23")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -247,6 +295,7 @@ offset_top = -187.0
 offset_right = 300.0
 offset_bottom = 155.0
 grow_vertical = 0
+pivot_offset = Vector2(300, 342)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -304,5 +353,5 @@ libraries = {
 "": SubResource("AnimationLibrary_n7twm")
 }
 
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="on_podium_top_visible" from="ScrollContainer/VBoxContainer/Control/podium" to="." method="_on_podium_on_podium_top_visible"]
+[connection signal="screen_entered" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

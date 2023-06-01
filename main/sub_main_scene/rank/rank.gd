@@ -9,6 +9,8 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var podium =$ScrollContainer/VBoxContainer/Control/podium 
 @onready var scroll_container = $ScrollContainer
 
+var _enabler_visibler :bool = false
+
 func show_ranks():
 	scroll_container.mouse_filter = MOUSE_FILTER_IGNORE
 	
@@ -34,28 +36,38 @@ func show_ranks():
 	await get_tree().process_frame
 	podium_container.custom_minimum_size = podium.size
 	
-	podium.enabler_visibler = false
+	_enabler_visibler = false
 	
 	animation_player.play("show_rank")
 	await animation_player.animation_finished
 	
-	podium.enabler_visibler = true
-	scroll_container.mouse_filter = MOUSE_FILTER_PASS
+	_enabler_visibler = true
 	
-func _on_visibility_changed():
-	if podium:
-		podium.enabler_visibler = visible
+	scroll_container.mouse_filter = MOUSE_FILTER_PASS
 	
 func _remove_child(node :Node):
 	for i in node.get_children():
 		node.remove_child(i)
 		i.queue_free()
 		
-func _on_podium_on_podium_top_visible(is_visible :bool):
-	if not is_visible:
-		animation_player.play("show_top_rank")
-	else:
-		animation_player.play_backwards("show_top_rank")
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	if not _enabler_visibler:
+		return
+		
+	animation_player.play_backwards("show_top_rank")
+	if podium:
+		podium.show_podium()
+	
+	
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	if not _enabler_visibler:
+		return
+		
+	animation_player.play("show_top_rank")
+	if podium:
+		podium.hide_podium()
+
+
 
 
 

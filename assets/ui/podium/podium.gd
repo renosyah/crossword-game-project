@@ -1,7 +1,5 @@
 extends MarginContainer
 
-signal on_podium_top_visible(is_visible)
-
 const podium_item_scene = preload("res://assets/ui/podium/podium_item/podium_item.tscn")
 
 @export var top_3 :Array
@@ -10,7 +8,6 @@ const podium_item_scene = preload("res://assets/ui/podium/podium_item/podium_ite
 @onready var position_2 = $HBoxContainer/CenterContainer2/position_2
 @onready var position_3 = $HBoxContainer/CenterContainer3/position_3
 
-var enabler_visibler :bool = false
 @onready var h_box_container = $HBoxContainer
 @onready var animation_player = $AnimationPlayer
 
@@ -36,35 +33,12 @@ func _remove_child(node :Node):
 	for i in node.get_children():
 		node.remove_child(i)
 		i.queue_free()
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	if not enabler_visibler:
-		return
-		
-	emit_signal("on_podium_top_visible", false)
 	
-	enabler_visibler = false
-	
+func hide_podium():
 	animation_player.play("show_nomal_list")
-	await animation_player.animation_finished
-	
-	enabler_visibler = true
-	
 
-func _on_visible_on_screen_notifier_2d_screen_entered():
-	if not enabler_visibler:
-		return
-		
-	emit_signal("on_podium_top_visible", true)
-	
-	enabler_visibler = false
-	
+func show_podium():
 	animation_player.play_backwards("show_nomal_list")
-	await animation_player.animation_finished
-	
-	enabler_visibler = true
-	
-	
 	
 
 
