@@ -16,3 +16,11 @@ res://assets/regenerate_hp_hint/regenerate_hp_hint.tscn
 res://assets/regenerate_hp_hint/regenerate_hp_hint.gd
 res://assets/ui/hit_point_display/hit_point_display.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
+res://addons/save_load/save_load.gd
+res://assets/regenerate_hp_hint/regenerate_item.tscn
+res://assets/regenerate_hp_hint/regenerate_item.gd
+res://assets/regenerate_hp_hint/regenerate_item_handler.tscn
+res://assets/regenerate_hp_hint/regenerate_item_handler.gd
+res://assets/regenerate_item_handler/regenerate_item_handler.tscn
+res://assets/regenerate_item_handler/regenerate_item_handler.gd
+res://main/main.gd

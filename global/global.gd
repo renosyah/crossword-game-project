@@ -53,26 +53,29 @@ func generate_words():
 	
 ######################################################################
 
-var regenerate_hp_hint :RegenerateHpHint
+var regenerate_hp :RegenerateItemHandler
+var regenerate_hint :RegenerateItemHandler
 
 func setup_regenerate_hp_hint():
-	regenerate_hp_hint = preload("res://assets/regenerate_hp_hint/regenerate_hp_hint.tscn").instantiate()
-	regenerate_hp_hint.error.connect(_regenerate_hp_hint_error)
-	regenerate_hp_hint.ready_to_regenerate.connect(_regenerate_hp_hint_ready_to_regenerate)
-	regenerate_hp_hint.regenerate_complete.connect(_regenerate_hp_hint_regenerate_complete)
-	regenerate_hp_hint.one_second_pass.connect(_regenerate_hp_hint_one_second_pass)
-	add_child(regenerate_hp_hint)
+	var scene = preload("res://assets/regenerate_item_handler/regenerate_item_handler.tscn")
+	regenerate_hp = scene.instantiate()
+	regenerate_hp.item_name = "hp"
+	regenerate_hp.item_count = 5
+	regenerate_hp.item_max = 5
 	
-func _regenerate_hp_hint_one_second_pass():
-	pass
+	regenerate_hint = scene.instantiate()
+	regenerate_hint.item_name = "hint"
+	regenerate_hint.item_count = 10
+	regenerate_hint.item_max = 10
 	
-func _regenerate_hp_hint_ready_to_regenerate():
-	pass
+	regenerate_hp.error.connect(_regenerate_item_error)
+	regenerate_hint.error.connect(_regenerate_item_error)
 	
-func _regenerate_hp_hint_regenerate_complete():
-	pass
+	add_child(regenerate_hp)
+	add_child(regenerate_hint)
 	
-func _regenerate_hp_hint_error(_msg :String):
+	
+func _regenerate_item_error(_msg :String):
 	pass
 	
 ######################################################################

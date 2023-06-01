@@ -44,13 +44,16 @@ func _ready():
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
 	
-	Global.regenerate_hp_hint.regenerate_complete.connect(_regenerate_hp_hint_regenerate_complete)
+	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
+	Global.regenerate_hint.regenerate_complete.connect(_regenerate_hint_complete)
 
 func generate_puzzle():
 	level.text = "Level %s" % Global.level
-	hit_point_display.hp = Global.regenerate_hp_hint.player_hp
-	hit_point_display.max_hp = Global.regenerate_hp_hint.player_max_hp
+	hit_point_display.hp = Global.regenerate_hp.item_count
+	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
+	
+	hint_left.text = str(Global.regenerate_hint.item_count)
 	
 	animation_player.play("RESET")
 	await animation_player.animation_finished
@@ -244,10 +247,10 @@ func _find_and_show_word(word :String):
 	
 func _player_hurt():
 	# hp decrease & regenerate
-	Global.regenerate_hp_hint.add_generate_item("hp")
+	Global.regenerate_hp.add_generate_item()
 	hit_point_display.pop_hp()
 	
-	if Global.regenerate_hp_hint.player_hp == 0:
+	if Global.regenerate_hp.item_count == 0:
 		_player_lose()
 		
 func _player_lose():
@@ -321,12 +324,12 @@ func _on_check_word_pressed():
 	_find_and_show_word(word)
 
 func _on_hint_button_pressed():
-	if Global.regenerate_hp_hint.player_hint == 0:
+	if Global.regenerate_hint.item_count == 0:
 		return
 		
 	# hint decrease & regenerate
-	Global.regenerate_hp_hint.add_generate_item("hint")
-	hint_left.text = str(Global.regenerate_hp_hint.player_hint)
+	Global.regenerate_hint.add_generate_item()
+	hint_left.text = str(Global.regenerate_hint.item_count)
 	_display_hint()
 	_on_clear_word_pressed()
 	
@@ -335,12 +338,13 @@ func _on_clear_word_pressed():
 	_clear_output()
 	output_sets.clear()
 	
-func _regenerate_hp_hint_regenerate_complete():
-	hit_point_display.hp = Global.regenerate_hp_hint.player_hp
-	hit_point_display.max_hp = Global.regenerate_hp_hint.player_max_hp
+func _regenerate_hp_complete():
+	hit_point_display.hp = Global.regenerate_hp.item_count
+	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
 	
-	hint_left.text = str(Global.regenerate_hp_hint.player_hint)
+func _regenerate_hint_complete():
+	hint_left.text = str(Global.regenerate_hint.item_count)
 	
 var _is_on_rank_menu :bool = false
 	

@@ -23,7 +23,8 @@ func _ready():
 	# have login session
 	if not Global.player.player_id.is_empty():
 		loading.visible = true
-		await _init_admob()
+		
+		await _preparing()
 		
 		animated_background.set_stage(3)
 		loading.visible = false
@@ -35,9 +36,20 @@ func _ready():
 	login.visible = true
 	login.show_icon()
 	
-	await _init_admob()
+	await _preparing()
+	
 	animated_background.set_stage(2)
 	login.show_login_form()
+	
+func _preparing():
+	# prepare admob, and regenerator
+	await _init_admob()
+	
+	Global.regenerate_hp.run_regenerating()
+	await Global.regenerate_hp.ready_to_regenerate
+	
+	Global.regenerate_hint.run_regenerating()
+	await Global.regenerate_hint.ready_to_regenerate
 	
 func _init_admob():
 	Admob.initialize()

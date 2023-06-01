@@ -1,5 +1,5 @@
 extends Node
-class_name RegenerateHpHint
+class_name RegenerateItemHandler
 
 signal error
 signal ready_to_regenerate
@@ -10,16 +10,14 @@ var _current_time: dateTime
 var _http_request :HTTPRequest
 var _timer :Timer
 
-@export var player_hint :int = 10
-@export var player_max_hint :int = 10
-
-@export var player_hp :int = 5
-@export var player_max_hp :int = 5
+@export var item_name :String
+@export var item_count :int = 10
+@export var item_max :int = 10
 
 @export var cooldown :int = 30 # in second
 
-var hp_regenerating :Array = []
-var hint_regenerating :Array = []
+# array of object
+var regenerating_items :Array = []
 
 func _ready():
 	_current_time = dateTime.new(Time.get_datetime_dict_from_system())
@@ -36,25 +34,45 @@ func _ready():
 	add_child(_http_request)
 	add_child(_timer)
 	
-	await get_tree().process_frame
-	
+func run_regenerating():
 	var error = _http_request.request("https://timeapi.io/api/Time/current/zone?timeZone=Asia/Jakarta")
 	if error != OK:
 		emit_signal("error", "failed request time!")
 		return
+		
+func _save_data():
+	# remove garbage
+	_clear_done()
 	
-func add_generate_item(item_name :String, count :int = 1):
+	var regenerating_items_datas :Array = []
+	
+	for i in regenerating_items:
+		var item :regenerateItem = i
+		regenerating_items_datas.append(i.to_dict())
+		
+	SaveLoad.save("%s_regenerating_items_datas.data" % item_name, regenerating_items_datas)
+	
+func _load_last_data():
+	regenerating_items.clear()
+	
+	var regenerating_items_datas = SaveLoad.load_save("%s_regenerating_items_datas.data" % item_name)
+	
+	if regenerating_items_datas != null:
+		for i in (regenerating_items_datas as Array):
+			var item = regenerateItem.new()
+			item.from_dict(i)
+			item.current_time = _current_time.copy()
+			regenerating_items.append(item)
+			item_count -= 1
+	
+func add_generate_item(count :int = 1):
 	# add more cooldown currently in regenerate proccess
-	if item_name == "hp":
-		for i in hp_regenerating:
-			var item :regenerateItem = i
-			item.end_time.add(cooldown)
-			
-	elif item_name == "hint":
-		for i in hint_regenerating:
-			var item :regenerateItem = i
-			item.end_time.add(cooldown)
-			
+	for i in regenerating_items:
+		var item :regenerateItem = i
+		item.end_time.add(cooldown)
+		
+	item_count -= count
+		
 	for i in count:
 		var item = regenerateItem.new()
 		item.item_name = item_name
@@ -62,26 +80,22 @@ func add_generate_item(item_name :String, count :int = 1):
 		item.start_time = _current_time.copy()
 		item.end_time = _current_time.copy().add(cooldown)
 		item.current_time = _current_time.copy()
+		regenerating_items.append(item)
 		
-		if item_name == "hp":
-			player_hp -= 1
-			hp_regenerating.append(item)
-			
-		elif item_name == "hint":
-			player_hint -= 1
-			hint_regenerating.append(item)
+	_save_data()
 	
-func _clear_done(_items :Array):
+func _clear_done():
+	var _holders :Array = []
 	var clear_done_pos :Array = []
 	
-	for i in _items.size():
-		var item :regenerateItem = _items[i]
-		if not item.is_regenerating:
-			clear_done_pos.append(i)
-			
-	for i in clear_done_pos:
-		_items.remove_at(i)
+	for i in regenerating_items:
+		var item :regenerateItem = i
+		if item.is_regenerating:
+			_holders.append(i)
 		
+	regenerating_items.clear()
+	regenerating_items.append_array(_holders)
+	
 func _on_request_global_current_time(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		emit_signal("error", "failed request time!")
@@ -89,6 +103,7 @@ func _on_request_global_current_time(result: int, response_code: int, headers: P
 		
 	var json :Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	_current_time = dateTime.new({"year":json["year"],"month":json["month"],"day":json["day"],"hour":json["hour"],"minute":json["minute"],"second":json["seconds"]})
+	_load_last_data()
 	
 	emit_signal("ready_to_regenerate")
 	_timer.start()
@@ -102,11 +117,9 @@ func _on_one_sec_pass():
 	_current_time.add(1)
 	
 	# remove garbage
-	_clear_done(hp_regenerating)
-	_clear_done(hint_regenerating)
+	_clear_done()
 	
-	var arrays :Array = (hp_regenerating + hint_regenerating)
-	for i in arrays:
+	for i in regenerating_items:
 		var item :regenerateItem = i
 		if not item.is_regenerating:
 			continue
@@ -115,15 +128,9 @@ func _on_one_sec_pass():
 		
 		if item.get_remaining() < 0:
 			item.is_regenerating = false
-			if item.item_name == "hp":
-				player_hp = clamp(player_hp + 1, 0, player_max_hp)
-				signal_emmited = true
-				emit_signal("regenerate_complete")
-				
-			elif item.item_name == "hint":
-				signal_emmited = true
-				player_hint = clamp(player_hint + 1, 0, player_max_hint)
-				emit_signal("regenerate_complete")
+			item_count = clamp(item_count + 1, 0, item_max)
+			signal_emmited = true
+			emit_signal("regenerate_complete")
 				
 	if not signal_emmited:
 		emit_signal("one_second_pass")
@@ -147,6 +154,20 @@ class regenerateItem:
 		#var result = Time.get_datetime_dict_from_unix_time(diff)
 		#return "{minute}:{second}".format(result)
 		return diff
+		
+	func to_dict() -> Dictionary:
+		return {
+			"item_name" : item_name,
+			"is_regenerating" : is_regenerating,
+			"start_time" : start_time.to_dict(),
+			"end_time" : end_time.to_dict(),
+		}
+		
+	func from_dict(_dict :Dictionary):
+		item_name = _dict["item_name"]
+		is_regenerating = _dict["is_regenerating"]
+		start_time = dateTime.new(_dict["start_time"])
+		end_time = dateTime.new(_dict["end_time"])
 		
 class dateTime:
 	var year :int

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpfolp00tbgi2"]
+
+[ext_resource type="Script" path="res://assets/regenerate_item_handler/regenerate_item_handler.gd" id="1_q0pj3"]
+
+[node name="regenerate_item_handler" type="Node"]
+script = ExtResource("1_q0pj3")
