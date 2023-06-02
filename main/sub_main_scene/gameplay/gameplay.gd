@@ -9,6 +9,8 @@ const word_tile = preload("res://entity/word_tile/word_tile.tscn")
 const word_input = preload("res://entity/word_input/word_input.tscn")
 const word_output = preload("res://entity/word_output/word_output.tscn")
 
+@onready var sfx = $AudioStreamPlayer
+
 @onready var level = $VBoxContainer/HBoxContainer2/level
 @onready var rank_label = $rank_button/MarginContainer/HBoxContainer/VBoxContainer/rank_label
 @onready var list_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer/list_label
@@ -30,7 +32,6 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 
 @onready var clear_word = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
 @onready var timer_delay = $TimerDelay
-@onready var timer = $Timer
 
 @onready var button_rank_container = $rank_button/MarginContainer
 @onready var gameplay_helper = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper
@@ -191,6 +192,9 @@ func _on_input_press(c :String):
 	if output_sets.size() > max_output_set_size:
 		return
 		
+	sfx.stream = preload("res://assets/sound/typing.wav")
+	sfx.play()
+		
 	output_sets.append(c)
 	_clear_output()
 		
@@ -269,17 +273,21 @@ func _find_and_show_word(word :String):
 	_player_hurt()
 	
 func _player_hurt():
+	sfx.stream = preload("res://assets/sound/popout.wav")
+	sfx.play()
+	
 	# hp decrease & regenerate
 	Global.regenerate_hp.add_generate_item()
 	hit_point_display.pop_hp()
 	
 	if Global.regenerate_hp.item_count == 0:
+		
+		await  get_tree().create_timer(0.8).timeout
 		_player_lose()
 		
 func _player_lose():
 	Global.reset_player()
 	Global.generate_words()
-	
 	_on_back_button_pressed()
 	
 func _check_if_solved():
@@ -293,9 +301,10 @@ func _check_if_solved():
 	_show_solved()
 	
 func _show_solved():
-	timer.wait_time = 1.3
-	timer.start()
-	await timer.timeout
+	sfx.stream = preload("res://assets/sound/completed.wav")
+	sfx.play()
+	
+	await get_tree().create_timer(1.5).timeout
 	
 	Global.level += 1
 	Global.generate_words()
@@ -350,6 +359,9 @@ func _on_hint_button_pressed():
 	if Global.regenerate_hint.item_count == 0:
 		return
 		
+	sfx.stream = preload("res://assets/sound/pop_hint.wav")
+	sfx.play()
+		
 	# hint decrease & regenerate
 	Global.regenerate_hint.add_generate_item()
 	hint_left.text = str(Global.regenerate_hint.item_count)
@@ -372,6 +384,9 @@ func _regenerate_hint_complete():
 var _is_on_rank_menu :bool = false
 	
 func _on_back_button_pressed():
+	sfx.stream = preload("res://assets/sound/click.wav")
+	sfx.play()
+	
 	if _is_on_rank_menu:
 		emit_signal("back_press", _is_on_rank_menu)
 		animation_player.play_backwards("to_rank")

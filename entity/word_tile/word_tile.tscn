@@ -48,3 +48,7 @@ text = "i"
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
+bus = &"SFX"

@@ -10,6 +10,8 @@ class_name WordTile
 @onready var panel_style :StyleBoxFlat = $Control/Panel.get_theme_stylebox(StringName("panel")).duplicate()
 @onready var panel = $Control/Panel
 
+@onready var audio_stream_player = $AudioStreamPlayer
+
 var tween :Tween
 
 # Called when the node enters the scene tree for the first time.
@@ -32,6 +34,10 @@ func solved():
 	
 	panel.scale = Vector2.ONE * 1.3
 	tween.tween_property(panel, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_BOUNCE)
+	
+	audio_stream_player.stream = preload("res://assets/sound/pop.wav")
+	audio_stream_player.play()
+	
 	show_data()
 	
 func tile_size_updated():

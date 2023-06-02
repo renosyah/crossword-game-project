@@ -8,3 +8,6 @@ res://main/main.tscn
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://assets/regenerate_item_handler/regenerate_item_handler.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
+res://default_bus_layout.tres
+res://entity/word_tile/word_tile.tscn
+res://entity/word_tile/word_tile.gd

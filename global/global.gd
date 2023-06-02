@@ -18,6 +18,7 @@ func _ready():
 	player.load_data(player_data_file)
 	
 	setup_regenerate_hp_hint()
+	setup_sound()
 
 func reset_player():
 	level = 1
@@ -118,6 +119,43 @@ func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
 		
 	image_cache[player.player_id] = ImageTexture.create_from_image(img)
 	return image_cache[player.player_id]
+	
+######################################################################
+# sound
+var music :AudioStreamPlayer
+var sfx :AudioStreamPlayer
+
+func setup_sound():
+	music = AudioStreamPlayer.new()
+	music.stream = preload("res://assets/sound/music.mp3")
+	music.autoplay = false
+	music.bus = &"MUSIC"
+	
+	sfx = AudioStreamPlayer.new()
+	sfx.autoplay = false
+	sfx.bus = &"SFX"
+	
+	add_child(music)
+	add_child(sfx)
+	
+	music.play()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

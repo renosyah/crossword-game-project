@@ -890,9 +890,6 @@ mouse_filter = 2
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="TimerDelay" type="Timer" parent="."]
 wait_time = 0.08
 one_shot = true
@@ -901,6 +898,10 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_khwdh")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
+bus = &"SFX"
 
 [connection signal="pressed" from="rank_button/MarginContainer/button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]

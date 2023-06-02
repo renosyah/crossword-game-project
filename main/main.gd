@@ -3,6 +3,11 @@ extends Control
 @onready var animated_background :AnimatedBackground = $CanvasLayer/Control/animated_background
 @onready var loading = $CanvasLayer/Control/loading
 
+# audio
+@onready var music = Global.music
+@onready var sfx = Global.sfx
+@onready var click_sound = preload("res://assets/sound/click.wav")
+
 # menu
 @onready var login = $CanvasLayer/Control/SafeArea/login
 @onready var main_menu = $CanvasLayer/Control/SafeArea/main_menu
@@ -61,6 +66,7 @@ func _init_admob():
 	if not Admob.get_is_banner_loaded():
 		Admob.load_banner()
 		
+# Called when the system give event
 func _notification(what):
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
@@ -88,6 +94,9 @@ func on_back_pressed():
 	
 #------------------------------ login ------------------------------------#
 func _on_login_on_sign_in_press():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	OAuth2.sign_in()
 	
 func _sign_in_completed():
@@ -129,12 +138,18 @@ func _admob_banner_loaded():
 	Admob.show_banner()
 	
 func _on_main_menu_play():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	current_menu = "gameplay"
 	animated_background.set_stage(4)
 	gameplay.visible = true
 	gameplay.generate_puzzle()
 	
 func _on_main_menu_setting():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	loading.visible = true
 	OAuth2.sign_out()
 	await OAuth2.sign_out_completed
@@ -148,12 +163,18 @@ func _on_main_menu_setting():
 	get_tree().reload_current_scene()
 	
 func _on_main_menu_rank():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	current_menu = "rank"
 	animated_background.set_stage(4)
 	rank.visible = true
 	rank.show_ranks()
 	
 func _on_main_menu_back_press():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	current_menu = "main_menu"
 	rank.visible = false
 	animated_background.set_stage(4, true)
@@ -161,6 +182,9 @@ func _on_main_menu_back_press():
 	
 #------------------------------ gameplay ------------------------------------#
 func _on_gameplay_rank():
+	sfx.stream = click_sound
+	sfx.play()
+	
 	current_menu = "gameplay/rank"
 	animated_background.set_stage(4, true)
 	rank.visible = true
