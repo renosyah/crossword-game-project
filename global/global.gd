@@ -126,9 +126,13 @@ var music :AudioStreamPlayer
 var sfx :AudioStreamPlayer
 
 func setup_sound():
+	var music_stream :AudioStream = preload("res://assets/sound/music.mp3")
+	music_stream.loop = true
+	music_stream.loop_offset = 3.50
+	
 	music = AudioStreamPlayer.new()
-	music.stream = preload("res://assets/sound/music.mp3")
-	music.autoplay = false
+	music.stream = music_stream
+	music.autoplay = true
 	music.bus = &"MUSIC"
 	
 	sfx = AudioStreamPlayer.new()
@@ -137,8 +141,6 @@ func setup_sound():
 	
 	add_child(music)
 	add_child(sfx)
-	
-	music.play()
 
 
 
