@@ -412,6 +412,7 @@ script = ExtResource("1_kxjxo")
 [node name="rank_button" type="Control" parent="."]
 custom_minimum_size = Vector2(57, 81)
 layout_mode = 1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0

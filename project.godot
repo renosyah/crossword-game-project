@@ -47,7 +47,6 @@ pointing/emulate_touch_from_mouse=true
 [internationalization]
 
 locale/translations=PackedStringArray("res://translation/translation.en.translation", "res://translation/translation.id.translation")
-locale/test="id"
 
 [physics]
 

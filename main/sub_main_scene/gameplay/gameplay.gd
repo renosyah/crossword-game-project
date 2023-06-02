@@ -105,7 +105,8 @@ func generate_puzzle():
 	
 	animation_player.play("show_puzzle")
 	
-	if not Admob.get_is_interstitial_loaded():
+	# load interstitial ads if world list is more than one
+	if not Admob.get_is_interstitial_loaded() and Global.word_list.size() > 1:
 		Admob.load_interstitial()
 		
 	if Admob.get_is_banner_loaded():
@@ -363,6 +364,9 @@ func _regenerate_hp_complete():
 	
 func _regenerate_hint_complete():
 	hint_left.text = str(Global.regenerate_hint.item_count)
+	
+func on_back_button_pressed():
+	_on_back_button_pressed()
 	
 var _is_on_rank_menu :bool = false
 	

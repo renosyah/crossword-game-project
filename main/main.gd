@@ -9,8 +9,13 @@ extends Control
 @onready var gameplay = $CanvasLayer/Control/SafeArea/gameplay
 @onready var rank = $CanvasLayer/Control/SafeArea/rank
 
+var current_menu :String = "login"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_quit_on_go_back(false)
+	get_tree().set_auto_accept_quit(false)
+	
 	loading.visible = false
 	main_menu.visible = false
 	gameplay.visible = false
@@ -26,6 +31,7 @@ func _ready():
 		
 		await _preparing()
 		
+		current_menu = "main_menu"
 		animated_background.set_stage(3)
 		loading.visible = false
 		_show_main_menu()
@@ -36,7 +42,7 @@ func _ready():
 	login.visible = true
 	login.show_icon()
 	
-	await _preparing()
+	await get_tree().create_timer(2).timeout
 	
 	animated_background.set_stage(2)
 	login.show_login_form()
@@ -58,6 +64,31 @@ func _init_admob():
 	if not Admob.get_is_banner_loaded():
 		Admob.load_banner()
 		
+func _notification(what):
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			on_back_pressed()
+			return
+		NOTIFICATION_WM_GO_BACK_REQUEST: 
+			on_back_pressed()
+			return
+			
+func on_back_pressed():
+	if current_menu == "rank":
+		_on_main_menu_back_press()
+		return
+		
+	if current_menu == "gameplay":
+		gameplay.on_back_button_pressed()
+		return
+		
+	if current_menu == "gameplay/rank":
+		gameplay.on_back_button_pressed()
+		return
+		
+	if current_menu == "main_menu" or current_menu == "login":
+		get_tree().quit()
+	
 #------------------------------ login ------------------------------------#
 func _on_login_on_sign_in_press():
 	OAuth2.sign_in()
@@ -83,11 +114,9 @@ func _to_main_menu():
 	animated_background.set_stage(3, true)
 	loading.visible = true
 	
-	# simple delay
-	# future probably to init score data
-	# idk
-	await get_tree().create_timer(3).timeout
+	await _preparing()
 	
+	current_menu = "main_menu"
 	animated_background.set_stage(3)
 	loading.visible = false
 	_show_main_menu()
@@ -102,6 +131,7 @@ func _admob_banner_loaded():
 	Admob.show_banner()
 	
 func _on_main_menu_play():
+	current_menu = "gameplay"
 	animated_background.set_stage(4)
 	gameplay.visible = true
 	gameplay.generate_puzzle()
@@ -120,27 +150,32 @@ func _on_main_menu_setting():
 	get_tree().reload_current_scene()
 	
 func _on_main_menu_rank():
+	current_menu = "rank"
 	animated_background.set_stage(4)
 	rank.visible = true
 	rank.show_ranks()
 	
-func _on_gameplay_rank():
-	animated_background.set_stage(4, true)
-	rank.visible = true
-	rank.show_ranks()
-	
 func _on_main_menu_back_press():
+	current_menu = "main_menu"
 	rank.visible = false
 	animated_background.set_stage(4, true)
 	main_menu.show_menu(true)
 	
 #------------------------------ gameplay ------------------------------------#
+func _on_gameplay_rank():
+	current_menu = "gameplay/rank"
+	animated_background.set_stage(4, true)
+	rank.visible = true
+	rank.show_ranks()
+	
 func _on_gameplay_back_press(_is_on_rank_menu :bool):
 	if _is_on_rank_menu:
+		current_menu = "gameplay"
 		rank.visible = false
 		animated_background.set_stage(4)
 		return
 		
+	current_menu = "main_menu"
 	animated_background.set_stage(4, true)
 	main_menu.show_menu(true)
 	await get_tree().process_frame
