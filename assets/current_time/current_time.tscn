@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr3fjgnn0a4mt"]
+
+[ext_resource type="Script" path="res://assets/current_time/current_time.gd" id="1_yg4kt"]
+
+[node name="current_time" type="Node"]
+script = ExtResource("1_yg4kt")

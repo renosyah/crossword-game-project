@@ -41,6 +41,7 @@ var crossword :crossword_lib.Crossword
 var crossword_size :int
 var output_sets: Array = []
 var max_row_grid = 8
+var max_output_set_size = 12
 var solved_tiles :Array = []
 
 var default_size :Vector2 = Vector2(50, 50)
@@ -112,6 +113,9 @@ func generate_puzzle():
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
 		
+func on_back_button_pressed():
+	_on_back_button_pressed()
+	
 func _display_input_tile():
 	var characters = []
 	for key in trimed_crossword.keys():
@@ -184,7 +188,7 @@ func _set_input_character(characters :Array):
 			grid_input_container.add_child(rows)
 			
 func _on_input_press(c :String):
-	if output_sets.size() > 10:
+	if output_sets.size() > max_output_set_size:
 		return
 		
 	output_sets.append(c)
@@ -364,9 +368,6 @@ func _regenerate_hp_complete():
 	
 func _regenerate_hint_complete():
 	hint_left.text = str(Global.regenerate_hint.item_count)
-	
-func on_back_button_pressed():
-	_on_back_button_pressed()
 	
 var _is_on_rank_menu :bool = false
 	

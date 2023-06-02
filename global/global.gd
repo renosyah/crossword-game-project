@@ -53,10 +53,17 @@ func generate_words():
 	
 ######################################################################
 
+signal setup_regenerate_complete(has_error)
+
+var current_time :CurrentTime
 var regenerate_hp :RegenerateItemHandler
 var regenerate_hint :RegenerateItemHandler
 
 func setup_regenerate_hp_hint():
+	current_time = preload("res://assets/current_time/current_time.tscn").instantiate()
+	current_time.current_time.connect(_current_time_ready)
+	current_time.error.connect(_current_time_error)
+	
 	var scene = preload("res://assets/regenerate_item_handler/regenerate_item_handler.tscn")
 	regenerate_hp = scene.instantiate()
 	regenerate_hp.item_name = "hp"
@@ -68,15 +75,17 @@ func setup_regenerate_hp_hint():
 	regenerate_hint.item_count = 10
 	regenerate_hint.item_max = 10
 	
-	regenerate_hp.error.connect(_regenerate_item_error)
-	regenerate_hint.error.connect(_regenerate_item_error)
-	
+	add_child(current_time)
 	add_child(regenerate_hp)
 	add_child(regenerate_hint)
 	
+func _current_time_ready(_current_time :Dictionary):
+	regenerate_hp.run_regenerating(_current_time)
+	regenerate_hint.run_regenerating(_current_time)
+	emit_signal("setup_regenerate_complete", false)
 	
-func _regenerate_item_error(_msg :String):
-	pass
+func _current_time_error(_msg :String):
+	emit_signal("setup_regenerate_complete", true)
 	
 ######################################################################
 @onready var image_cache :Dictionary = {}

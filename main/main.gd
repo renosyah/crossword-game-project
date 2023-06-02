@@ -51,11 +51,8 @@ func _preparing():
 	# prepare admob, and regenerator
 	await _init_admob()
 	
-	Global.regenerate_hp.run_regenerating()
-	await Global.regenerate_hp.ready_to_regenerate
-	
-	Global.regenerate_hint.run_regenerating()
-	await Global.regenerate_hint.ready_to_regenerate
+	Global.current_time.request_current_time()
+	var has_error :bool = await Global.setup_regenerate_complete
 	
 func _init_admob():
 	Admob.initialize()
@@ -95,8 +92,9 @@ func _on_login_on_sign_in_press():
 	
 func _sign_in_completed():
 	OAuth2.get_profile_info()
-	var profile :OAuth2.OAuth2UserInfo = await OAuth2.profile_info
-	if profile != null:
+	var result = await OAuth2.profile_info
+	if result != null:
+		var profile :OAuth2.OAuth2UserInfo = result
 		Global.player.player_id = profile.id
 		Global.player.player_email = profile.email
 		Global.player.player_name = profile.given_name

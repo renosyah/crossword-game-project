@@ -1,14 +1,12 @@
 extends Node
 class_name RegenerateItemHandler
 
-signal error
-signal ready_to_regenerate
 signal regenerate_complete
 signal one_second_pass
 
-var _current_time: dateTime
-var _http_request :HTTPRequest
 var _timer :Timer
+var _current_time :dateTime
+var _valid :bool = false
 
 @export var item_name :String
 @export var item_count :int = 10
@@ -20,26 +18,23 @@ var _timer :Timer
 var regenerating_items :Array = []
 
 func _ready():
-	_current_time = dateTime.new(Time.get_datetime_dict_from_system())
-	
-	_http_request = HTTPRequest.new()
-	_http_request.request_completed.connect(_on_request_global_current_time)
-	
 	_timer = Timer.new()
 	_timer.autostart = false
 	_timer.one_shot = true
 	_timer.wait_time = 1
 	_timer.timeout.connect(_on_one_sec_pass)
 	
-	add_child(_http_request)
 	add_child(_timer)
 	
-func run_regenerating():
-	var error = _http_request.request("https://timeapi.io/api/Time/current/zone?timeZone=Asia/Jakarta")
-	if error != OK:
-		emit_signal("error", "failed request time!")
+func run_regenerating(_current_time_dict :Dictionary):
+	if _current_time_dict.is_empty():
 		return
 		
+	_current_time = dateTime.new(_current_time_dict)
+	_valid = true
+	_load_last_data()
+	_timer.start()
+	
 func _save_data():
 	# remove garbage
 	_clear_done()
@@ -66,7 +61,7 @@ func _load_last_data():
 			item_count -= 1
 	
 func add_generate_item(count :int = 1):
-	if item_count <= 0:
+	if item_count <= 0 or not _valid:
 		return
 		
 	if item_count - count < 0:
@@ -101,18 +96,6 @@ func _clear_done():
 		
 	regenerating_items.clear()
 	regenerating_items.append_array(_holders)
-	
-func _on_request_global_current_time(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("error", "failed request time!")
-		return
-		
-	var json :Dictionary = JSON.parse_string(body.get_string_from_utf8())
-	_current_time = dateTime.new({"year":json["year"],"month":json["month"],"day":json["day"],"hour":json["hour"],"minute":json["minute"],"second":json["seconds"]})
-	_load_last_data()
-	
-	emit_signal("ready_to_regenerate")
-	_timer.start()
 	
 func _on_one_sec_pass():
 	_timer.start()
