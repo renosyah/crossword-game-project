@@ -356,6 +356,9 @@ func _on_check_word_pressed():
 	_find_and_show_word(word)
 
 func _on_hint_button_pressed():
+	if not Global.regenerate_hint.is_valid():
+		return
+		
 	if Global.regenerate_hint.item_count == 0:
 		return
 		

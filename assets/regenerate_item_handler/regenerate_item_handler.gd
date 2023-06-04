@@ -26,6 +26,9 @@ func _ready():
 	
 	add_child(_timer)
 	
+func is_valid() -> bool:
+	return _valid
+	
 func run_regenerating(_current_time_dict :Dictionary):
 	if _current_time_dict.is_empty():
 		return

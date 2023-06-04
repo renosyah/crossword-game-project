@@ -8,7 +8,9 @@ var _http_request :HTTPRequest
 var _current_time: Dictionary
 
 func _ready():
+	var is_web_app :bool = ["Web"].has(OS.get_name())
 	_http_request = HTTPRequest.new()
+	_http_request.accept_gzip = not is_web_app
 	_http_request.request_completed.connect(_on_request_global_current_time)
 	add_child(_http_request)
 	

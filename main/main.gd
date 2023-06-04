@@ -21,6 +21,8 @@ func _ready():
 	get_tree().set_quit_on_go_back(false)
 	get_tree().set_auto_accept_quit(false)
 	
+	var is_web_app :bool = ["Web"].has(OS.get_name())
+	
 	loading.visible = false
 	main_menu.visible = false
 	gameplay.visible = false
@@ -28,7 +30,6 @@ func _ready():
 	rank.visible = false
 	
 	Admob.banner_loaded.connect(_admob_banner_loaded)
-	OAuth2.sign_in_completed.connect(_sign_in_completed)
 	
 	# have login session
 	if not Global.player.player_id.is_empty():
@@ -42,6 +43,9 @@ func _ready():
 		_show_main_menu()
 		return
 		
+	if is_web_app:
+		OAuth2.check_sign_in_status()
+		
 	await get_tree().create_timer(1).timeout
 	animated_background.set_stage(1)
 	login.visible = true
@@ -51,6 +55,7 @@ func _ready():
 	
 	animated_background.set_stage(2)
 	login.show_login_form()
+	current_menu = "login"
 	
 func _preparing():
 	# prepare admob, and regenerator
@@ -93,13 +98,10 @@ func on_back_pressed():
 		get_tree().quit()
 	
 #------------------------------ login ------------------------------------#
-func _on_login_on_sign_in_press():
-	sfx.stream = click_sound
-	sfx.play()
+func _on_login_login_completed():
+	_to_main_menu()
 	
-	OAuth2.sign_in()
-	
-func _sign_in_completed():
+func _get_profile():
 	OAuth2.get_profile_info()
 	var result = await OAuth2.profile_info
 	if result != null:
@@ -109,18 +111,15 @@ func _sign_in_completed():
 		Global.player.player_name = profile.given_name
 		Global.player.player_avatar = profile.picture
 		Global.player.save_data(Global.player_data_file)
-	
-	login.hide_login_form()
-	await login.login_form_hide
-	
-	_to_main_menu()
-	
+		
+		
 #------------------------------ main menu ------------------------------------#
 func _to_main_menu():
 	login.visible = false
 	animated_background.set_stage(3, true)
 	loading.visible = true
 	
+	await _get_profile()
 	await _preparing()
 	
 	current_menu = "main_menu"
@@ -202,6 +201,8 @@ func _on_gameplay_back_press(_is_on_rank_menu :bool):
 	main_menu.show_menu(true)
 	await get_tree().process_frame
 	gameplay.visible = false
+
+
 
 
 
