@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=25 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://de1qukub4idoi" path="res://main/sub_main_scene/gameplay/hint.png" id="6_mi1bp"]
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="7_qsvik"]
 [ext_resource type="PackedScene" uid="uid://bac3jnsksju3k" path="res://assets/ui/hit_point_display/hit_point_display.tscn" id="8_bmk5m"]
+[ext_resource type="PackedScene" uid="uid://dihaanvb3byoj" path="res://assets/ui/panel_reward/panel_reward.tscn" id="11_pncey"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k7lx3"]
 
@@ -889,6 +890,9 @@ mouse_filter = 2
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+
+[node name="panelReward" parent="." instance=ExtResource("11_pncey")]
+layout_mode = 1
 
 [node name="TimerDelay" type="Timer" parent="."]
 wait_time = 0.08

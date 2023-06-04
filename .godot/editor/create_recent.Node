@@ -1,11 +1,11 @@
+AnimationPlayer
+MarginContainer
+Control
 AudioStreamPlayer
 AudioStreamPlayer3D
-Control
-MarginContainer
 HBoxContainer
 Node
 TextureRect
-AnimationPlayer
 VisibleOnScreenNotifier2D
 VBoxContainer
 CenterContainer

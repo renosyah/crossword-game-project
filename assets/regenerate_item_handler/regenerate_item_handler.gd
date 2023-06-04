@@ -77,6 +77,8 @@ func add_generate_item(count :int = 1):
 		
 	item_count -= count
 		
+	_timer.stop()
+		
 	for i in count:
 		var item = regenerateItem.new()
 		item.item_name = item_name
@@ -87,6 +89,32 @@ func add_generate_item(count :int = 1):
 		regenerating_items.append(item)
 		
 	_save_data()
+	_timer.start()
+	
+func remove_generate_item(count :int = 1):
+	if not _valid:
+		return
+		
+	if regenerating_items.is_empty():
+		return
+		
+	_timer.stop()
+	
+	# remove garbage
+	_clear_done()
+	
+	for _i in count:
+		var item :regenerateItem = regenerating_items[0]
+		for i in regenerating_items:
+			if i.get_remaining() < item.get_remaining():
+				item = i
+			
+		regenerating_items.erase(item)
+		item_count = clamp(item_count + 1, 0, item_max)
+	
+	_save_data()
+	_timer.start()
+	
 	
 func _clear_done():
 	var _holders :Array = []

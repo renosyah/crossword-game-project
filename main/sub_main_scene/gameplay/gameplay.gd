@@ -37,6 +37,8 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var gameplay_helper = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper
 @onready var margin_right = $VBoxContainer/HBoxContainer/MarginContainer2
 
+@onready var panel_reward = $panelReward
+
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
@@ -60,6 +62,10 @@ func _ready():
 	
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
+	
+	Admob.rewarded_ad_failed_to_show.connect(_rewarded_closed)
+	Admob.rewarded_ad_closed.connect(_rewarded_closed)
+	Admob.user_earned_rewarded.connect(_user_earned_rewarded)
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
 	Global.regenerate_hint.regenerate_complete.connect(_regenerate_hint_complete)
@@ -107,12 +113,16 @@ func generate_puzzle():
 	
 	animation_player.play("show_puzzle")
 	
+	if not Admob.get_is_rewarded_loaded():
+		Admob.load_rewarded()
+		
 	# load interstitial ads if world list is more than one
 	if not Admob.get_is_interstitial_loaded() and Global.word_list.size() > 1:
 		Admob.load_interstitial()
 		
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
+		
 		
 func on_back_button_pressed():
 	_on_back_button_pressed()
@@ -280,11 +290,58 @@ func _player_hurt():
 	Global.regenerate_hp.add_generate_item()
 	hit_point_display.pop_hp()
 	
+	var _reward_is_loaded = Admob.get_is_rewarded_loaded()
+	var _is_hp_low = Global.regenerate_hp.item_count == 1
+	var _has_reward_quota_ok = Global.regenerate_reward_hp.item_count > 0
+	var _is_not_web_app = "Web" != OS.get_name()
+	
+	if _is_hp_low and _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
+		Global.regenerate_reward_hp.add_generate_item()
+		panel_reward.title = "Low of Chance?"
+		panel_reward.description = "You want to get 1 more free chance?"
+		panel_reward.show_panel()
+		
+		# wait
+		var is_aggree :bool = await panel_reward.watch_ads
+		if is_aggree:
+			watch_reward_ads("hp")
+			return
+		
 	if Global.regenerate_hp.item_count == 0:
-		
-		await  get_tree().create_timer(0.8).timeout
+		await get_tree().create_timer(0.8).timeout
 		_player_lose()
+	
+var _reward_for :String
+	
+func watch_reward_ads(_for :String):
+	_reward_for = _for
+	
+	if Admob.get_is_rewarded_loaded():
+		# hide banner!
+		# prevent from overlapping
+		# with rewarded
+		Admob.hide_banner()
+		Admob.show_rewarded()
+		return
 		
+	_rewarded_closed()
+
+func _rewarded_closed():
+	if Admob.get_is_banner_loaded():
+		Admob.show_banner()
+		
+	if not Admob.get_is_rewarded_loaded():
+		Admob.load_rewarded()
+		
+func _user_earned_rewarded(reward_type :String, amount:int):
+	if _reward_for == "hp":
+		Global.regenerate_hp.remove_generate_item(1)
+		_regenerate_hp_complete()
+		
+	if _reward_for == "hint":
+		Global.regenerate_hint.remove_generate_item(5)
+		hint_left.text = str(Global.regenerate_hint.item_count)
+	
 func _player_lose():
 	Global.reset_player()
 	Global.generate_words()
@@ -360,6 +417,21 @@ func _on_hint_button_pressed():
 		return
 		
 	if Global.regenerate_hint.item_count == 0:
+		var _reward_is_loaded = Admob.get_is_rewarded_loaded()
+		var _has_reward_quota_ok = Global.regenerate_reward_hint.item_count > 0
+		var _is_not_web_app = "Web" != OS.get_name()
+		
+		if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
+			Global.regenerate_reward_hint.add_generate_item()
+			panel_reward.title = "Low of Hint?"
+			panel_reward.description = "You want to get 5 more free hint?"
+			panel_reward.show_panel()
+			
+			# wait
+			var is_aggree :bool = await panel_reward.watch_ads
+			if is_aggree:
+				watch_reward_ads("hint")
+			
 		return
 		
 	sfx.stream = preload("res://assets/sound/pop_hint.wav")
@@ -404,7 +476,8 @@ func _on_rank_button_pressed():
 	_is_on_rank_menu = true
 	animation_player.play("to_rank")
 	emit_signal("rank")
-	
+
+
 
 
 
