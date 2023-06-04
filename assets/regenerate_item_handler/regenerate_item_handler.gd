@@ -75,7 +75,7 @@ func add_generate_item(count :int = 1):
 		var item :regenerateItem = i
 		item.end_time.add(cooldown)
 		
-	item_count -= count
+	item_count = clamp(item_count - 1, 0, item_max)
 		
 	_timer.stop()
 		
@@ -104,14 +104,18 @@ func remove_generate_item(count :int = 1):
 	_clear_done()
 	
 	for _i in count:
-		var item :regenerateItem = regenerating_items[0]
+		var item_remove :regenerateItem = regenerating_items[0]
 		for i in regenerating_items:
-			if i.get_remaining() < item.get_remaining():
-				item = i
+			if i.get_remaining() < item_remove.get_remaining():
+				item_remove = i
 			
-		regenerating_items.erase(item)
+		regenerating_items.erase(item_remove)
 		item_count = clamp(item_count + 1, 0, item_max)
-	
+		
+		for i in regenerating_items:
+			var item :regenerateItem = i
+			item.end_time.add(-cooldown)
+		
 	_save_data()
 	_timer.start()
 	
