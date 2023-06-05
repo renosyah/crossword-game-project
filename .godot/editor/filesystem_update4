@@ -5,3 +5,5 @@ res://entity/word_output/word_output.tscn
 res://entity/word_output/word_output.gd
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
+res://translation/translation.en.translation
+res://translation/translation.id.translation

@@ -269,7 +269,7 @@ func _find_and_show_word(word :String):
 					var item_origin = word_output_container.get_child(c)
 					var item :WordOutput = item_origin.duplicate()
 					item.top_level = true
-					item.visible = false
+					#item.visible = false
 					item.position = item_origin.global_position
 					add_child(item)
 					_animated_items.append(item)
