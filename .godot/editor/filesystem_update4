@@ -1,12 +1,7 @@
 res://default_env.tres
-res://main/main.tscn
-res://translation/translation.en.translation
-res://translation/translation.id.translation
-res://assets/ui/panel_reward/panel_reward.tscn
-res://assets/ui/panel_reward/panel_reward.gd
 res://main/sub_main_scene/main_menu/main_menu.tscn
 res://main/sub_main_scene/main_menu/main_menu.gd
-res://main/main.gd
-res://assets/ui/rank_item/rank_item.tscn
-res://assets/ui/panel_logout/panel_logout.tscn
-res://assets/ui/panel_logout/panel_logout.gd
+res://entity/word_output/word_output.tscn
+res://entity/word_output/word_output.gd
+res://main/sub_main_scene/gameplay/gameplay.tscn
+res://main/sub_main_scene/gameplay/gameplay.gd

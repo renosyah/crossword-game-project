@@ -65,15 +65,15 @@ func _on_rank_button_pressed():
 	_can_back = true
 	animation_player.play("to_rank")
 	emit_signal("rank")
-
+	
 func _on_back_button_pressed():
 	if not _can_back:
 		return
 		
 	_can_back = false
 	emit_signal("back_press")
-
-
+	
+	
 func _on_button_mute_pressed():
 	_is_mutted = not _is_mutted
 	AudioServer.set_bus_mute(0, _is_mutted)

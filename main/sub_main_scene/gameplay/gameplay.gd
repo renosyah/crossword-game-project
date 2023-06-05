@@ -253,6 +253,9 @@ func _get_tile(id :String):
 	return null
 	
 func _find_and_show_word(word :String):
+	var _solved_tile :Array
+	var _animated_items :Array
+	
 	for i in crossword.current_word_list:
 		if i.word == word:
 			var row = i.row
@@ -263,7 +266,15 @@ func _find_and_show_word(word :String):
 				var id = _create_tile_id(row, col)
 				var tile :WordTile = _get_tile(id)
 				if is_instance_valid(tile) and not solved_tiles.has(tile.id):
-					tile.solved()
+					var item_origin = word_output_container.get_child(c)
+					var item :WordOutput = item_origin.duplicate()
+					item.top_level = true
+					item.visible = false
+					item.position = item_origin.global_position
+					add_child(item)
+					_animated_items.append(item)
+					_solved_tile.append(tile)
+					
 					solved_tiles.append(tile.id)
 					
 				if down_across == "down":
@@ -271,16 +282,32 @@ func _find_and_show_word(word :String):
 				elif down_across == "across":
 					col += 1
 					
-				if is_instance_valid(tile):
-					timer_delay.start()
-					await timer_delay.timeout
+			_on_clear_word_pressed()
+			
+			for idx in _solved_tile.size():
+				var item :WordOutput = _animated_items[idx]
+				var solved_tile :WordTile = _solved_tile[idx]
 				
+				item.visible = true
+				_run_animated_solved(item, solved_tile)
+				
+				timer_delay.start()
+				await timer_delay.timeout
+				
+			
 			Global.word_list_founded.append(word)
-			_check_if_solved()
 			return
 			
 	# not found
+	_on_clear_word_pressed()
 	_player_hurt()
+	
+func _run_animated_solved(item :WordOutput, solved_tile :WordTile):
+	item.animated(solved_tile.global_position)
+	await item.reach
+	item.queue_free()
+	solved_tile.solved()
+	_check_if_solved()
 	
 func _player_hurt():
 	sfx.stream = preload("res://assets/sound/popout.wav")
@@ -403,8 +430,6 @@ func _on_check_word_pressed():
 	for i in output_sets:
 		word += i
 		
-	_on_clear_word_pressed()
-	
 	if word.is_empty():
 		return
 		

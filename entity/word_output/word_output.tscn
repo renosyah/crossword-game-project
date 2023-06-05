@@ -6,8 +6,11 @@
 [node name="word_output" type="MarginContainer"]
 offset_right = 23.0
 offset_bottom = 49.0
+pivot_offset = Vector2(11, 24)
 mouse_filter = 2
 script = ExtResource("3")
+
+[node name="trajectory" type="Node2D" parent="."]
 
 [node name="Label" type="Label" parent="."]
 modulate = Color(0.878431, 0.878431, 0.878431, 1)

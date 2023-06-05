@@ -895,7 +895,7 @@ layout_mode = 2
 layout_mode = 1
 
 [node name="TimerDelay" type="Timer" parent="."]
-wait_time = 0.08
+wait_time = 0.2
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
