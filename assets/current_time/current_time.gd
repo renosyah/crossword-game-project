@@ -9,7 +9,6 @@ var _current_time: Dictionary
 
 func _ready():
 	_http_request = HTTPRequest.new()
-	
 	_http_request.request_completed.connect(_on_request_global_current_time)
 	add_child(_http_request)
 	

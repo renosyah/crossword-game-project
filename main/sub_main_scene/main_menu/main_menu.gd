@@ -19,13 +19,19 @@ signal back_press
 @onready var rank_container = $rank_button/MarginContainer
 @onready var setting_container = $setting_button/MarginContainer
 
+@onready var mute_icon = $mute_button/MarginContainer/VBoxContainer/mute_icon
+@onready var mute_label = $mute_button/MarginContainer/VBoxContainer/mute_label
+
+var _is_mutted :bool = false
 var _can_back :bool = false
+
 
 func _ready():
 	game_title.text = tr("GAME_TITLE")
 	play_label.text = tr("PLAY")
 	rank_label.text = tr("RANK")
 	setting_label.text = tr("SETTING")
+	_check_is_mute()
 	
 func show_menu(re_show :bool = false):
 	var size_max_x = max(rank_container.size.x, setting_container.size.x)
@@ -62,3 +68,26 @@ func _on_back_button_pressed():
 		
 	_can_back = false
 	emit_signal("back_press")
+
+
+func _on_button_mute_pressed():
+	_is_mutted = not _is_mutted
+	AudioServer.set_bus_mute(0, _is_mutted)
+	_check_is_mute()
+	
+func _check_is_mute():
+	if _is_mutted:
+		mute_icon.texture = preload("res://assets/ui/icons/mute.png")
+		mute_label.text = tr("MUTE")
+	else:
+		mute_icon.texture = preload("res://assets/ui/icons/unmute.png")
+		mute_label.text = tr("UNMUTE")
+
+
+
+
+
+
+
+
+

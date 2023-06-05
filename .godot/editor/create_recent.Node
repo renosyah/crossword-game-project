@@ -1,9 +1,10 @@
+HBoxContainer
+ColorRect
 AnimationPlayer
 MarginContainer
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D
-HBoxContainer
 Node
 TextureRect
 VisibleOnScreenNotifier2D
@@ -20,6 +21,5 @@ SafeArea
 CanvasLayer
 HSplitContainer
 Timer
-ColorRect
 GridContainer
 AspectRatioContainer

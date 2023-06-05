@@ -297,8 +297,9 @@ func _player_hurt():
 	
 	if _is_hp_low and _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
 		Global.regenerate_reward_hp.add_generate_item()
-		panel_reward.title = "Low of Chance?"
-		panel_reward.description = "You want to get 1 more free chance?"
+		panel_reward.title = tr("LOW_OF_CHANCE")
+		panel_reward.description = tr("LOW_OF_CHANCE_DESC")
+		panel_reward.button_title = tr("GET_FREE_CHANCE")
 		panel_reward.show_panel()
 		
 		# wait
@@ -423,8 +424,9 @@ func _on_hint_button_pressed():
 		
 		if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
 			Global.regenerate_reward_hint.add_generate_item()
-			panel_reward.title = "Low of Hint?"
-			panel_reward.description = "You want to get 5 more free hint?"
+			panel_reward.title = tr("LOW_OF_HINT")
+			panel_reward.description = tr("LOW_OF_CHANCE_HINT")
+			panel_reward.button_title = tr("GET_FREE_HINT")
 			panel_reward.show_panel()
 			
 			# wait
