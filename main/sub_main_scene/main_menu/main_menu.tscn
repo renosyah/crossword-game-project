@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://55468m5u6r47"]
+[gd_scene load_steps=29 format=3 uid="uid://55468m5u6r47"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/main_menu/main_menu.gd" id="1_rtsvp"]
 [ext_resource type="Texture2D" uid="uid://cjl1tg7ijoc71" path="res://main/sub_main_scene/main_menu/rank.png" id="2_rxqhd"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="6_5bjqo"]
 [ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="8_hbux8"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="10_r0q0d"]
+[ext_resource type="PackedScene" uid="uid://dfj38b0k1omr3" path="res://assets/ui/panel_logout/panel_logout.tscn" id="12_hcfmd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ob5f8"]
 bg_color = Color(1, 1, 1, 0.7)
@@ -1081,6 +1082,7 @@ stretch_mode = 5
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(120, 45)
 layout_mode = 1
+anchors_preset = 0
 offset_left = 19.0
 offset_top = 83.0
 offset_right = 139.0
@@ -1387,6 +1389,9 @@ uppercase = true
 custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
 
+[node name="panel_logout" parent="." instance=ExtResource("12_hcfmd")]
+layout_mode = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_aiwbi")
@@ -1397,3 +1402,5 @@ libraries = {
 [connection signal="pressed" from="rank_button/MarginContainer/button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="setting_button/MarginContainer/button" to="." method="_on_setting_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="close" from="panel_logout" to="." method="_on_panel_logout_close"]
+[connection signal="logout" from="panel_logout" to="." method="_on_panel_logout_logout"]

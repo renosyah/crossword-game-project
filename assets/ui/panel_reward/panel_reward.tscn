@@ -150,13 +150,15 @@ script = ExtResource("1_ooeaq")
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.12793
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.16016
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.537255)
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 modulate = Color(1, 1, 1, 0)

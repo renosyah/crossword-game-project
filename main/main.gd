@@ -144,8 +144,8 @@ func _on_main_menu_play():
 	animated_background.set_stage(4)
 	gameplay.visible = true
 	gameplay.generate_puzzle()
-	
-func _on_main_menu_setting():
+
+func _on_main_menu_logout():
 	sfx.stream = click_sound
 	sfx.play()
 	
@@ -201,6 +201,8 @@ func _on_gameplay_back_press(_is_on_rank_menu :bool):
 	main_menu.show_menu(true)
 	await get_tree().process_frame
 	gameplay.visible = false
+
+
 
 
 

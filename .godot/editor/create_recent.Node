@@ -1,6 +1,7 @@
+AnimationPlayer
+VBoxContainer
 HBoxContainer
 ColorRect
-AnimationPlayer
 MarginContainer
 Control
 AudioStreamPlayer
@@ -8,7 +9,6 @@ AudioStreamPlayer3D
 Node
 TextureRect
 VisibleOnScreenNotifier2D
-VBoxContainer
 CenterContainer
 Panel
 Label

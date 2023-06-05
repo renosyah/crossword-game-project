@@ -13,7 +13,7 @@ signal watch_ads(is_aggree)
 @onready var _no = $MarginContainer/VBoxContainer/HBoxContainer3/no_button/CenterContainer/no
 
 func _ready():
-	_no.text = tr("NO")
+	_no.text = tr("THANKS_LATER")
 
 func show_panel():
 	mouse_filter = Control.MOUSE_FILTER_STOP

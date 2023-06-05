@@ -2,7 +2,7 @@ extends Control
 
 signal play
 signal rank
-signal setting
+signal logout
 signal back_press
 
 @onready var animation_player = $AnimationPlayer
@@ -22,9 +22,10 @@ signal back_press
 @onready var mute_icon = $mute_button/MarginContainer/VBoxContainer/mute_icon
 @onready var mute_label = $mute_button/MarginContainer/VBoxContainer/mute_label
 
+@onready var panel_logout = $panel_logout
+
 var _is_mutted :bool = false
 var _can_back :bool = false
-
 
 func _ready():
 	game_title.text = tr("GAME_TITLE")
@@ -47,7 +48,7 @@ func show_menu(re_show :bool = false):
 		return
 		
 	animation_player.play("show_menu")
-	
+
 func _on_play_pressed():
 	animation_player.play("play")
 	emit_signal("play")
@@ -55,8 +56,11 @@ func _on_play_pressed():
 func _on_setting_button_pressed():
 	_can_back = true
 	animation_player.play("to_setting")
-	emit_signal("setting")
-
+	panel_logout.show_panel_logout()
+	
+func _on_panel_logout_close():
+	animation_player.play("re_show_menu")
+	
 func _on_rank_button_pressed():
 	_can_back = true
 	animation_player.play("to_rank")
@@ -82,12 +86,9 @@ func _check_is_mute():
 	else:
 		mute_icon.texture = preload("res://assets/ui/icons/unmute.png")
 		mute_label.text = tr("UNMUTE")
-
-
-
-
-
-
+		
+func _on_panel_logout_logout():
+	emit_signal("logout")
 
 
 
