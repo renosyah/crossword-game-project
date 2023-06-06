@@ -59,9 +59,8 @@ func _on_play_pressed():
 		_tween.kill()
 		
 	_tween = create_tween()
-	play_button.scale = Vector2.ONE * 0.6
+	play_button.scale = Vector2.ONE * 0.8
 	_tween.tween_property(play_button, "scale", Vector2.ONE, 0.2)
-	await _tween.finished
 	
 	animation_player.play("play")
 	emit_signal("play")
