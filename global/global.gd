@@ -12,7 +12,7 @@ const player_data_file = "player.data"
 @onready var word_list_founded :Array= []
 
 func _ready():
-	wordData.difficulty = wordData.easy
+	wordData.difficulty = wordData.hard
 	wordData.load_words_data()
 	
 	player.load_data(player_data_file)
@@ -36,13 +36,16 @@ func generate_words():
 	while (input >= 10 and input % 10 == 0):
 		input = input / 10;
 		words_count += 2
-
+	
 	words_count = clamp(words_count, 5, 25)
 	
 	while count < words_count:
 		randomize()
 		var words :Array = wordData.dictionaries[wordData.dictionaries.keys().pick_random()]
 		var word = words.pick_random()
+		if len(word) > 10:
+			continue
+			
 		if list.has(word):
 			continue
 			
