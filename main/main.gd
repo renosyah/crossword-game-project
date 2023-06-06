@@ -94,6 +94,10 @@ func on_back_pressed():
 		gameplay.on_back_button_pressed()
 		return
 		
+	if current_menu == "gameplay/list":
+		gameplay.on_back_button_pressed()
+		return
+		
 	if current_menu == "main_menu" or current_menu == "login":
 		get_tree().quit()
 	
@@ -189,10 +193,22 @@ func _on_gameplay_rank():
 	rank.visible = true
 	rank.show_ranks()
 	
-func _on_gameplay_back_press(_is_on_rank_menu :bool):
-	if _is_on_rank_menu:
+func _on_gameplay_dictionary():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	current_menu = "gameplay/list"
+	animated_background.set_stage(4, true)
+	
+	# show menu dictionary
+	
+func _on_gameplay_back_press(_is_on_rank_menu :bool, _is_on_list_menu:bool):
+	if _is_on_rank_menu or _is_on_list_menu:
 		current_menu = "gameplay"
 		rank.visible = false
+		
+		# hide menu dictionary
+		
 		animated_background.set_stage(4)
 		return
 		
@@ -201,6 +217,9 @@ func _on_gameplay_back_press(_is_on_rank_menu :bool):
 	main_menu.show_menu(true)
 	await get_tree().process_frame
 	gameplay.visible = false
+
+
+
 
 
 

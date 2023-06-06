@@ -32,6 +32,19 @@ func load_words_data():
 		file.close()
 	
 
+func is_in_dictionary(word :String) -> bool:
+	if word.is_empty() or dictionaries.is_empty():
+		return false
+		
+	var first_character :String = str(word[0]).to_upper()
+	if not dictionaries.has(first_character):
+		return false
+		
+	for i in dictionaries[first_character]:
+		if i.to_upper() == word.to_upper():
+			return true
+			
+	return false
 # for extract only
 #static func load_and_store():
 #	var words = []

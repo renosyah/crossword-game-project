@@ -69,4 +69,5 @@ layout_mode = 2
 [connection signal="play" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_play"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_rank"]
 [connection signal="back_press" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_back_press"]
+[connection signal="dictionary" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_dictionary"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_rank"]

@@ -1,6 +1,8 @@
 extends Control
 
 signal rank
+signal dictionary
+signal add_to_dictionary(word)
 signal back_press(is_from_rank_menu)
 
 const crossword_lib = preload("res://addons/crossword_gen_remake/crossword_gen_remake.gd")
@@ -29,6 +31,7 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 
 @onready var hit_point_display = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/hit_point_display
 @onready var hint_left = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer/hint_left
+@onready var list_button = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button
 
 @onready var clear_word = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
 @onready var timer_delay = $TimerDelay
@@ -43,7 +46,7 @@ var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
 var output_sets: Array = []
-var max_row_grid = 8
+var max_row_grid = 6
 var max_output_set_size = 12
 var solved_tiles :Array = []
 
@@ -59,6 +62,8 @@ func _ready():
 	hint_label.text = tr("HINT")
 	check_label.text = tr("CHECK")
 	chance_left.text = tr("CHANCE_LEFT")
+	
+	list_button.pivot_offset = list_button.size / 2
 	
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
@@ -253,14 +258,14 @@ func _get_tile(id :String):
 	return null
 	
 func _find_and_show_word(word :String):
-	var _solved_tile :Array
-	var _animated_items :Array
-	
 	for i in crossword.current_word_list:
 		if i.word == word:
 			var row = i.row
 			var col = i.col
 			var down_across = i.down_across()
+			
+			var _solved_tile :Array
+			var _animated_items :Array
 			
 			for c in range(len(word)):
 				var id = _create_tile_id(row, col)
@@ -269,7 +274,6 @@ func _find_and_show_word(word :String):
 					var item_origin = word_output_container.get_child(c)
 					var item :WordOutput = item_origin.duplicate()
 					item.top_level = true
-					#item.visible = false
 					item.position = item_origin.global_position
 					add_child(item)
 					_animated_items.append(item)
@@ -294,20 +298,62 @@ func _find_and_show_word(word :String):
 				timer_delay.start()
 				await timer_delay.timeout
 				
-			
 			Global.word_list_founded.append(word)
 			return
 			
+	# run to dictionary
+	if Global.wordData.is_in_dictionary(word):
+		var _animated_items :Array
+		
+		for c in range(len(word)):
+			var item_origin = word_output_container.get_child(c)
+			var item :WordOutput = item_origin.duplicate()
+			item.top_level = true
+			item.position = item_origin.global_position
+			add_child(item)
+			_animated_items.append(item)
+			
+		_on_clear_word_pressed()
+		
+		for item in _animated_items:
+			item.visible = true
+			_run_animated_enter_dictionary(item)
+			
+			timer_delay.start()
+			await timer_delay.timeout
+			
+		emit_signal("add_to_dictionary", word)
+		return
+		
 	# not found
 	_on_clear_word_pressed()
 	_player_hurt()
 	
 func _run_animated_solved(item :WordOutput, solved_tile :WordTile):
+	item.speed = 935
 	item.animated(solved_tile.global_position)
 	await item.reach
 	item.queue_free()
 	solved_tile.solved()
 	_check_if_solved()
+	
+var _tween_button_list :Tween
+	
+func _run_animated_enter_dictionary( item :WordOutput):
+	item.speed = 935
+	item.animated(list_button.global_position)
+	await item.reach
+	item.queue_free()
+	
+	if _tween_button_list:
+		_tween_button_list.kill()
+		
+	_tween_button_list = create_tween()
+	list_button.scale = Vector2.ONE * 1.5
+	_tween_button_list.tween_property(list_button, "scale", Vector2.ONE, 0.3)
+	
+	sfx.stream = preload("res://assets/sound/pop.wav")
+	sfx.play()
 	
 func _player_hurt():
 	sfx.stream = preload("res://assets/sound/popout.wav")
@@ -422,7 +468,17 @@ func _display_hint():
 			continue
 			
 		if not i.is_show:
+			var item :WordOutput = word_output.instantiate()
+			item.data = i.data
+			item.top_level = true
+			item.position = hint_left.global_position
+			add_child(item)
+			item.animated(i.global_position)
+			await item.reach
+			item.queue_free()
 			i.show_data()
+			sfx.stream = preload("res://assets/sound/pop.wav")
+			sfx.play()
 			return
 	
 func _on_check_word_pressed():
@@ -484,28 +540,34 @@ func _regenerate_hint_complete():
 	hint_left.text = str(Global.regenerate_hint.item_count)
 	
 var _is_on_rank_menu :bool = false
-	
+var _is_on_list_menu :bool = false
+
 func _on_back_button_pressed():
 	sfx.stream = preload("res://assets/sound/click.wav")
 	sfx.play()
 	
 	if _is_on_rank_menu:
-		emit_signal("back_press", _is_on_rank_menu)
+		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
 		animation_player.play_backwards("to_rank")
 		_is_on_rank_menu = false
+		
+	elif _is_on_list_menu:
+		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
+		animation_player.play_backwards("to_rank")
+		_is_on_list_menu = false
 		
 	else:
 		animation_player.play_backwards("show_puzzle")
 		await animation_player.animation_finished
-		emit_signal("back_press", _is_on_rank_menu)
+		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
 		
 func _on_rank_button_pressed():
 	_is_on_rank_menu = true
 	animation_player.play("to_rank")
 	emit_signal("rank")
-
-
-
-
-
-
+	
+func _on_list_button_pressed():
+	_is_on_list_menu = true
+	animation_player.play("to_rank")
+	emit_signal("dictionary")
+	

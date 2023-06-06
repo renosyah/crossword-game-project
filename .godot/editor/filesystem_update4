@@ -1,9 +1,10 @@
 res://default_env.tres
 res://main/sub_main_scene/main_menu/main_menu.tscn
 res://main/sub_main_scene/main_menu/main_menu.gd
-res://entity/word_output/word_output.tscn
-res://entity/word_output/word_output.gd
-res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
-res://translation/translation.en.translation
-res://translation/translation.id.translation
+res://entity/word_input/word_input.tscn
+res://main/sub_main_scene/gameplay/gameplay.tscn
+res://data/words_data/words_data.gd
+res://global/global.gd
+res://main/main.gd
+res://main/main.tscn

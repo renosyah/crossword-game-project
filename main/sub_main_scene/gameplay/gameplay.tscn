@@ -909,6 +909,7 @@ bus = &"SFX"
 
 [connection signal="pressed" from="rank_button/MarginContainer/button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button" to="." method="_on_list_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button" to="." method="_on_hint_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word" to="." method="_on_clear_word_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word" to="." method="_on_check_word_pressed"]

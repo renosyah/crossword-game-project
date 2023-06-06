@@ -81,11 +81,12 @@ func _on_button_mute_pressed():
 	
 func _check_is_mute():
 	if _is_mutted:
-		mute_icon.texture = preload("res://assets/ui/icons/mute.png")
-		mute_label.text = tr("MUTE")
-	else:
 		mute_icon.texture = preload("res://assets/ui/icons/unmute.png")
 		mute_label.text = tr("UNMUTE")
+	else:
+		mute_icon.texture = preload("res://assets/ui/icons/mute.png")
+		mute_label.text = tr("MUTE")
+		
 		
 func _on_panel_logout_logout():
 	emit_signal("logout")
