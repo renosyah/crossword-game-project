@@ -15,10 +15,13 @@ CHANCE_LEFT,Chance Left,Kesempatan
 MUTE,Mute,Bisukan
 UNMUTE,UnMute,Bunyikan
 LOW_OF_CHANCE,Low of Chance?,Kurang kesempatan?
-LOW_OF_CHANCE_DESC,You want to get 1 more free chance?,Mau dapetin 1 kesempatan gratis?
+LOW_OF_CHANCE_DESC,You want to get 1 more free chance?,Mau dapetin 5 kesempatan gratis?
 GET_FREE_CHANCE,Get free chance,Dapatkan kesempatan
 LOW_OF_HINT,Low of Hint?,Kurang Bantuan?
-LOW_OF_CHANCE_HINT,You want to get 5 more free hint?,Mau dapetin 5 bantuan gratis?
+LOW_OF_CHANCE_HINT,You want to get 5 more free hint?,Mau dapetin 1 bantuan gratis?
 GET_FREE_HINT,Get free hint,Dapatkan bantuan
 NO,No,Tidak
 THANKS_LATER,Later,Nanti saja
+RETRY,Retry,Coba Lagi
+NO_INTERNET,No internet connection,Tidak ada koneksi internet
+NO_INTERNET_DESCRIPTION,"Make sure Wi-Fi or mobile data is turned on, then try again","Pastikan Wi-Fi atau data seluler diaktifkan, lalu coba lagi"

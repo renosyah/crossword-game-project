@@ -1,0 +1,186 @@
+[gd_scene load_steps=11 format=3 uid="uid://g56d7vwi85u6"]
+
+[ext_resource type="Script" path="res://assets/ui/error_display/error_display.gd" id="1_for52"]
+[ext_resource type="Texture2D" uid="uid://doc625vkknhm8" path="res://assets/ui/error_display/dino.png" id="1_rtxko"]
+[ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="2_73ao8"]
+[ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="3_0nwcs"]
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="5_ivt0k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v1qkc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej1vw"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="Animation" id="Animation_nxgvw"]
+resource_name = "show_error"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iuhwy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mpu82"]
+_data = {
+"RESET": SubResource("Animation_iuhwy"),
+"show_error": SubResource("Animation_nxgvw")
+}
+
+[node name="error_display" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_for52")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(272, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(182, 182)
+layout_mode = 2
+texture = ExtResource("1_rtxko")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="error_title" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.894118, 0.635294, 1)
+theme_override_fonts/font = ExtResource("2_73ao8")
+theme_override_font_sizes/font_size = 20
+text = "No internet connection"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="error_description" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.894118, 0.635294, 1)
+theme_override_fonts/font = ExtResource("3_0nwcs")
+theme_override_font_sizes/font_size = 14
+text = "Make sure Wi-Fi or mobile data is turned on, then try again"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="retry" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v1qkc")
+flat = true
+
+[node name="Panel" type="Panel" parent="CenterContainer/HBoxContainer/VBoxContainer/retry"]
+custom_minimum_size = Vector2(375, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ej1vw")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/retry"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/retry/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/retry/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CenterContainer/HBoxContainer/VBoxContainer/retry/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_ivt0k")
+theme_override_font_sizes/font_size = 16
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="CenterContainer/HBoxContainer/VBoxContainer/retry/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mpu82")
+}
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer/retry" to="." method="_on_retry_pressed"]

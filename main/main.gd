@@ -14,8 +14,10 @@ extends Control
 @onready var gameplay = $CanvasLayer/Control/SafeArea/gameplay
 @onready var rank = $CanvasLayer/Control/SafeArea/rank
 @onready var dictionary = $CanvasLayer/Control/SafeArea/dictionary
+@onready var error_display = $CanvasLayer/Control/error_display
 
 var current_menu :String = "login"
+var has_error :bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +32,7 @@ func _ready():
 	login.visible = false
 	rank.visible = false
 	dictionary.visible = false
+	error_display.visible = false
 	
 	Admob.banner_loaded.connect(_admob_banner_loaded)
 	
@@ -38,6 +41,10 @@ func _ready():
 		loading.visible = true
 		
 		await _preparing()
+		
+		if has_error:
+			_show_panel_error()
+			return
 		
 		current_menu = "main_menu"
 		animated_background.set_stage(3)
@@ -64,7 +71,10 @@ func _preparing():
 	await _init_admob()
 	
 	Global.current_time.request_current_time()
-	var has_error :bool = await Global.setup_regenerate_complete
+	has_error = await Global.setup_regenerate_complete
+	
+func _on_error_display_retry():
+	get_tree().reload_current_scene()
 	
 func _init_admob():
 	Admob.initialize()
@@ -103,6 +113,19 @@ func on_back_pressed():
 	if current_menu == "main_menu" or current_menu == "login":
 		get_tree().quit()
 	
+func _show_panel_error():
+	error_display.visible = true
+	error_display.error_title = tr("NO_INTERNET")
+	error_display.error_description = tr("NO_INTERNET_DESCRIPTION")
+	error_display.show_error()
+	
+	loading.visible = false
+	main_menu.visible = false
+	gameplay.visible = false
+	login.visible = false
+	rank.visible = false
+	dictionary.visible = false
+	
 #------------------------------ login ------------------------------------#
 func _on_login_login_completed():
 	_to_main_menu()
@@ -127,6 +150,10 @@ func _to_main_menu():
 	
 	await _get_profile()
 	await _preparing()
+	
+	if has_error:
+		_show_panel_error()
+		return
 	
 	current_menu = "main_menu"
 	animated_background.set_stage(3)
@@ -225,6 +252,9 @@ func _on_gameplay_back_press(_is_on_rank_menu :bool, _is_on_dictionary_menu :boo
 	main_menu.show_menu(true)
 	await get_tree().process_frame
 	gameplay.visible = false
+
+
+
 
 
 

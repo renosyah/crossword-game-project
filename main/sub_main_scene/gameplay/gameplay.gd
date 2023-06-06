@@ -41,6 +41,7 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var margin_right = $VBoxContainer/HBoxContainer/MarginContainer2
 
 @onready var panel_reward = $panelReward
+@onready var animation_player = $AnimationPlayer
 
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
@@ -53,8 +54,7 @@ var solved_tiles :Array = []
 var default_size :Vector2 = Vector2(50, 50)
 var grid_container_size :Vector2
 var trimed_crossword :Dictionary
-
-@onready var animation_player = $AnimationPlayer
+var reward_for :String
 
 func _ready():
 	rank_label.text = tr("RANK")
@@ -385,10 +385,8 @@ func _player_hurt():
 		await get_tree().create_timer(0.8).timeout
 		_player_lose()
 	
-var _reward_for :String
-	
 func watch_reward_ads(_for :String):
-	_reward_for = _for
+	reward_for = _for
 	
 	if Admob.get_is_rewarded_loaded():
 		# hide banner!
@@ -408,11 +406,11 @@ func _rewarded_closed():
 		Admob.load_rewarded()
 		
 func _user_earned_rewarded(reward_type :String, amount:int):
-	if _reward_for == "hp":
+	if reward_for == "hp":
 		Global.regenerate_hp.remove_generate_item(1)
 		_regenerate_hp_complete()
 		
-	if _reward_for == "hint":
+	if reward_for == "hint":
 		Global.regenerate_hint.remove_generate_item(5)
 		hint_left.text = str(Global.regenerate_hint.item_count)
 	

@@ -21,3 +21,8 @@ res://assets/ui/podium/podium_item/podium_item.gd
 res://assets/ui/podium/podium.tscn
 res://assets/ui/podium/podium.gd
 res://assets/ui/panel_logout/panel_logout.gd
+res://assets/ui/error_display/error_display.tscn
+res://assets/ui/error_display/error_display.gd
+res://translation/translation.en.translation
+res://translation/translation.id.translation
+res://assets/ui/panel_logout/panel_logout.tscn

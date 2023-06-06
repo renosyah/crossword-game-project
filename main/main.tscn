@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://v68208pndkv8"]
+[gd_scene load_steps=11 format=3 uid="uid://v68208pndkv8"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
 [ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_rsvg3"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_shwhi"]
+[ext_resource type="PackedScene" uid="uid://g56d7vwi85u6" path="res://assets/ui/error_display/error_display.tscn" id="4_qn2d8"]
 [ext_resource type="PackedScene" uid="uid://bvhmhj8eit6p6" path="res://main/sub_main_scene/login/login.tscn" id="5_jyxho"]
 [ext_resource type="PackedScene" uid="uid://55468m5u6r47" path="res://main/sub_main_scene/main_menu/main_menu.tscn" id="6_14dly"]
 [ext_resource type="PackedScene" uid="uid://dqu1dnmrn7ay2" path="res://main/sub_main_scene/gameplay/gameplay.tscn" id="7_stpuy"]
@@ -38,6 +39,10 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
+[node name="error_display" parent="CanvasLayer/Control" instance=ExtResource("4_qn2d8")]
+visible = false
+layout_mode = 1
+
 [node name="SafeArea" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -68,6 +73,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[connection signal="retry" from="CanvasLayer/Control/error_display" to="." method="_on_error_display_retry"]
 [connection signal="login_completed" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_login_completed"]
 [connection signal="back_press" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_back_press"]
 [connection signal="logout" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_logout"]
