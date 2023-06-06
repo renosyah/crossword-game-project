@@ -15,6 +15,7 @@ signal back_press
 @onready var setting_label = $setting_button/MarginContainer/HBoxContainer/VBoxContainer/setting_label
 @onready var game_title = $VBoxContainer/game_title
 @onready var play_label = $VBoxContainer/HBoxContainer/play/HBoxContainer/play_label
+@onready var play_button = $VBoxContainer/HBoxContainer/play
 
 @onready var rank_container = $rank_button/MarginContainer
 @onready var setting_container = $setting_button/MarginContainer
@@ -26,12 +27,16 @@ signal back_press
 
 var _is_mutted :bool = false
 var _can_back :bool = false
+var _tween :Tween
 
 func _ready():
 	game_title.text = tr("GAME_TITLE")
 	play_label.text = tr("PLAY")
 	rank_label.text = tr("RANK")
 	setting_label.text = tr("SETTING")
+	
+	play_button.pivot_offset = play_button.size / 2
+	
 	_check_is_mute()
 	
 func show_menu(re_show :bool = false):
@@ -50,6 +55,14 @@ func show_menu(re_show :bool = false):
 	animation_player.play("show_menu")
 
 func _on_play_pressed():
+	if _tween:
+		_tween.kill()
+		
+	_tween = create_tween()
+	play_button.scale = Vector2.ONE * 0.6
+	_tween.tween_property(play_button, "scale", Vector2.ONE, 0.2)
+	await _tween.finished
+	
 	animation_player.play("play")
 	emit_signal("play")
 

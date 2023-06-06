@@ -15,7 +15,7 @@ shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
 [node name="word_input" type="MarginContainer"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(70, 70)
 offset_right = 50.0
 offset_bottom = 50.0
 mouse_filter = 2

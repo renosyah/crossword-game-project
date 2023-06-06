@@ -12,7 +12,7 @@ const player_data_file = "player.data"
 @onready var word_list_founded :Array= []
 
 func _ready():
-	wordData.difficulty = wordData.hard
+	wordData.difficulty = wordData.easy
 	wordData.load_words_data()
 	
 	player.load_data(player_data_file)
