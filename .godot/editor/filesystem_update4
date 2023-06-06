@@ -15,3 +15,9 @@ res://main/sub_main_scene/rank/rank.tscn
 res://assets/ui/dictionary_item/dictionary_item.tscn
 res://assets/ui/dictionary_item/dictionary_item.gd
 res://assets/ui/rank_item/rank_item.tscn
+res://assets/ui/rank_item/rank_item.gd
+res://assets/ui/podium/podium_item/podium_item.tscn
+res://assets/ui/podium/podium_item/podium_item.gd
+res://assets/ui/podium/podium.tscn
+res://assets/ui/podium/podium.gd
+res://assets/ui/panel_logout/panel_logout.gd

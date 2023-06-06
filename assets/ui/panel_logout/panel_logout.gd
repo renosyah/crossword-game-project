@@ -25,7 +25,7 @@ func _get_player_avatar():
 		return
 		
 	_is_get_player_avatar = true
-	avatar.texture = await Global.get_avatar_image(self, Global.player)
+	avatar.texture = await Global.get_avatar_image(self, Global.player.player_id, Global.player.player_avatar)
 	_is_get_player_avatar = false
 
 func _on_color_rect_gui_input(event):

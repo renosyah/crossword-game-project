@@ -25,7 +25,9 @@ func show_rank():
 		var podium_item = podium_item_scene.instantiate()
 		podium_item.number = pos + 1
 		podium_item.level = data["level"]
-		podium_item.player = data["player"]
+		podium_item.player_id = data["player"]["player_id"]
+		podium_item.player_name = data["player"]["player_name"]
+		podium_item.player_avatar = data["player"]["player_avatar"]
 		i.add_child(podium_item)
 		pos += 1
 

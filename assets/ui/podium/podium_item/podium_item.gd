@@ -1,26 +1,28 @@
 extends VBoxContainer
 
-@onready var player_level = $MarginContainer2/player_level
-@onready var avatar = $MarginContainer/avatar
-@onready var player_name = $player_name
-@onready var crown = $crown
-
 var number :int
 var level :int
-var player :PlayerData
+var player_id :String
+var player_name :String
+var player_avatar :String
+
+@onready var _player_level = $MarginContainer2/player_level
+@onready var _avatar = $MarginContainer/avatar
+@onready var _player_name = $player_name
+@onready var _crown = $crown
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player_name.text = player.player_name
-	player_level.text = "%s %s" % [tr("LEVEL") ,level]
-	crown.texture = null
+	_player_name.text = player_name
+	_player_level.text = "%s %s" % [tr("LEVEL") ,level]
+	_crown.texture = null
 	match (number):
 		1:
-			crown.texture = preload("res://assets/ui/icons/rank_1.png")
+			_crown.texture = preload("res://assets/ui/icons/rank_1.png")
 		2:
-			crown.texture = preload("res://assets/ui/icons/rank_2.png")
+			_crown.texture = preload("res://assets/ui/icons/rank_2.png")
 		3:
-			crown.texture = preload("res://assets/ui/icons/rank_3.png")
+			_crown.texture = preload("res://assets/ui/icons/rank_3.png")
 			
-	avatar.texture = await Global.get_avatar_image(self, player)
+	_avatar.texture = await Global.get_avatar_image(self, player_id, player_avatar)
 

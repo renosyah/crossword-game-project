@@ -107,17 +107,17 @@ func _current_time_error(_msg :String):
 ######################################################################
 @onready var image_cache :Dictionary = {}
 
-func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
-	if player.player_avatar.is_empty():
+func get_avatar_image(_node :Node, player_id, player_avatar :String) -> ImageTexture:
+	if player_avatar.is_empty():
 		return null
 		
-	if Global.image_cache.has(player.player_id):
-		return image_cache[player.player_id]
+	if Global.image_cache.has(player_id):
+		return image_cache[player_id]
 		
 	var http_request :HTTPRequest = HTTPRequest.new()
 	_node.add_child(http_request)
 	
-	var http_error = http_request.request(player.player_avatar)
+	var http_error = http_request.request(player_avatar)
 	if http_error != OK:
 		http_request.queue_free()
 		return null
@@ -133,8 +133,8 @@ func get_avatar_image(_node :Node, player :PlayerData) -> ImageTexture:
 	if image_error != OK:
 		return null
 		
-	image_cache[player.player_id] = ImageTexture.create_from_image(img)
-	return image_cache[player.player_id]
+	image_cache[player_id] = ImageTexture.create_from_image(img)
+	return image_cache[player_id]
 	
 ######################################################################
 # sound

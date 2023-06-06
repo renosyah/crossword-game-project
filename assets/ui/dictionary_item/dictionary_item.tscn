@@ -45,10 +45,12 @@ mouse_filter = 2
 
 [node name="word" type="Label" parent="HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_xb267")
 theme_override_font_sizes/font_size = 16
 text = "..."
+vertical_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)

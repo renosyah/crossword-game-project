@@ -27,7 +27,9 @@ func show_ranks():
 		var rank_item = rank_item_scene.instantiate()
 		rank_item.number = i + 1
 		rank_item.level = 69
-		rank_item.player = Global.player
+		rank_item.player_id = Global.player.player_id
+		rank_item.player_name = Global.player.player_name
+		rank_item.player_avatar = Global.player.player_avatar
 		
 		if i < 3:
 			top_3.append({"level" : 69, "player" : Global.player})
