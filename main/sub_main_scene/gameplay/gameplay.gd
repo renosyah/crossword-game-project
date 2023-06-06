@@ -540,26 +540,26 @@ func _regenerate_hint_complete():
 	hint_left.text = str(Global.regenerate_hint.item_count)
 	
 var _is_on_rank_menu :bool = false
-var _is_on_list_menu :bool = false
+var _is_on_dictionary_menu :bool = false
 
 func _on_back_button_pressed():
 	sfx.stream = preload("res://assets/sound/click.wav")
 	sfx.play()
 	
 	if _is_on_rank_menu:
-		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
+		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
 		animation_player.play_backwards("to_rank")
 		_is_on_rank_menu = false
 		
-	elif _is_on_list_menu:
-		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
+	elif _is_on_dictionary_menu:
+		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
 		animation_player.play_backwards("to_rank")
-		_is_on_list_menu = false
+		_is_on_dictionary_menu = false
 		
 	else:
 		animation_player.play_backwards("show_puzzle")
 		await animation_player.animation_finished
-		emit_signal("back_press", _is_on_rank_menu, _is_on_list_menu)
+		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
 		
 func _on_rank_button_pressed():
 	_is_on_rank_menu = true
@@ -567,7 +567,7 @@ func _on_rank_button_pressed():
 	emit_signal("rank")
 	
 func _on_list_button_pressed():
-	_is_on_list_menu = true
+	_is_on_dictionary_menu = true
 	animation_player.play("to_rank")
 	emit_signal("dictionary")
 	

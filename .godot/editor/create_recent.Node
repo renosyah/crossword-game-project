@@ -1,9 +1,9 @@
-Node2D
+MarginContainer
 AnimationPlayer
 VBoxContainer
+Node2D
 HBoxContainer
 ColorRect
-MarginContainer
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D

@@ -13,7 +13,7 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 var _enabler_visibler :bool = false
 
 func _ready():
-	label.text = tr("RANK")
+	label.text = tr("RANK").to_upper()
 
 func show_ranks():
 	scroll_container.mouse_filter = MOUSE_FILTER_IGNORE
