@@ -3,7 +3,7 @@ extends Control
 @export var words :Array
 
 @onready var label = $VBoxContainer/HBoxContainer2/Label
-@onready var dictionaries = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/dictionaries
+@onready var dictionaries = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/dictionaries
 @onready var margin_container_3 = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3
 @onready var animation_player = $AnimationPlayer
 

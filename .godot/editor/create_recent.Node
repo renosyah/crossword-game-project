@@ -1,9 +1,9 @@
-AnimationPlayer
 MarginContainer
 HBoxContainer
+VBoxContainer
+AnimationPlayer
 Label
 TextureRect
-VBoxContainer
 CenterContainer
 Node2D
 ColorRect

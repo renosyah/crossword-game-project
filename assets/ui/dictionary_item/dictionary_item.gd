@@ -1,7 +1,7 @@
 extends MarginContainer
 
 @export var data :String
-@onready var word = $HBoxContainer/MarginContainer/HBoxContainer/word
+@onready var word = $HBoxContainer/VBoxContainer/word
 
 func _ready():
-	word.text = data
+	word.text = data.capitalize()
