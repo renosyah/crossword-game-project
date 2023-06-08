@@ -11,9 +11,10 @@ $data = handle_request();
 $usr = new rank();
 $usr->set($data);
 
+// if exist just update rank level
 $check = $usr->one(get_connection(include("../config.php")));
 if ($check->data != null){
-    $check->data->rank = $usr->rank;
+    $check->data->rank_level = $usr->rank_level;
     $usr->set($check->data);
     $result = $usr->update(get_connection(include("../config.php")));
 
