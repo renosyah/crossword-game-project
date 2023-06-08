@@ -353,5 +353,6 @@ libraries = {
 "": SubResource("AnimationLibrary_n7twm")
 }
 
+[connection signal="scroll_ended" from="ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
 [connection signal="screen_entered" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

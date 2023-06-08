@@ -21,20 +21,22 @@ func show_rank():
 		
 	var pos :int = 0
 	for i in [position_1, position_2, position_3]:
-		var data = top_3[pos]
+		var data :RanksApi.Rank = top_3[pos]
 		var podium_item = podium_item_scene.instantiate()
 		podium_item.number = pos + 1
-		podium_item.level = data["level"]
-		podium_item.player_id = data["player"]["player_id"]
-		podium_item.player_name = data["player"]["player_name"]
-		podium_item.player_avatar = data["player"]["player_avatar"]
+		podium_item.level = data.rank_level
+		podium_item.player_id = data.player_id
+		podium_item.player_name = data.player_name
+		podium_item.player_avatar = data.player_avatar
 		i.add_child(podium_item)
 		pos += 1
-
-func _remove_child(node :Node):
+		
+func _remove_child(node :Control):
 	for i in node.get_children():
 		node.remove_child(i)
 		i.queue_free()
+		
+	node.custom_minimum_size.y = 0
 	
 func hide_podium():
 	animation_player.play("show_nomal_list")

@@ -17,6 +17,7 @@ func _ready():
 	
 	player.load_data(player_data_file)
 	
+	setup_rank_api()
 	setup_regenerate_hp_hint()
 	setup_sound()
 
@@ -108,6 +109,15 @@ func _current_time_error(_msg :String):
 	emit_signal("setup_regenerate_complete", true)
 	
 ######################################################################
+# ranks api
+var rank_api :RanksApi
+
+func setup_rank_api():
+	rank_api = preload("res://assets/ranks_api/ranks_api.tscn").instantiate()
+	add_child(rank_api)
+	
+######################################################################
+
 @onready var image_cache :Dictionary = {}
 
 func get_avatar_image(_node :Node, player_id, player_avatar :String) -> ImageTexture:

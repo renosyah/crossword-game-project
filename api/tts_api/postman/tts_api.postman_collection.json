@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "adb00d44-6c04-46b1-a7a0-9aa8fb2f2964",
+		"name": "tts_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "rank",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"1\",\n    \"player_name\": \"Renosyah\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 69\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/add.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"rank_level\",\n    \"order_dir\": \"desc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/list.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"game_id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"score\" : 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/one.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"one.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"game_id\": 4,\n    \"player_id\": \"admin001\",\n    \"player_name\": \"admin\",\n    \"score\" : 300\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/update.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"game_name\": \"\",\n    \"game_description\": \"\",\n    \"game_url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/delete.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

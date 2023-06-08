@@ -1,3 +1,4 @@
+Node
 MarginContainer
 HBoxContainer
 VBoxContainer
@@ -10,7 +11,6 @@ ColorRect
 Control
 AudioStreamPlayer
 AudioStreamPlayer3D
-Node
 VisibleOnScreenNotifier2D
 Panel
 HTTPRequest

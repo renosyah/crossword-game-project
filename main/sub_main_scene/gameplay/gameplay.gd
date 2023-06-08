@@ -74,6 +74,8 @@ func _ready():
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
 	Global.regenerate_hint.regenerate_complete.connect(_regenerate_hint_complete)
+	
+	Global.rank_api.rank_added.connect(_on_rank_added)
 
 func generate_puzzle():
 	gameplay_helper.custom_minimum_size.x = button_rank_container.size.x
@@ -415,6 +417,20 @@ func _user_earned_rewarded(reward_type :String, amount:int):
 		hint_left.text = str(Global.regenerate_hint.item_count)
 	
 func _player_lose():
+	_submit_rank()
+	
+func _submit_rank():
+	var rank = RanksApi.Rank.new({
+		"id": 0,
+		"player_id": Global.player.player_id,
+		"player_name": Global.player.player_name,
+		"player_email": Global.player.player_email,
+		"player_avatar" : Global.player.player_avatar,
+		"rank_level" : Global.level,
+	})
+	Global.rank_api.request_add_ranks(rank)
+	
+func _on_rank_added(ok :bool):
 	Global.reset_player()
 	Global.generate_words()
 	_on_back_button_pressed()
