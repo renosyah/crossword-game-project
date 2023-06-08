@@ -4,7 +4,7 @@ class_name RanksApi
 signal rank_added(ok)
 signal ranks(ok, datas)
 
-const base_url :String = "http://192.168.1.78:8080"
+const base_url :String = "https://web-game.coretanstudio.com"
 
 @onready var _url_add_ranks :String = "%s/api/rank/add.php" % base_url
 @onready var _url_ranks :String = "%s/api/rank/list.php" % base_url
