@@ -22,6 +22,13 @@ func _ready():
 	Global.rank_api.ranks.connect(_on_ranks)
 
 func show_ranks():
+	animation_player.play("RESET")
+	_enabler_visibler = false
+	_rank_offset = 0
+	_top_3.clear()
+	_remove_child(top_rank)
+	_remove_child(ranks)
+	
 	if _top_3.is_empty():
 		Global.rank_api.request_list_ranks(_rank_offset, _rank_limit)
 		
@@ -30,14 +37,14 @@ func show_ranks():
 		
 		await get_tree().process_frame
 		podium_container.custom_minimum_size = podium.size
-
+		
 		_enabler_visibler = false
-
+		
 		animation_player.play("show_rank")
 		await animation_player.animation_finished
-
+		
 		_enabler_visibler = true
-
+		
 		scroll_container.mouse_filter = MOUSE_FILTER_PASS
 	
 func _remove_child(node :Control):
