@@ -10,6 +10,7 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var podium =$ScrollContainer/VBoxContainer/Control/podium 
 @onready var scroll_container = $ScrollContainer
 
+var _no_more_data :bool = false
 var _rank_offset :int = 0
 var _rank_limit :int = 10
 var _on_request_rank :bool = false
@@ -69,12 +70,21 @@ func _on_scroll_container_scroll_ended():
 		return
 		
 	_on_request_rank = true
-	_rank_offset += _rank_limit
+	
+	if not _no_more_data:
+		_rank_offset += _rank_limit
 	
 	Global.rank_api.request_list_ranks(_rank_offset, _rank_limit)
 
 func _on_ranks(ok :bool, datas :Array):
 	_on_request_rank = false
+	
+	if ok and datas.is_empty():
+		_rank_offset -= _rank_limit
+		_no_more_data = true
+		return
+		
+	_no_more_data = false
 	
 	var is_first_page :bool = _rank_offset == 0
 	if is_first_page:
