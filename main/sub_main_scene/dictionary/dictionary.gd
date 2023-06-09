@@ -27,3 +27,5 @@ func refresh_dictionary():
 		var item = preload("res://assets/ui/dictionary_item/dictionary_item.tscn").instantiate()
 		item.data = i
 		dictionaries.add_child(item)
+		
+	empty_list.visible = dictionaries.get_children().is_empty()
