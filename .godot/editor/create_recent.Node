@@ -1,14 +1,14 @@
+Control
+VBoxContainer
 Node
 MarginContainer
 HBoxContainer
-VBoxContainer
 AnimationPlayer
 Label
 TextureRect
 CenterContainer
 Node2D
 ColorRect
-Control
 AudioStreamPlayer
 AudioStreamPlayer3D
 VisibleOnScreenNotifier2D

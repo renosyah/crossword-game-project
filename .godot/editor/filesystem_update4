@@ -1,4 +1,7 @@
 res://default_env.tres
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/rank/rank.tscn
+res://main/sub_main_scene/gameplay/gameplay.gd
 res://main/sub_main_scene/rank/rank.gd
+res://global/global.gd
+res://assets/ui/loading/loading.tscn

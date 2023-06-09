@@ -3,7 +3,7 @@ extends Control
 signal rank
 signal dictionary
 signal add_to_dictionary(word)
-signal back_press(is_from_rank_menu)
+signal back_press(is_from_rank_menu, is_from_list_menu)
 
 const crossword_lib = preload("res://addons/crossword_gen_remake/crossword_gen_remake.gd")
 
@@ -418,6 +418,9 @@ func _user_earned_rewarded(reward_type :String, amount:int):
 	
 func _player_lose():
 	_submit_rank()
+	Global.reset_player()
+	Global.generate_words()
+	_on_back_button_pressed()
 	
 func _submit_rank():
 	var rank = RanksApi.Rank.new({
@@ -431,9 +434,7 @@ func _submit_rank():
 	Global.rank_api.request_add_ranks(rank)
 	
 func _on_rank_added(ok :bool):
-	Global.reset_player()
-	Global.generate_words()
-	_on_back_button_pressed()
+	pass
 	
 func _check_if_solved():
 	for i in grid.get_children():

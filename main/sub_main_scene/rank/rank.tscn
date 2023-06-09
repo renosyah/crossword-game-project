@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://doevsa43xqs6q"]
+[gd_scene load_steps=10 format=3 uid="uid://doevsa43xqs6q"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/rank/rank.gd" id="1_modur"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_xsod2"]
+[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_yaco6"]
 [ext_resource type="PackedScene" uid="uid://dtx0xwe6jlnv" path="res://assets/ui/podium/podium.tscn" id="3_lxb23"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gy7q"]
@@ -16,7 +17,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer:modulate")
+tracks/0/path = NodePath("VBoxContainer/ScrollContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -28,7 +29,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:modulate")
+tracks/1/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -40,7 +41,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:offset_bottom")
+tracks/2/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:offset_bottom")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -52,7 +53,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:offset_top")
+tracks/3/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:offset_top")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -64,7 +65,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container:custom_minimum_size")
+tracks/4/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container:custom_minimum_size")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -76,7 +77,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank:modulate")
+tracks/5/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -88,7 +89,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/6/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -104,7 +105,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer:modulate")
+tracks/0/path = NodePath("VBoxContainer/ScrollContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -116,7 +117,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:modulate")
+tracks/1/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -128,7 +129,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:offset_bottom")
+tracks/2/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:offset_bottom")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -140,7 +141,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:offset_top")
+tracks/3/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:offset_top")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -152,7 +153,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/4/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -168,7 +169,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container:custom_minimum_size")
+tracks/0/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container:custom_minimum_size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -180,7 +181,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank:modulate")
+tracks/1/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -192,7 +193,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ScrollContainer/VBoxContainer/Control/podium:scale")
+tracks/2/path = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/Control/podium:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -209,7 +210,8 @@ _data = {
 "show_top_rank": SubResource("Animation_lpa7c")
 }
 
-[node name="rank" type="VBoxContainer"]
+[node name="rank" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -218,21 +220,33 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_modur")
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="loading" parent="." instance=ExtResource("2_yaco6")]
+layout_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer2"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -243,34 +257,34 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer2"]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 29)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 342)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="ScrollContainer/VBoxContainer/Control"]
+[node name="Control" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -278,11 +292,11 @@ anchor_right = 0.5
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="ScrollContainer/VBoxContainer/Control/Control"]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="VBoxContainer/ScrollContainer/VBoxContainer/Control/Control"]
 position = Vector2(-2, 4)
 rect = Rect2(-10, -10, 10, 10)
 
-[node name="podium" parent="ScrollContainer/VBoxContainer/Control" instance=ExtResource("3_lxb23")]
+[node name="podium" parent="VBoxContainer/ScrollContainer/VBoxContainer/Control" instance=ExtResource("3_lxb23")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -297,54 +311,54 @@ offset_bottom = 155.0
 grow_vertical = 0
 pivot_offset = Vector2(300, 342)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Panel" type="Panel" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="Panel" type="Panel" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3gy7q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 
-[node name="top_rank_container" type="Control" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="top_rank_container" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="top_rank" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container"]
+[node name="top_rank" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="ranks" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="ranks" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
@@ -353,6 +367,6 @@ libraries = {
 "": SubResource("AnimationLibrary_n7twm")
 }
 
-[connection signal="scroll_ended" from="ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
-[connection signal="screen_entered" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="scroll_ended" from="VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_scroll_ended"]
+[connection signal="screen_entered" from="VBoxContainer/ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VBoxContainer/ScrollContainer/VBoxContainer/Control/Control/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

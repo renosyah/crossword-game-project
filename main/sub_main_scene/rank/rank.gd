@@ -1,14 +1,15 @@
-extends VBoxContainer
+extends Control
 
 const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
-@onready var label = $HBoxContainer2/Label
+@onready var label = $VBoxContainer/HBoxContainer2/Label
 
-@onready var top_rank = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank
-@onready var ranks = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/ranks
+@onready var top_rank = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/top_rank_container/top_rank
+@onready var ranks = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/ranks
 @onready var animation_player = $AnimationPlayer
-@onready var podium_container = $ScrollContainer/VBoxContainer/Control
-@onready var podium =$ScrollContainer/VBoxContainer/Control/podium 
-@onready var scroll_container = $ScrollContainer
+@onready var podium_container = $VBoxContainer/ScrollContainer/VBoxContainer/Control
+@onready var podium =$VBoxContainer/ScrollContainer/VBoxContainer/Control/podium 
+@onready var scroll_container = $VBoxContainer/ScrollContainer
+@onready var loading = $loading
 
 var _rank_offset :int = 0
 var _rank_limit :int = 10
@@ -18,11 +19,13 @@ var _top_3 :Array = []
 var _enabler_visibler :bool = false
 
 func _ready():
+	loading.visible = true
 	label.text = tr("RANK").to_upper()
 	Global.rank_api.ranks.connect(_on_ranks)
 
 func show_ranks():
 	animation_player.play("RESET")
+	loading.visible = true
 	_enabler_visibler = false
 	_rank_offset = 0
 	_top_3.clear()
@@ -33,6 +36,8 @@ func show_ranks():
 		Global.rank_api.request_list_ranks(_rank_offset, _rank_limit)
 		
 	else:
+		loading.visible = false
+		
 		scroll_container.mouse_filter = MOUSE_FILTER_IGNORE
 		
 		await get_tree().process_frame
@@ -106,6 +111,8 @@ func _on_ranks(ok :bool, datas :Array):
 			
 		
 	if is_first_page:
+		loading.visible = false
+		
 		podium.top_3 = _top_3
 		podium.show_rank()
 	

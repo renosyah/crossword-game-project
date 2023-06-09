@@ -141,14 +141,33 @@ func get_avatar_image(_node :Node, player_id, player_avatar :String) -> ImageTex
 		
 	http_request.queue_free()
 	
-	var img = Image.new()
-	var image_error = img.load_jpg_from_buffer(result[3])
-	if image_error != OK:
+	var body :PackedByteArray = result[3]
+	if body.is_empty():
+		return null
+		
+	var img = _check_image_format(body)
+	if img == null:
 		return null
 		
 	image_cache[player_id] = ImageTexture.create_from_image(img)
 	return image_cache[player_id]
 	
+func _check_image_format(body :PackedByteArray) -> Image:
+	var img = Image.new()
+	
+	var image_error = img.load_jpg_from_buffer(body)
+	if image_error == OK:
+		return img
+		
+	image_error = img.load_png_from_buffer(body)
+	if image_error == OK:
+		return img
+		
+	image_error = img.load_bmp_from_buffer(body)
+	if image_error == OK:
+		return img
+		
+	return null
 ######################################################################
 # sound
 var music :AudioStreamPlayer

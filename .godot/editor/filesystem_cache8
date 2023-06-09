@@ -1,7 +1,7 @@
 bdbec74c6e5bd72edee867077d70896c
-::res://::1686210250
+::res://::1686275731
 default_bus_layout.tres::AudioBusLayout::7194015207458465762::1685928017::0::1::::<><>::
-default_env.tres::Environment::4726245171833308622::1686210154::0::1::::<><>::
+default_env.tres::Environment::4726245171833308622::1686210671::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1685928017::0::1::::<><>::
 icn.png::CompressedTexture2D::2549206936460589369::1684114966::1685497821::1::::<><>::
 icon.png::CompressedTexture2D::7202419658726670494::1684114966::1685497821::1::::<><>::
@@ -250,9 +250,9 @@ main.tscn::PackedScene::1540014668732591899::1686040379::0::1::::<><>::res://add
 ::res://main/sub_main_scene/dictionary/::1686197599
 dictionary.gd::GDScript::-1::1686103118::0::1::::<>Control<>::
 dictionary.tscn::PackedScene::8426083392913721561::1686197599::0::1::::<><>::res://main/sub_main_scene/dictionary/dictionary.gd<>uid://bqlmj2xwvkrst
-::res://main/sub_main_scene/gameplay/::1686210154
+::res://main/sub_main_scene/gameplay/::1686210671
 gameplay.gd::GDScript::-1::1686206661::0::1::::<>Control<>::
-gameplay.tscn::PackedScene::8325155805694897595::1686210154::0::1::::<><>::res://main/sub_main_scene/gameplay/gameplay.gd<>uid://gmpkklh2jf5y<>uid://cjl1tg7ijoc71<>uid://bqlmj2xwvkrst<>uid://cye5qtksbpuoa<>uid://chcbehml5x53s<>uid://cs126ybekixv6<>uid://de1qukub4idoi<>uid://j5lmvns8gupg<>uid://bac3jnsksju3k<>uid://dihaanvb3byoj
+gameplay.tscn::PackedScene::8325155805694897595::1686210671::0::1::::<><>::res://main/sub_main_scene/gameplay/gameplay.gd<>uid://gmpkklh2jf5y<>uid://cjl1tg7ijoc71<>uid://bqlmj2xwvkrst<>uid://cye5qtksbpuoa<>uid://chcbehml5x53s<>uid://cs126ybekixv6<>uid://de1qukub4idoi<>uid://j5lmvns8gupg<>uid://bac3jnsksju3k<>uid://dihaanvb3byoj
 hint.png::CompressedTexture2D::7494698991213445536::1685928017::1685928017::1::::<><>::
 list.png::CompressedTexture2D::5268360275270857786::1685928017::1685928017::1::::<><>::
 ::res://main/sub_main_scene/login/::1685935607
@@ -265,9 +265,9 @@ main_menu.tscn::PackedScene::2169414547363280310::1686040380::0::1::::<><>::res:
 play.png::CompressedTexture2D::4495742712712355494::1685497802::1685497802::1::::<><>::
 rank.png::CompressedTexture2D::5428862052269178466::1685928017::1685928017::1::::<><>::
 setting.png::CompressedTexture2D::4179420391196484392::1685928017::1685928017::1::::<><>::
-::res://main/sub_main_scene/rank/::1686210154
-rank.gd::GDScript::-1::1686210154::0::1::::<>VBoxContainer<>::
-rank.tscn::PackedScene::8151470620269285926::1686210154::0::1::::<><>::res://main/sub_main_scene/rank/rank.gd<>uid://bqlmj2xwvkrst<>uid://dtx0xwe6jlnv
+::res://main/sub_main_scene/rank/::1686210671
+rank.gd::GDScript::-1::1686210545::0::1::::<>VBoxContainer<>::
+rank.tscn::PackedScene::8151470620269285926::1686210671::0::1::::<><>::res://main/sub_main_scene/rank/rank.gd<>uid://bqlmj2xwvkrst<>uid://dtx0xwe6jlnv
 ::res://translation/::1686038116
 translation.csv::::-1::1686038105::1686038116::1::::<><>::
 translation.en.translation::OptimizedTranslation::7103547305185649344::1686038116::0::1::::<><>::
