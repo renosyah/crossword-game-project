@@ -385,11 +385,14 @@ func _player_hurt():
 	hit_point_display.pop_hp()
 	
 	if Global.regenerate_hp.item_count == 0:
-		await _offer_watch_ads_to_get_hp()
+		var is_aggree :bool = await _offer_watch_ads_to_get_hp()
+		if is_aggree:
+			return
+			
 		await get_tree().create_timer(0.8).timeout
 		_player_lose()
 		
-func _offer_watch_ads_to_get_hp():
+func _offer_watch_ads_to_get_hp() -> bool:
 	var _reward_is_loaded = Admob.get_is_rewarded_loaded()
 	var _has_reward_quota_ok = Global.regenerate_reward_hp.item_count > 0
 	var _is_not_web_app = "Web" != OS.get_name()
@@ -405,8 +408,10 @@ func _offer_watch_ads_to_get_hp():
 		var is_aggree :bool = await panel_reward.watch_ads
 		if is_aggree:
 			watch_reward_ads("hp")
-			return
+			return true
 			
+	return false
+	
 # RULE REVISION
 # if player hp is 0, and player click
 # hp container, display ads reward offer
