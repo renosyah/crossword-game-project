@@ -25,6 +25,8 @@ signal back_press
 
 @onready var panel_logout = $panel_logout
 
+@onready var sfx = Global.sfx
+
 var _is_mutted :bool = false
 var _can_back :bool = false
 var _tween :Tween
@@ -66,6 +68,9 @@ func _on_play_pressed():
 	emit_signal("play")
 
 func _on_setting_button_pressed():
+	sfx.stream = preload("res://assets/sound/click.wav")
+	sfx.play()
+	
 	_can_back = true
 	animation_player.play("to_setting")
 	panel_logout.show_panel_logout()

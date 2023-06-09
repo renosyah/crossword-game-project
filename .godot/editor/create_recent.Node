@@ -1,9 +1,10 @@
-Control
+AnimationPlayer
+Timer
 VBoxContainer
+Control
 Node
 MarginContainer
 HBoxContainer
-AnimationPlayer
 Label
 TextureRect
 CenterContainer
@@ -21,6 +22,5 @@ NinePatchRect
 SafeArea
 CanvasLayer
 HSplitContainer
-Timer
 GridContainer
 AspectRatioContainer

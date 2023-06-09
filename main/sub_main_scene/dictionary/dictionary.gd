@@ -6,10 +6,12 @@ extends Control
 @onready var dictionaries = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/dictionaries
 @onready var margin_container_3 = $ScrollContainer/VBoxContainer/HBoxContainer/MarginContainer3
 @onready var animation_player = $AnimationPlayer
+@onready var empty_list = $Label2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	label.text = tr("DICTIONARY").to_upper()
+	empty_list.text = tr("EMPTY_LIST")
 
 func show_dictionary():
 	animation_player.play("show_dictionary")

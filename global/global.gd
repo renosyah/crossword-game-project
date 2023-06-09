@@ -11,6 +11,9 @@ const player_data_file = "player.data"
 @onready var word_list :Array = []
 @onready var word_list_founded :Array= []
 
+@onready var player_hint :int = 5
+@onready var player_max_hint :int = 5
+
 func _ready():
 	wordData.difficulty = wordData.hard
 	wordData.load_words_data()
@@ -62,7 +65,6 @@ signal setup_regenerate_complete(has_error)
 
 var current_time :CurrentTime
 var regenerate_hp :RegenerateItemHandler
-var regenerate_hint :RegenerateItemHandler
 var regenerate_reward_hp :RegenerateItemHandler
 var regenerate_reward_hint :RegenerateItemHandler
 
@@ -72,35 +74,32 @@ func setup_regenerate_hp_hint():
 	current_time.error.connect(_current_time_error)
 	
 	var scene = preload("res://assets/regenerate_item_handler/regenerate_item_handler.tscn")
+	
 	regenerate_hp = scene.instantiate()
 	regenerate_hp.item_name = "hp"
+	regenerate_hp.cooldown = 60
 	regenerate_hp.item_count = 5
 	regenerate_hp.item_max = 5
 	
-	regenerate_hint = scene.instantiate()
-	regenerate_hint.item_name = "hint"
-	regenerate_hint.item_count = 10
-	regenerate_hint.item_max = 10
-	
 	regenerate_reward_hp = scene.instantiate()
 	regenerate_reward_hp.item_name = "free_hp_reward_ads"
+	regenerate_reward_hp.cooldown = 30
 	regenerate_reward_hp.item_count = 1
 	regenerate_reward_hp.item_max = 1
 	
 	regenerate_reward_hint = scene.instantiate()
 	regenerate_reward_hint.item_name = "free_hint_reward_ads"
+	regenerate_reward_hint.cooldown = 30
 	regenerate_reward_hint.item_count = 1
 	regenerate_reward_hint.item_max = 1
 	
 	add_child(current_time)
 	add_child(regenerate_hp)
-	add_child(regenerate_hint)
 	add_child(regenerate_reward_hp)
 	add_child(regenerate_reward_hint)
 	
 func _current_time_ready(_current_time :Dictionary):
 	regenerate_hp.run_regenerating(_current_time)
-	regenerate_hint.run_regenerating(_current_time)
 	regenerate_reward_hp.run_regenerating(_current_time)
 	regenerate_reward_hint.run_regenerating(_current_time)
 	emit_signal("setup_regenerate_complete", false)

@@ -45,7 +45,7 @@ func _save_data():
 	var regenerating_items_datas :Array = []
 	
 	for i in regenerating_items:
-		var item :regenerateItem = i
+		var _item :regenerateItem = i
 		regenerating_items_datas.append(i.to_dict())
 		
 	SaveLoad.save("%s_regenerating_items_datas.data" % item_name, regenerating_items_datas)
@@ -122,7 +122,6 @@ func remove_generate_item(count :int = 1):
 	
 func _clear_done():
 	var _holders :Array = []
-	var clear_done_pos :Array = []
 	
 	for i in regenerating_items:
 		var item :regenerateItem = i
@@ -218,9 +217,9 @@ class dateTime:
 	func get_unix() -> int:
 		return Time.get_unix_time_from_datetime_dict(to_dict())
 		
-	func add(second :int) -> dateTime:
+	func add(_second :int) -> dateTime:
 		var _current_update_time :int = Time.get_unix_time_from_datetime_dict(to_dict())
-		_current_update_time += second
+		_current_update_time += _second
 		_init(Time.get_datetime_dict_from_unix_time(_current_update_time))
 		return self
 	

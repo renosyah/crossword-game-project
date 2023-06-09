@@ -42,7 +42,7 @@ func request_list_ranks(offset :int, limit :int = 10):
 		emit_signal("ranks", false, _datas)
 		return
 	
-func _on_request_ranks_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+func _on_request_ranks_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		emit_signal("ranks", false, _datas)
 		return
@@ -67,7 +67,7 @@ func request_add_ranks(_rank :Rank):
 		emit_signal("rank_added", false)
 		return
 		
-func _on_request_add_ranks_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+func _on_request_add_ranks_completed(result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		emit_signal("rank_added", false)
 		return

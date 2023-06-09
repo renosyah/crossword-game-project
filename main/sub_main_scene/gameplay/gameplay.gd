@@ -43,6 +43,9 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var panel_reward = $panelReward
 @onready var animation_player = $AnimationPlayer
 
+@onready var timer_countdown = $timer_countdown
+@onready var simple_panel_message = $simple_panel_message
+
 var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
@@ -73,7 +76,6 @@ func _ready():
 	Admob.user_earned_rewarded.connect(_user_earned_rewarded)
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
-	Global.regenerate_hint.regenerate_complete.connect(_regenerate_hint_complete)
 	
 	Global.rank_api.rank_added.connect(_on_rank_added)
 
@@ -86,7 +88,7 @@ func generate_puzzle():
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
 	
-	hint_left.text = str(Global.regenerate_hint.item_count)
+	hint_left.text = str(Global.player_hint)
 	
 	animation_player.play("RESET")
 	await animation_player.animation_finished
@@ -116,7 +118,12 @@ func generate_puzzle():
 	
 	_calculate_tile_size()
 	_build_crossword_grid()
-	_display_clue()
+	
+	# RULE REVISION
+	# if player reach more than lvl 50
+	# no starter hint will be display
+	if Global.level < 50:
+		_display_clue()
 	
 	animation_player.play("show_puzzle")
 	
@@ -131,6 +138,18 @@ func generate_puzzle():
 		Admob.show_banner()
 		
 		
+	# RULE REVISION
+	# hide timer
+	timer_countdown.visible = false
+	
+	# RULE REVISION
+	# if player reach more than lvl 1000
+	# timer apear, if end, player lose
+	if Global.level >= 1000:
+		timer_countdown.visible = true
+		timer_countdown.wait_time = 300
+		timer_countdown.start()
+	
 func on_back_button_pressed():
 	_on_back_button_pressed()
 	
@@ -147,7 +166,7 @@ func _display_input_tile():
 	_set_input_character(characters)
 	
 func _calculate_tile_size():
-	var trimed :Dictionary = util.trim(crossword.rows, crossword.grid)
+	var _trimed :Dictionary = util.trim(crossword.rows, crossword.grid)
 	var row_x_size = (default_size.x + 8) * util.rows
 	var col_y_size = (default_size.y + 8) * util.cols
 	
@@ -157,8 +176,8 @@ func _calculate_tile_size():
 	if diff.y > 0:
 		default_size.y -= abs((default_size.y - diff.y) / util.cols)
 		
-	var min = min(default_size.x, default_size.y)
-	default_size = Vector2(min, min).clamp(Vector2(15,15), Vector2(50, 50))
+	var _min = min(default_size.x, default_size.y)
+	default_size = Vector2(_min, _min).clamp(Vector2(15,15), Vector2(50, 50))
 	
 func _build_crossword_grid():
 	for i in grid.get_children():
@@ -266,8 +285,8 @@ func _find_and_show_word(word :String):
 			var col = i.col
 			var down_across = i.down_across()
 			
-			var _solved_tile :Array
-			var _animated_items :Array
+			var _solved_tile :Array = []
+			var _animated_items :Array = []
 			
 			for c in range(len(word)):
 				var id = _create_tile_id(row, col)
@@ -305,7 +324,7 @@ func _find_and_show_word(word :String):
 			
 	# run to dictionary
 	if Global.wordData.is_in_dictionary(word):
-		var _animated_items :Array
+		var _animated_items :Array = []
 		
 		for c in range(len(word)):
 			var item_origin = word_output_container.get_child(c)
@@ -365,12 +384,17 @@ func _player_hurt():
 	Global.regenerate_hp.add_generate_item()
 	hit_point_display.pop_hp()
 	
+	if Global.regenerate_hp.item_count == 0:
+		await _offer_watch_ads_to_get_hp()
+		await get_tree().create_timer(0.8).timeout
+		_player_lose()
+		
+func _offer_watch_ads_to_get_hp():
 	var _reward_is_loaded = Admob.get_is_rewarded_loaded()
-	var _is_hp_low = Global.regenerate_hp.item_count == 1
 	var _has_reward_quota_ok = Global.regenerate_reward_hp.item_count > 0
 	var _is_not_web_app = "Web" != OS.get_name()
 	
-	if _is_hp_low and _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
+	if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
 		Global.regenerate_reward_hp.add_generate_item()
 		panel_reward.title = tr("LOW_OF_CHANCE")
 		panel_reward.description = tr("LOW_OF_CHANCE_DESC")
@@ -382,11 +406,15 @@ func _player_hurt():
 		if is_aggree:
 			watch_reward_ads("hp")
 			return
+			
+# RULE REVISION
+# if player hp is 0, and player click
+# hp container, display ads reward offer
+func _on_container_hp_input(event):
+	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
+		if Global.regenerate_hp.item_count == 0:
+			_offer_watch_ads_to_get_hp()
 		
-	if Global.regenerate_hp.item_count == 0:
-		await get_tree().create_timer(0.8).timeout
-		_player_lose()
-	
 func watch_reward_ads(_for :String):
 	reward_for = _for
 	
@@ -407,23 +435,41 @@ func _rewarded_closed():
 	if not Admob.get_is_rewarded_loaded():
 		Admob.load_rewarded()
 		
-func _user_earned_rewarded(reward_type :String, amount:int):
+func _user_earned_rewarded(_reward_type :String, _amount:int):
 	if reward_for == "hp":
 		Global.regenerate_hp.remove_generate_item(1)
 		_regenerate_hp_complete()
 		
 	if reward_for == "hint":
-		Global.regenerate_hint.remove_generate_item(5)
-		hint_left.text = str(Global.regenerate_hint.item_count)
+		Global.player_hint += clamp(Global.player_hint + 2, 0, Global.player_max_hint)
+		hint_left.text = str(Global.player_hint)
 	
 func _player_lose():
 	_submit_rank()
+	
+	# RULE REVISION
+	# if player reach more than lvl 1000
+	# if player lose, drop 50 lvl
+	if Global.level >= 1000:
+		Global.level -= 50
+		Global.generate_words()
+		
+		# show panel
+		# why player lose 50 lvl
+		simple_panel_message.title = tr("DROP_LEVEL_TITLE")
+		simple_panel_message.message = tr("DROP_LEVEL_DESCRIPTION")
+		simple_panel_message.show_panel()
+		
+		# reset puzzle
+		generate_puzzle()
+		return
+	
 	Global.reset_player()
 	Global.generate_words()
 	_on_back_button_pressed()
 	
 func _submit_rank():
-	var rank = RanksApi.Rank.new({
+	var _rank = RanksApi.Rank.new({
 		"id": 0,
 		"player_id": Global.player.player_id,
 		"player_name": Global.player.player_name,
@@ -431,10 +477,13 @@ func _submit_rank():
 		"player_avatar" : Global.player.player_avatar,
 		"rank_level" : Global.level,
 	})
-	Global.rank_api.request_add_ranks(rank)
+	Global.rank_api.request_add_ranks(_rank)
 	
-func _on_rank_added(ok :bool):
+func _on_rank_added(_ok :bool):
 	pass
+	
+func _on_timer_countdown_timeout():
+	_player_lose()
 	
 func _check_if_solved():
 	for i in grid.get_children():
@@ -449,6 +498,10 @@ func _check_if_solved():
 func _show_solved():
 	sfx.stream = preload("res://assets/sound/completed.wav")
 	sfx.play()
+	
+	# RULE REVISION
+	# stop timer
+	timer_countdown.stop()
 	
 	await get_tree().create_timer(1.5).timeout
 	
@@ -497,23 +550,20 @@ func _display_hint():
 			return
 	
 func _on_check_word_pressed():
-	var word :String
+	var _word :String = ""
 	for i in output_sets:
-		word += i
+		_word += i
 		
-	if word.is_empty():
+	if _word.is_empty():
 		return
 		
-	if Global.word_list_founded.has(word):
+	if Global.word_list_founded.has(_word):
 		return
 		
-	_find_and_show_word(word)
+	_find_and_show_word(_word)
 
 func _on_hint_button_pressed():
-	if not Global.regenerate_hint.is_valid():
-		return
-		
-	if Global.regenerate_hint.item_count == 0:
+	if Global.player_hint == 0:
 		var _reward_is_loaded = Admob.get_is_rewarded_loaded()
 		var _has_reward_quota_ok = Global.regenerate_reward_hint.item_count > 0
 		var _is_not_web_app = "Web" != OS.get_name()
@@ -536,8 +586,8 @@ func _on_hint_button_pressed():
 	sfx.play()
 		
 	# hint decrease & regenerate
-	Global.regenerate_hint.add_generate_item()
-	hint_left.text = str(Global.regenerate_hint.item_count)
+	Global.player_hint -= 1
+	hint_left.text = str(Global.player_hint)
 	_display_hint()
 	_on_clear_word_pressed()
 	
@@ -551,13 +601,15 @@ func _regenerate_hp_complete():
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
 	
-func _regenerate_hint_complete():
-	hint_left.text = str(Global.regenerate_hint.item_count)
-	
 var _is_on_rank_menu :bool = false
 var _is_on_dictionary_menu :bool = false
 
 func _on_back_button_pressed():
+	
+	# RULE REVISION
+	# stop timer
+	timer_countdown.stop()
+	
 	sfx.stream = preload("res://assets/sound/click.wav")
 	sfx.play()
 	
@@ -586,3 +638,9 @@ func _on_list_button_pressed():
 	animation_player.play("to_rank")
 	emit_signal("dictionary")
 	
+
+
+
+
+
+

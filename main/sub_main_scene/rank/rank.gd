@@ -85,7 +85,7 @@ func _on_scroll_container_scroll_ended():
 	
 	Global.rank_api.request_list_ranks(_rank_offset, _rank_limit)
 
-func _on_ranks(ok :bool, datas :Array):
+func _on_ranks(_ok :bool, datas :Array):
 	_on_request_rank = false
 
 	var is_first_page :bool = _rank_offset == 0

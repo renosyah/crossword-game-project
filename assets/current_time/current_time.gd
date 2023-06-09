@@ -16,11 +16,11 @@ func request_current_time():
 	if "Web" == OS.get_name():
 		_http_request.accept_gzip = false
 		
-	var error = _http_request.request("https://timeapi.io/api/Time/current/zone?timeZone=Asia/Jakarta")
-	if error != OK:
+	var err = _http_request.request("https://timeapi.io/api/Time/current/zone?timeZone=Asia/Jakarta")
+	if err != OK:
 		emit_signal("error", "failed request time!")
 	
-func _on_request_global_current_time(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+func _on_request_global_current_time(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		emit_signal("error", "failed request time!")
 		return
