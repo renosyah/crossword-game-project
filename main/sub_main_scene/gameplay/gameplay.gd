@@ -505,8 +505,6 @@ func _player_earned_rewarded(_reward_type :String, _amount:int):
 		hint_left.text = str(Global.player_hint)
 	
 func _player_lose():
-	_submit_rank()
-	
 	# RULE REVISION
 	# if player reach more than lvl 1000
 	# if player lose, drop 50 lvl
@@ -556,6 +554,8 @@ func _check_if_solved():
 	_show_solved()
 	
 func _show_solved():
+	_submit_rank()
+	
 	sfx.stream = preload("res://assets/sound/completed.wav")
 	sfx.play()
 	
