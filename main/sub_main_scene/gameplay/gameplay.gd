@@ -16,7 +16,7 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var level = $VBoxContainer/HBoxContainer2/level
 @onready var rank_label = $rank_button/MarginContainer/HBoxContainer/VBoxContainer/rank_label
 @onready var list_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button/VBoxContainer/list_label
-@onready var hint_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer/hint_label
+@onready var hint_label = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button/VBoxContainer/hint_label
 @onready var check_label = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word/MarginContainer4/check_label
 @onready var chance_left = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/chance_left
 
@@ -29,9 +29,11 @@ const word_output = preload("res://entity/word_output/word_output.tscn")
 @onready var menu_input_container = $VBoxContainer/Control
 @onready var menu_input = $VBoxContainer/Control/MarginContainer3
 
-@onready var hit_point_display = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/hit_point_display
-@onready var hint_left = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer/hint_left
+@onready var hit_point_display = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer/hit_point_display
+@onready var hint_left = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button/VBoxContainer/hint_left
 @onready var list_button = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button
+@onready var add_more_hp = $VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer/add_more_hp
+@onready var add_more_hint = $VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/add_more_hint
 
 @onready var clear_word = $VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word
 @onready var timer_delay = $TimerDelay
@@ -66,14 +68,18 @@ func _ready():
 	check_label.text = tr("CHECK")
 	chance_left.text = tr("CHANCE_LEFT")
 	
+	add_more_hp.visible = false
+	add_more_hint.visible = false
+	
 	list_button.pivot_offset = list_button.size / 2
 	
 	Admob.interstitial_failed_to_show.connect(_interstitial_closed)
 	Admob.interstitial_closed.connect(_interstitial_closed)
 	
+	Admob.rewarded_ad_loaded.connect(_rewarded_ad_loaded)
 	Admob.rewarded_ad_failed_to_show.connect(_rewarded_closed)
 	Admob.rewarded_ad_closed.connect(_rewarded_closed)
-	Admob.user_earned_rewarded.connect(_user_earned_rewarded)
+	Admob.user_earned_rewarded.connect(_player_earned_rewarded)
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
 	
@@ -130,13 +136,15 @@ func generate_puzzle():
 	if not Admob.get_is_rewarded_loaded():
 		Admob.load_rewarded()
 		
+	else:
+		_rewarded_ad_loaded()
+		
 	# load interstitial ads if world list is more than one
 	if not Admob.get_is_interstitial_loaded() and Global.word_list.size() > 1:
 		Admob.load_interstitial()
 		
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
-		
 		
 	# RULE REVISION
 	# hide timer
@@ -149,7 +157,14 @@ func generate_puzzle():
 		timer_countdown.visible = true
 		timer_countdown.wait_time = 300
 		timer_countdown.start()
-	
+		
+	# show panel
+	# new rule if player reach lvl 100
+	if Global.level == 1000:
+		simple_panel_message.title = tr("FINAL_BOSS_TITLE")
+		simple_panel_message.message = tr("FINAL_BOSS_DESCRIPTION")
+		simple_panel_message.show_panel()
+		
 func on_back_button_pressed():
 	_on_back_button_pressed()
 	
@@ -398,7 +413,6 @@ func _offer_watch_ads_to_get_hp() -> bool:
 	var _is_not_web_app = "Web" != OS.get_name()
 	
 	if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
-		Global.regenerate_reward_hp.add_generate_item()
 		panel_reward.title = tr("LOW_OF_CHANCE")
 		panel_reward.description = tr("LOW_OF_CHANCE_DESC")
 		panel_reward.button_title = tr("GET_FREE_CHANCE")
@@ -407,20 +421,43 @@ func _offer_watch_ads_to_get_hp() -> bool:
 		# wait
 		var is_aggree :bool = await panel_reward.watch_ads
 		if is_aggree:
-			watch_reward_ads("hp")
+			Global.regenerate_reward_hp.add_generate_item()
+			_watch_reward_ads("hp")
+			return true
+			
+	return false
+	
+func _offer_watch_ads_to_get_hint() -> bool:
+	var _is_hint_not_max = Global.player_hint < Global.player_max_hint
+	var _reward_is_loaded = Admob.get_is_rewarded_loaded()
+	var _has_reward_quota_ok = Global.regenerate_reward_hint.item_count > 0
+	var _is_not_web_app = "Web" != OS.get_name()
+	
+	if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded and _is_hint_not_max:
+		panel_reward.title = tr("LOW_OF_HINT")
+		panel_reward.description = tr("LOW_OF_CHANCE_HINT")
+		panel_reward.button_title = tr("GET_FREE_HINT")
+		panel_reward.show_panel()
+		
+		# wait
+		var is_aggree :bool = await panel_reward.watch_ads
+		if is_aggree:
+			Global.regenerate_reward_hint.add_generate_item()
+			_watch_reward_ads("hint")
 			return true
 			
 	return false
 	
 # RULE REVISION
 # if player hp is 0, and player click
-# hp container, display ads reward offer
-func _on_container_hp_input(event):
-	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
-		if Global.regenerate_hp.item_count == 0:
-			_offer_watch_ads_to_get_hp()
-		
-func watch_reward_ads(_for :String):
+# add hp more hp, display ads reward offer
+func _on_add_more_hp_pressed():
+	_offer_watch_ads_to_get_hp()
+	
+func _on_add_more_hint_pressed():
+	_offer_watch_ads_to_get_hint()
+	
+func _watch_reward_ads(_for :String):
 	reward_for = _for
 	
 	if Admob.get_is_rewarded_loaded():
@@ -432,7 +469,18 @@ func watch_reward_ads(_for :String):
 		return
 		
 	_rewarded_closed()
-
+	
+# RULE REVISION
+# if rewards ads is ready
+# show offer add hp or hint
+# by watch reward video ads
+func _rewarded_ad_loaded():
+	if Global.regenerate_hp.item_count == 0:
+		add_more_hp.visible = Admob.get_is_rewarded_loaded() # true
+		
+	if Global.player_hint < Global.player_max_hint:
+		add_more_hint.visible = Admob.get_is_rewarded_loaded() # true
+	
 func _rewarded_closed():
 	if Admob.get_is_banner_loaded():
 		Admob.show_banner()
@@ -440,13 +488,18 @@ func _rewarded_closed():
 	if not Admob.get_is_rewarded_loaded():
 		Admob.load_rewarded()
 		
-func _user_earned_rewarded(_reward_type :String, _amount:int):
+	add_more_hp.visible = false
+	add_more_hint.visible = false
+	
+func _player_earned_rewarded(_reward_type :String, _amount:int):
+	# add 1 more hp
 	if reward_for == "hp":
 		Global.regenerate_hp.remove_generate_item(1)
 		_regenerate_hp_complete()
 		
+	# add 2 more hint
 	if reward_for == "hint":
-		Global.player_hint += clamp(Global.player_hint + 2, 0, Global.player_max_hint)
+		Global.player_hint = clamp(Global.player_hint + 2, 0, Global.player_max_hint)
 		hint_left.text = str(Global.player_hint)
 	
 func _player_lose():
@@ -568,23 +621,11 @@ func _on_check_word_pressed():
 	_find_and_show_word(_word)
 
 func _on_hint_button_pressed():
-	if Global.player_hint == 0:
-		var _reward_is_loaded = Admob.get_is_rewarded_loaded()
-		var _has_reward_quota_ok = Global.regenerate_reward_hint.item_count > 0
-		var _is_not_web_app = "Web" != OS.get_name()
+	if Global.player_hint < Global.player_max_hint:
+		add_more_hint.visible = Admob.get_is_rewarded_loaded() # true / false
 		
-		if _has_reward_quota_ok and _is_not_web_app and _reward_is_loaded:
-			Global.regenerate_reward_hint.add_generate_item()
-			panel_reward.title = tr("LOW_OF_HINT")
-			panel_reward.description = tr("LOW_OF_CHANCE_HINT")
-			panel_reward.button_title = tr("GET_FREE_HINT")
-			panel_reward.show_panel()
-			
-			# wait
-			var is_aggree :bool = await panel_reward.watch_ads
-			if is_aggree:
-				watch_reward_ads("hint")
-			
+	if Global.player_hint == 0:
+		_offer_watch_ads_to_get_hint()
 		return
 		
 	sfx.stream = preload("res://assets/sound/pop_hint.wav")
@@ -642,10 +683,5 @@ func _on_list_button_pressed():
 	_is_on_dictionary_menu = true
 	animation_player.play("to_rank")
 	emit_signal("dictionary")
-	
-
-
-
-
 
 

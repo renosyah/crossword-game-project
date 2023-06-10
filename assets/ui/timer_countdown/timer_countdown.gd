@@ -6,7 +6,7 @@ signal timeout
 @export var wait_time: int = 300
 var is_started :bool = false
 
-@onready var label_time = $VBoxContainer/HBoxContainer2/label_time
+@onready var label_time = $VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time
 @onready var timer = $Timer
 @onready var animation_player = $AnimationPlayer
 

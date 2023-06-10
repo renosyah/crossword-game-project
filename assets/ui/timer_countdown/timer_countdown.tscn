@@ -1,54 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmhdxxec1un8s"]
+[gd_scene load_steps=8 format=3 uid="uid://dmhdxxec1un8s"]
 
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_k4ov5"]
 [ext_resource type="Script" path="res://assets/ui/timer_countdown/timer_countdown.gd" id="1_rocfa"]
+[ext_resource type="Texture2D" uid="uid://s0i10mcilnbf" path="res://assets/ui/icons/stopwatch.png" id="2_anpmf"]
 
-[sub_resource type="Animation" id="Animation_2rhdr"]
-resource_name = "flip_flop"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/label_time:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/label_time:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("VBoxContainer/HBoxContainer2/label_time:pivot_offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(40, 19), Vector2(40, 19)]
-}
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlygl"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="Animation" id="Animation_bruoo"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/label_time:scale")
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -60,19 +28,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/label_time:modulate")
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("VBoxContainer/HBoxContainer2/label_time:pivot_offset")
+tracks/2/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:pivot_offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -80,6 +48,46 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(40, 19)]
+}
+
+[sub_resource type="Animation" id="Animation_2rhdr"]
+resource_name = "flip_flop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/label_time:pivot_offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(23, 13), Vector2(23, 13)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_31bk0"]
@@ -126,16 +134,49 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="label_time" type="Label" parent="VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(80, 0)
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(108, 56)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vlygl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_anpmf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="label_time" type="Label" parent="VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_k4ov5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(65, 0)

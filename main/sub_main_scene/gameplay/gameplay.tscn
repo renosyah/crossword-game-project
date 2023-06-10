@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dqu1dnmrn7ay2"]
+[gd_scene load_steps=28 format=3 uid="uid://dqu1dnmrn7ay2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/gameplay/gameplay.gd" id="1_kxjxo"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="1_t2od6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://de1qukub4idoi" path="res://main/sub_main_scene/gameplay/hint.png" id="6_mi1bp"]
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="7_qsvik"]
 [ext_resource type="PackedScene" uid="uid://bac3jnsksju3k" path="res://assets/ui/hit_point_display/hit_point_display.tscn" id="8_bmk5m"]
+[ext_resource type="Texture2D" uid="uid://cc5m8olxg6cgv" path="res://assets/ui/icons/add.png" id="10_wr0ih"]
 [ext_resource type="PackedScene" uid="uid://dihaanvb3byoj" path="res://assets/ui/panel_reward/panel_reward.tscn" id="11_pncey"]
 [ext_resource type="PackedScene" uid="uid://cyytys2xts5tu" path="res://assets/ui/simple_panel_message/simple_panel_message.tscn" id="13_n6l5v"]
 
@@ -664,8 +665,9 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="list_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper"]
-custom_minimum_size = Vector2(57, 81)
+custom_minimum_size = Vector2(85, 81)
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_styles/focus = SubResource("StyleBoxEmpty_miers")
 flat = true
 
@@ -708,13 +710,34 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="hint_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper"]
-custom_minimum_size = Vector2(57, 100)
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="add_more_hint" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/add_more_hint"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("10_wr0ih")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="hint_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer"]
+custom_minimum_size = Vector2(85, 100)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_miers")
 flat = true
 
-[node name="Panel2" type="Panel" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
+[node name="Panel2" type="Panel" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -724,7 +747,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gt85e")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -734,14 +757,14 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button/VBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("6_mi1bp")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="hint_label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+[node name="hint_label" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_y6d7x")
 theme_override_font_sizes/font_size = 13
@@ -749,7 +772,7 @@ text = "Hint"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="hint_left" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button/VBoxContainer"]
+[node name="hint_left" type="Label" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.941176, 1, 0.709804, 1)
 theme_override_fonts/font = ExtResource("7_qsvik")
@@ -793,9 +816,29 @@ theme_override_font_sizes/font_size = 13
 text = "KESEMPATAN:"
 vertical_alignment = 1
 
-[node name="hit_point_display" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer" instance=ExtResource("8_bmk5m")]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="hit_point_display" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer" instance=ExtResource("8_bmk5m")]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="add_more_hp" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer/add_more_hp"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource("10_wr0ih")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Control" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 290)
@@ -960,8 +1003,9 @@ bus = &"SFX"
 [connection signal="pressed" from="rank_button/MarginContainer/button" to="." method="_on_rank_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/list_button" to="." method="_on_list_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/hint_button" to="." method="_on_hint_button_pressed"]
-[connection signal="gui_input" from="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer" to="." method="_on_container_hp_input"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/add_more_hint" to="." method="_on_add_more_hint_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/hint_button" to="." method="_on_hint_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer/add_more_hp" to="." method="_on_add_more_hp_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/MarginContainer2/HBoxContainer/MarginContainer/clear_word" to="." method="_on_clear_word_pressed"]
 [connection signal="pressed" from="VBoxContainer/Control/MarginContainer3/VBoxContainer/HBoxContainer/check_word" to="." method="_on_check_word_pressed"]
 [connection signal="timeout" from="timer_countdown" to="." method="_on_timer_countdown_timeout"]

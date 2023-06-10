@@ -28,3 +28,5 @@ NO_INTERNET_DESCRIPTION,"Make sure Wi-Fi or mobile data is turned on, then try a
 EMPTY_LIST,List is empty, Daftar kosong
 DROP_LEVEL_TITLE,Level Drop, Tingkatan menurun
 DROP_LEVEL_DESCRIPTION,your Level has been drop by 50, Tingkatan ditirunkan sebanyak 50
+FINAL_BOSS_TITLE, Final Boss, Final Boss
+FINAL_BOSS_DESCRIPTION,"In this level you are given the opportunity for 5 minutes, if you fail you will go down 50 levels, if successful you will get the main prize", "Dalam level ini kamu diberi kesempatan selama 5 menit, jika gagal kamu akan turun 50 level, jika berhasil kamu akan mendapat hadiah utama"

@@ -27,6 +27,33 @@ shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
 shadow_size = 4
 shadow_offset = Vector2(0, 2)
 
+[sub_resource type="Animation" id="Animation_ivdvv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PanelLogout:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(75, 1300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_xtmis"]
 resource_name = "show_panel"
 length = 0.5
@@ -53,33 +80,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ivdvv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PanelLogout:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(75, 1300)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnrmj"]
@@ -118,10 +118,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 75.0
-offset_top = 1300.0
-offset_right = 525.0
-offset_bottom = 1487.0
+offset_left = -225.0
+offset_top = 788.0
+offset_right = 225.0
+offset_bottom = 975.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -237,6 +237,10 @@ mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelLogout/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelLogout/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
