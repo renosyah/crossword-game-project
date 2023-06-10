@@ -15,6 +15,9 @@ var player_avatar :String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	show_rank()
+	
+func show_rank():
 	_num.text = "%s." % number
 	_player_name.text = player_name
 	_player_level.text = "%s %s" % [tr("LEVEL") ,level]

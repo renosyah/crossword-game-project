@@ -66,12 +66,42 @@ class rank {
         $db->close();
         return $result_query;
     }
- 
+
+     public function one_player($db) {
+        $result_query = new result_query();
+        
+        $query = "SELECT * FROM (Select ROW_NUMBER() OVER (ORDER BY rank_level DESC) AS num_row,id,player_id,player_name,player_avatar,player_email,rank_level From rank_table) t2 WHERE player_id='$this->player_id' LIMIT 1";
+        $stmt = $db->query($query);
+        if (!$stmt){
+            $result_query->error = "error at query one : ".$stmt->error;
+            $db->close();
+            return $result_query;
+        }
+
+        $result = mysqli_fetch_assoc($stmt);
+        if($result['id'] == null){
+            $db->close();
+            return $result_query;
+        }
+
+        $one = new rank();
+        $one->number = (int) $result['num_row'];
+        $one->id = (int) $result['id'];
+        $one->player_id = $result['player_id'];
+        $one->player_name = $result['player_name'];
+        $one->player_avatar = $result['player_avatar'];
+        $one->player_email = $result['player_email'];
+        $one->rank_level = (int) $result['rank_level'];
+        $result_query->data = $one;
+        $db->close();
+        return $result_query;
+    }
+    
     public function all($db,$list_query) {
         $result_query = new result_query();
         $all = array();
         $query = "SELECT 
-                    id,player_id,player_name,player_avatar,player_email,rank_level
+                    ROW_NUMBER() OVER(ORDER BY ".$list_query->order_by." ".$list_query->order_dir.") AS num_row, id,player_id,player_name,player_avatar,player_email,rank_level
                 FROM 
                     rank_table
                 WHERE
@@ -95,6 +125,7 @@ class rank {
 
         while ($result = $stmt->fetch_array()){
             $one = new rank();
+            $one->number = (int) $result['num_row'];
             $one->id = (int) $result['id'];
             $one->player_id = $result['player_id'];
             $one->player_name = $result['player_name'];

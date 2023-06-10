@@ -10,6 +10,8 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var podium =$VBoxContainer/ScrollContainer/VBoxContainer/Control/podium 
 @onready var scroll_container = $VBoxContainer/ScrollContainer
 @onready var loading = $loading
+@onready var player_rank = $player_rank
+@onready var rank_item_player = $player_rank/VBoxContainer/rank_item
 
 var _rank_offset :int = 0
 var _rank_limit :int = 10
@@ -22,11 +24,13 @@ func _ready():
 	loading.visible = true
 	label.text = tr("RANK").to_upper()
 	Global.rank_api.ranks.connect(_on_ranks)
+	Global.rank_api.one_rank.connect(_one_rank)
 
 func show_ranks():
 	animation_player.play("RESET")
 	loading.visible = true
 	_enabler_visibler = false
+	player_rank.visible = false
 	_rank_offset = 0
 	_top_3.clear()
 	_remove_child(top_rank)
@@ -51,6 +55,8 @@ func show_ranks():
 		_enabler_visibler = true
 		
 		scroll_container.mouse_filter = MOUSE_FILTER_PASS
+		
+	Global.rank_api.request_one_rank(Global.player.player_id)
 	
 func _remove_child(node :Control):
 	for i in node.get_children():
@@ -96,7 +102,7 @@ func _on_ranks(_ok :bool, datas :Array):
 		var pos :int = top_rank.get_child_count() + ranks.get_child_count()
 		var item :RanksApi.Rank = i
 		var rank_item = rank_item_scene.instantiate()
-		rank_item.number = pos + 1
+		rank_item.number = item.number
 		rank_item.level = item.rank_level
 		rank_item.player_id = item.player_id
 		rank_item.player_name = item.player_name
@@ -128,10 +134,17 @@ func _on_ranks(_ok :bool, datas :Array):
 	
 		scroll_container.mouse_filter = MOUSE_FILTER_PASS
 
-
-
-
-
+func _one_rank(ok :bool, data :RanksApi.Rank):
+	if not ok:
+		return
+		
+	player_rank.visible = true
+	rank_item_player.number = data.number
+	rank_item_player.level = data.rank_level
+	rank_item_player.player_id = data.player_id
+	rank_item_player.player_name = data.player_name
+	rank_item_player.player_avatar = data.player_avatar
+	rank_item_player.show_rank()
 
 
 

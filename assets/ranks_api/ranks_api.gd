@@ -1,15 +1,18 @@
 extends Node
 class_name RanksApi
 
+signal one_rank(ok, data)
 signal rank_added(ok)
 signal ranks(ok, datas)
 
 const base_url :String = "https://web-game.coretanstudio.com"
 
+@onready var _url_one_rank :String = "%s/api/rank/one_player.php" % base_url
 @onready var _url_add_ranks :String = "%s/api/rank/add.php" % base_url
 @onready var _url_ranks :String = "%s/api/rank/list.php" % base_url
 
 var _http_request_ranks :HTTPRequest
+var _http_request_one_rank :HTTPRequest
 var _http_request_add_rank :HTTPRequest
 var _datas :Array
 
@@ -18,6 +21,10 @@ func _ready():
 	_http_request_ranks = HTTPRequest.new()
 	_http_request_ranks.request_completed.connect(_on_request_ranks_completed)
 	add_child(_http_request_ranks)
+	
+	_http_request_one_rank = HTTPRequest.new()
+	_http_request_one_rank.request_completed.connect(_on_request_one_rank_completed)
+	add_child(_http_request_one_rank)
 	
 	_http_request_add_rank = HTTPRequest.new()
 	_http_request_add_rank.request_completed.connect(_on_request_add_ranks_completed)
@@ -60,6 +67,9 @@ func _on_request_ranks_completed(result: int, _response_code: int, _headers: Pac
 	
 	
 func request_add_ranks(_rank :Rank):
+	if "Web" == OS.get_name():
+		_http_request_add_rank.accept_gzip = false
+		
 	var error = _http_request_add_rank.request(
 		_url_add_ranks, [], HTTPClient.METHOD_POST, JSON.stringify(_rank.to_dict())
 	)
@@ -75,6 +85,35 @@ func _on_request_add_ranks_completed(result: int, _response_code: int, _headers:
 	emit_signal("rank_added", true)
 	
 	
+func request_one_rank(_player_id :String):
+	var _rank :Rank = Rank.new({
+		"id": 0,
+		"player_id": _player_id,
+		"player_name": "",
+		"player_email": "",
+		"player_avatar" : "",
+		"rank_level" : "",
+	})
+	
+	if "Web" == OS.get_name():
+		_http_request_one_rank.accept_gzip = false
+		
+	var error = _http_request_one_rank.request(
+		_url_one_rank, [], HTTPClient.METHOD_POST, JSON.stringify(_rank.to_dict())
+	)
+	if error != OK:
+		emit_signal("one_rank", false, null)
+		return
+	
+func _on_request_one_rank_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("one_rank", false, null)
+		return
+		
+	var json :Dictionary = JSON.parse_string(body.get_string_from_utf8())
+	var data :Dictionary= json["data"] as Dictionary
+	emit_signal("one_rank", true, Rank.new(data))
+	
 class Rank:
 	var id :int
 	var player_id :String
@@ -83,6 +122,9 @@ class Rank:
 	var player_avatar :String
 	var rank_level :int
 	
+	# optional
+	var number :int
+	
 	func _init(_data :Dictionary):
 		self.id = _data["id"]
 		self.player_id = _data["player_id"]
@@ -90,6 +132,9 @@ class Rank:
 		self.player_email = _data["player_email"]
 		self.player_avatar = _data["player_avatar"]
 		self.rank_level = _data["rank_level"]
+		
+		if _data.has("number"):
+			self.number = _data["number"]
 	
 	func to_dict() -> Dictionary:
 		return {

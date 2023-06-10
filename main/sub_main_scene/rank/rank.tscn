@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://doevsa43xqs6q"]
+[gd_scene load_steps=12 format=3 uid="uid://doevsa43xqs6q"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/rank/rank.gd" id="1_modur"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_xsod2"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_yaco6"]
 [ext_resource type="PackedScene" uid="uid://dtx0xwe6jlnv" path="res://assets/ui/podium/podium.tscn" id="3_lxb23"]
+[ext_resource type="PackedScene" uid="uid://cte2n7vglya4s" path="res://assets/ui/rank_item/rank_item.tscn" id="5_x547g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gy7q"]
 bg_color = Color(0, 0, 0, 0.4)
@@ -11,6 +12,11 @@ corner_radius_top_left = 45
 corner_radius_top_right = 45
 corner_radius_bottom_right = 45
 corner_radius_bottom_left = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3g66"]
+bg_color = Color(0, 0, 0, 0.4)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
 
 [sub_resource type="Animation" id="Animation_iia0p"]
 length = 0.001
@@ -360,6 +366,36 @@ layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="player_rank" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 148)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -148.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="player_rank"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s3g66")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="player_rank"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="player_rank/VBoxContainer"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+
+[node name="rank_item" parent="player_rank/VBoxContainer" instance=ExtResource("5_x547g")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="player_rank/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
