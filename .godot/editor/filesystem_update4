@@ -1,15 +1,3 @@
 res://default_env.tres
 res://main/sub_main_scene/gameplay/gameplay.tscn
-res://translation/translation.en.translation
-res://translation/translation.id.translation
 res://main/sub_main_scene/gameplay/gameplay.gd
-res://main/main.tscn
-res://assets/ui/timer_countdown/timer_countdown.tscn
-res://assets/ui/timer_countdown/timer_countdown.gd
-res://assets/ui/simple_panel_message/simple_panel_message.tscn
-res://assets/ranks_api/ranks_api.tscn
-res://assets/ranks_api/ranks_api.gd
-res://main/sub_main_scene/rank/rank.tscn
-res://assets/ui/rank_item/rank_item.tscn
-res://assets/ui/rank_item/rank_item.gd
-res://main/sub_main_scene/rank/rank.gd

@@ -476,10 +476,12 @@ func _watch_reward_ads(_for :String):
 # by watch reward video ads
 func _rewarded_ad_loaded():
 	if Global.regenerate_hp.item_count == 0:
-		add_more_hp.visible = Admob.get_is_rewarded_loaded() # true
+		var _has_reward_quota_ok :bool = Global.regenerate_reward_hp.item_count > 0
+		add_more_hp.visible = _has_reward_quota_ok
 		
 	if Global.player_hint < Global.player_max_hint:
-		add_more_hint.visible = Admob.get_is_rewarded_loaded() # true
+		var _has_reward_quota_ok :bool = Global.regenerate_reward_hint.item_count > 0
+		add_more_hint.visible = _has_reward_quota_ok
 	
 func _rewarded_closed():
 	if Admob.get_is_banner_loaded():
@@ -499,7 +501,7 @@ func _player_earned_rewarded(_reward_type :String, _amount:int):
 		
 	# add 2 more hint
 	if reward_for == "hint":
-		Global.player_hint = clamp(Global.player_hint + 2, 0, Global.player_max_hint)
+		Global.player_hint += 2
 		hint_left.text = str(Global.player_hint)
 	
 func _player_lose():
@@ -622,7 +624,8 @@ func _on_check_word_pressed():
 
 func _on_hint_button_pressed():
 	if Global.player_hint < Global.player_max_hint:
-		add_more_hint.visible = Admob.get_is_rewarded_loaded() # true / false
+		var _has_reward_quota_ok :bool = Global.regenerate_reward_hint.item_count > 0
+		add_more_hint.visible = Admob.get_is_rewarded_loaded() and _has_reward_quota_ok
 		
 	if Global.player_hint == 0:
 		_offer_watch_ads_to_get_hint()
