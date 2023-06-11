@@ -141,6 +141,10 @@ func _get_profile():
 		Global.player.player_avatar = profile.picture
 		Global.player.save_data(Global.player_data_file)
 		
+		await get_tree().process_frame
+		
+		# register new player
+		await Global.add_player_data_api()
 		
 #------------------------------ main menu ------------------------------------#
 func _to_main_menu():

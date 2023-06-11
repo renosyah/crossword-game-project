@@ -637,6 +637,10 @@ func _on_hint_button_pressed():
 	# hint decrease & regenerate
 	Global.player_hint -= 1
 	hint_left.text = str(Global.player_hint)
+	
+	# update hint save online
+	Global.update_player_data_api()
+	
 	_display_hint()
 	_on_clear_word_pressed()
 	

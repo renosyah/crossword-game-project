@@ -37,6 +37,9 @@ func show_ranks():
 	_remove_child(ranks)
 	
 	if _top_3.is_empty():
+		if _on_request_rank:
+			return
+		
 		Global.rank_api.request_list_ranks(_rank_offset, _rank_limit)
 		
 	else:
@@ -93,7 +96,10 @@ func _on_scroll_container_scroll_ended():
 
 func _on_ranks(_ok :bool, datas :Array):
 	_on_request_rank = false
-
+	
+	if not _ok:
+		return
+	
 	var is_first_page :bool = _rank_offset == 0
 	if is_first_page:
 		scroll_container.mouse_filter = MOUSE_FILTER_IGNORE

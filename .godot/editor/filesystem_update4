@@ -1,3 +1,16 @@
 res://default_env.tres
+res://assets/ranks_api/ranks_api.tscn
+res://assets/ranks_api/ranks_api.gd
+res://main/sub_main_scene/rank/rank.tscn
+res://main/sub_main_scene/rank/rank.gd
+res://assets/player_api/player_api.tscn
+res://assets/player_api/player_api.gd
+res://data/player_data/player_data.gd
+res://assets/regenerate_item_handler/regenerate_item_handler.tscn
+res://assets/regenerate_item_handler/regenerate_item_handler.gd
+res://global/global.gd
+res://main/main.tscn
+res://main/sub_main_scene/login/login.tscn
+res://main/main.gd
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd

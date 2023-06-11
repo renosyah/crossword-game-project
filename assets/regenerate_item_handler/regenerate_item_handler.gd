@@ -3,6 +3,7 @@ class_name RegenerateItemHandler
 
 signal regenerate_complete
 signal one_second_pass
+signal on_save(datas)
 
 var _timer :Timer
 var _current_time :dateTime
@@ -29,16 +30,21 @@ func _ready():
 func is_valid() -> bool:
 	return _valid
 	
-func run_regenerating(_current_time_dict :Dictionary):
+func run_regenerating(_current_time_dict :Dictionary, _online_save_datas :Array = []):
 	if _current_time_dict.is_empty():
 		return
 		
 	_current_time = dateTime.new(_current_time_dict)
 	_valid = true
+	
+	# update and save data from online source
+	if not _online_save_datas.is_empty():
+		SaveLoad.save("%s_regenerating_items_datas.data" % item_name, _online_save_datas)
+	
 	_load_last_data()
 	_timer.start()
 	
-func _save_data():
+func get_save_data() -> Array:
 	# remove garbage
 	_clear_done()
 	
@@ -48,7 +54,11 @@ func _save_data():
 		var _item :regenerateItem = i
 		regenerating_items_datas.append(i.to_dict())
 		
-	SaveLoad.save("%s_regenerating_items_datas.data" % item_name, regenerating_items_datas)
+	return regenerating_items_datas
+	
+func _save_data():
+	SaveLoad.save("%s_regenerating_items_datas.data" % item_name, get_save_data())
+	emit_signal("on_save", regenerating_items)
 	
 func _load_last_data():
 	regenerating_items.clear()

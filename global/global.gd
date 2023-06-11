@@ -20,6 +20,7 @@ func _ready():
 	
 	player.load_data(player_data_file)
 	
+	setup_player_api()
 	setup_rank_api()
 	setup_regenerate_hp_hint()
 	setup_sound()
@@ -80,6 +81,7 @@ func setup_regenerate_hp_hint():
 	regenerate_hp.cooldown = 60
 	regenerate_hp.item_count = 5
 	regenerate_hp.item_max = 5
+	regenerate_hp.on_save.connect(_regenerate_hp_on_save)
 	
 	regenerate_reward_hp = scene.instantiate()
 	regenerate_reward_hp.item_name = "free_hp_reward_ads"
@@ -99,10 +101,30 @@ func setup_regenerate_hp_hint():
 	add_child(regenerate_reward_hint)
 	
 func _current_time_ready(_current_time :Dictionary):
-	regenerate_hp.run_regenerating(_current_time)
+	# get online progress
+	var regenerate_hp_progress :Array = []
+	
+	if not player.player_id.is_empty():
+		player_api.request_one_player(player.player_id)
+		var result :Array = await player_api.get_one
+		if result[0]:
+			var player :PlayerApi.Player = result[1]
+			var json :Dictionary = JSON.parse_string(player.save_data_json)
+			
+			if json != null:
+				if json.has("regenerate_hp_progress"):
+					regenerate_hp_progress = json["regenerate_hp_progress"] as Array
+					
+				if json.has("player_hint"):
+					player_hint = json["player_hint"] as int
+				
+	regenerate_hp.run_regenerating(_current_time, regenerate_hp_progress)
 	regenerate_reward_hp.run_regenerating(_current_time)
 	regenerate_reward_hint.run_regenerating(_current_time)
 	emit_signal("setup_regenerate_complete", false)
+	
+func _regenerate_hp_on_save(_datas :Array):
+	update_player_data_api()
 	
 func _current_time_error(_msg :String):
 	emit_signal("setup_regenerate_complete", true)
@@ -114,6 +136,46 @@ var rank_api :RanksApi
 func setup_rank_api():
 	rank_api = preload("res://assets/ranks_api/ranks_api.tscn").instantiate()
 	add_child(rank_api)
+	
+######################################################################
+# player api
+var player_api :PlayerApi
+
+func setup_player_api():
+	player_api = preload("res://assets/player_api/player_api.tscn").instantiate()
+	add_child(player_api)
+	
+func add_player_data_api() -> bool:
+	var _empty_save_data_json :String = JSON.stringify({
+		"regenerate_hp_progress" : [],
+		"player_hint" : player_max_hint
+	})
+	var _player :Dictionary = {
+		"id": 0,
+		"player_id": player.player_id,
+		"player_name": player.player_name,
+		"player_email": player.player_email,
+		"player_avatar": player.player_avatar,
+		"save_data_json": _empty_save_data_json
+	}
+	player_api.request_add_player(PlayerApi.Player.new(_player))
+	var ok :bool = await player_api.add
+	return ok
+	
+func update_player_data_api():
+	var _save_data_json :String = JSON.stringify({
+		"regenerate_hp_progress" : regenerate_hp.get_save_data(),
+		"player_hint" : player_hint
+	})
+	var _player :Dictionary = {
+		"id": 0,
+		"player_id": player.player_id,
+		"player_name": player.player_name,
+		"player_email": player.player_email,
+		"player_avatar": player.player_avatar,
+		"save_data_json": _save_data_json
+	}
+	player_api.request_update_player(PlayerApi.Player.new(_player))
 	
 ######################################################################
 
