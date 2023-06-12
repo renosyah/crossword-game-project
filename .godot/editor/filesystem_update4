@@ -23,3 +23,6 @@ res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/dictionary/dictionary.tscn
 res://main/sub_main_scene/dictionary/dictionary.gd
 res://assets/regenerate_item_handler/regenerate_item_handler.gd
+res://assets/ui/prize_item/prize_item.tscn
+res://assets/ui/prize_item/prize_item.gd
+res://entity/word_tile/word_tile.tscn
