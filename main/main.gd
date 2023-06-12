@@ -223,6 +223,7 @@ func _on_gameplay_rank():
 	sfx.stream = click_sound
 	sfx.play()
 	
+	animated_background.set_stage(4, true)
 	navigations.append("rank")
 	_hide_all()
 	
@@ -283,6 +284,7 @@ func _on_rank_back():
 		return
 		
 	if navigations.back() == "gameplay":
+		animated_background.set_stage(4)
 		gameplay.visible = true
 		gameplay.back_to_gameplay()
 		
