@@ -88,7 +88,21 @@ func _notification(what):
 			return
 			
 func on_back_pressed():
-	get_tree().quit()
+	if navigations.is_empty():
+		get_tree().quit()
+		return
+		
+	var back :String = navigations.back()
+	match (back):
+		"gameplay":
+			_on_gameplay_back_press()
+		"rank":
+			_on_rank_back()
+		"prize":
+			_on_prize_back()
+		"dictionary":
+			_on_dictionary_back()
+	
 	
 func _hide_all():
 	loading.visible = false
