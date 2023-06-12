@@ -108,15 +108,15 @@ func _current_time_ready(_current_time :Dictionary):
 		player_api.request_one_player(player.player_id)
 		var result :Array = await player_api.get_one
 		if result[0]:
-			var player :PlayerApi.Player = result[1]
-			var json :Dictionary = JSON.parse_string(player.save_data_json)
+			var _player :PlayerApi.Player = result[1]
+			var _json :Dictionary = JSON.parse_string(_player.save_data_json)
 			
-			if json != null:
-				if json.has("regenerate_hp_progress"):
-					regenerate_hp_progress = json["regenerate_hp_progress"] as Array
+			if _json != null:
+				if _json.has("regenerate_hp_progress"):
+					regenerate_hp_progress = _json["regenerate_hp_progress"] as Array
 					
-				if json.has("player_hint"):
-					player_hint = json["player_hint"] as int
+				if _json.has("player_hint"):
+					player_hint = _json["player_hint"] as int
 				
 	regenerate_hp.run_regenerating(_current_time, regenerate_hp_progress)
 	regenerate_reward_hp.run_regenerating(_current_time)

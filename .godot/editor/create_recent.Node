@@ -1,12 +1,14 @@
 MarginContainer
-TextureRect
 HBoxContainer
-CenterContainer
 Panel
+TextureRect
+VBoxContainer
+HTTPRequest
+ScrollContainer
+CenterContainer
 Button
 AnimationPlayer
 Timer
-VBoxContainer
 Control
 Node
 Label
@@ -15,8 +17,6 @@ ColorRect
 AudioStreamPlayer
 AudioStreamPlayer3D
 VisibleOnScreenNotifier2D
-HTTPRequest
-ScrollContainer
 AnimationTree
 NinePatchRect
 SafeArea

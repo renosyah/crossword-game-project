@@ -14,3 +14,7 @@ INSERT INTO rank_table (id,player_id,player_name,player_avatar,player_email,rank
 (13,'13','Renosyah 13','https://lh3.googleusercontent.com/a/AAcHTteOdz1U8TR4M3oUPh4yvT-9sKsu2YNj5WfSQMn1=s96-c','renosyahdev@gmail.com',42),
 (14,'14','Renosyah 14','https://lh3.googleusercontent.com/a/AAcHTteOdz1U8TR4M3oUPh4yvT-9sKsu2YNj5WfSQMn1=s96-c','renosyahdev@gmail.com',49),
 (15,'15','Renosyah 15','https://lh3.googleusercontent.com/a/AAcHTteOdz1U8TR4M3oUPh4yvT-9sKsu2YNj5WfSQMn1=s96-c','renosyahdev@gmail.com',33);
+
+INSERT INTO banner_table (id, banner_name, banner_image_url) VALUES (1, '1.png', 'http://192.168.1.78:8080/image/1.png'),
+(2, '2.png', 'http://192.168.1.78:8080/image/2.png'),
+(3, '3.png', 'http://192.168.1.78:8080/image/3.png');

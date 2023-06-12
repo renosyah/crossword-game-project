@@ -139,7 +139,7 @@ func _on_ranks(_ok :bool, datas :Array):
 		_enabler_visibler = true
 	
 		scroll_container.mouse_filter = MOUSE_FILTER_PASS
-
+	
 func _one_rank(ok :bool, data :RanksApi.Rank):
 	if not ok:
 		return

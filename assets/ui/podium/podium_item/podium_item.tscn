@@ -55,7 +55,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="avatar2" type="TextureRect" parent="MarginContainer"]
-modulate = Color(0.254902, 0.662745, 0.615686, 1)
+modulate = Color(0.521569, 0.137255, 0.27451, 1)
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 mouse_filter = 2

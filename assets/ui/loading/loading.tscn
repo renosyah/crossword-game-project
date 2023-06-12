@@ -94,6 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 80)
@@ -109,12 +110,14 @@ offset_right = 64.0
 offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="dot_1" type="TextureRect" parent="HBoxContainer"]
 modulate = Color(0.909804, 0.807843, 0.560784, 1)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_q2vc0")
 expand_mode = 1
 stretch_mode = 5
@@ -123,6 +126,7 @@ stretch_mode = 5
 modulate = Color(0.909804, 0.807843, 0.560784, 1)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_q2vc0")
 expand_mode = 1
 stretch_mode = 5
@@ -131,6 +135,7 @@ stretch_mode = 5
 modulate = Color(0.909804, 0.807843, 0.560784, 1)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_q2vc0")
 expand_mode = 1
 stretch_mode = 5

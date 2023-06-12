@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"1\",\n    \"player_name\": \"Renosyah\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 69\n}",
+							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"15\",\n    \"player_name\": \"Renosyah 15\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 33\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -147,7 +147,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 3,\n    \"game_name\": \"\",\n    \"game_description\": \"\",\n    \"game_url\": \"\"\n}",
+							"raw": "{\n    \"id\": 16\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -167,6 +167,342 @@
 							"path": [
 								"api",
 								"rank",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"15\",\n    \"player_name\": \"Renosyah 15\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 33\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://web-game.coretanstudio.com/api/rank/add.php",
+							"protocol": "https",
+							"host": [
+								"web-game",
+								"coretanstudio",
+								"com"
+							],
+							"path": [
+								"api",
+								"rank",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"rank_level\",\n    \"order_dir\": \"desc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://web-game.coretanstudio.com/api/rank/list.php",
+							"protocol": "https",
+							"host": [
+								"web-game",
+								"coretanstudio",
+								"com"
+							],
+							"path": [
+								"api",
+								"rank",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"game_id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"score\" : 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/one.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"one.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"game_id\": 4,\n    \"player_id\": \"admin001\",\n    \"player_name\": \"admin\",\n    \"score\" : 300\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/update.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 16\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/rank/delete.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"rank",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "banner",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"1.png\",\n    \"banner_image_url\": \"http://192.168.1.78:8080/image/1.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/banner/add.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"banner",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_by\": \"banner_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"id\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/banner/list.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"banner",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/banner/one.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"banner",
+								"one.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"1.png\",\n    \"banner_image_url\": \"http://192.168.1.78:8080/image/1.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/banner/update.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"banner",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.78:8080/api/banner/delete.php",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"78"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"banner",
 								"delete.php"
 							]
 						}

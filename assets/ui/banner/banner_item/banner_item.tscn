@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8x5xw0iugxeg"]
+
+[ext_resource type="Script" path="res://assets/ui/banner/banner_item/banner_item.gd" id="1_er18e"]
+[ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_yhhwy"]
+
+[node name="banner_item" type="MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+script = ExtResource("1_er18e")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="loading" parent="." instance=ExtResource("2_yhhwy")]
+layout_mode = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

@@ -1,0 +1,191 @@
+[gd_scene load_steps=6 format=3 uid="uid://diso4otal1vyl"]
+
+[ext_resource type="Script" path="res://assets/ui/banner/banner.gd" id="1_ecdbv"]
+[ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_y1p34"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bq0ed"]
+bg_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gwgkd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bijpp"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0.470588, 0.470588, 0.470588, 0.501961)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[node name="banner" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ecdbv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.34082
+anchor_right = 1.0
+anchor_bottom = 1.25977
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.537255)
+metadata/_edit_use_anchors_ = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(375, 80)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bq0ed")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+alignment = 2
+
+[node name="close" type="Button" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2"]
+custom_minimum_size = Vector2(128, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwgkd")
+flat = true
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bijpp")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="button_title" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close/CenterContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_y1p34")
+theme_override_font_sizes/font_size = 16
+text = "Close"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="resized" from="VBoxContainer" to="." method="_on_v_box_container_resized"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close" to="." method="_on_close_pressed"]

@@ -5,12 +5,12 @@ signal one_rank(ok, data)
 signal rank_added(ok)
 signal ranks(ok, datas)
 
-const base_url :String = "http://192.168.100.236:8080"
+const base_url :String = "http://192.168.1.78:8080"
 
 @onready var _url_one_rank :String = "%s/api/rank/one_player.php" % base_url
 @onready var _url_add_ranks :String = "%s/api/rank/add.php" % base_url
 @onready var _url_ranks :String = "%s/api/rank/list.php" % base_url
-@onready var is_web :bool = "Web" == OS.get_name()
+@onready var _is_web :bool = "Web" == OS.get_name()
 
 var _http_request_ranks :HTTPRequest
 var _http_request_one_rank :HTTPRequest
@@ -32,7 +32,7 @@ func _ready():
 	add_child(_http_request_add_rank)
 	
 func request_list_ranks(offset :int, limit :int = 10):
-	if is_web:
+	if _is_web:
 		_http_request_ranks.accept_gzip = false
 		
 	var body :Dictionary = {
@@ -76,7 +76,7 @@ func _on_request_ranks_completed(result: int, _response_code: int, _headers: Pac
 	
 	
 func request_add_ranks(_rank :Rank):
-	if is_web:
+	if _is_web:
 		_http_request_add_rank.accept_gzip = false
 		
 	var error = _http_request_add_rank.request(
@@ -104,7 +104,7 @@ func request_one_rank(_player_id :String):
 		"rank_level" : "",
 	})
 	
-	if is_web:
+	if _is_web:
 		_http_request_one_rank.accept_gzip = false
 		
 	var error = _http_request_one_rank.request(

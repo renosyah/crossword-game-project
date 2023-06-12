@@ -64,7 +64,7 @@ common/enable_pause_aware_picking=true
 
 renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.254902, 0.662745, 0.615686, 1)
+environment/defaults/default_clear_color=Color(0.521569, 0.137255, 0.27451, 1)
 environment/defaults/default_environment="res://default_env.tres"
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true

@@ -15,6 +15,7 @@ extends Control
 @onready var rank = $CanvasLayer/Control/SafeArea/rank
 @onready var dictionary = $CanvasLayer/Control/SafeArea/dictionary
 @onready var error_display = $CanvasLayer/Control/error_display
+@onready var banner = $CanvasLayer/Control/SafeArea/banner
 
 var current_menu :String = "login"
 var has_error :bool = false
@@ -33,6 +34,7 @@ func _ready():
 	rank.visible = false
 	dictionary.visible = false
 	error_display.visible = false
+	banner.visible = false
 	
 	Admob.banner_loaded.connect(_admob_banner_loaded)
 	
@@ -125,6 +127,7 @@ func _show_panel_error():
 	login.visible = false
 	rank.visible = false
 	dictionary.visible = false
+	banner.visible = false
 	
 #------------------------------ login ------------------------------------#
 func _on_login_login_completed():
@@ -162,6 +165,10 @@ func _to_main_menu():
 	current_menu = "main_menu"
 	animated_background.set_stage(3)
 	loading.visible = false
+	
+	banner.visible = true
+	banner.request_banners()
+	
 	_show_main_menu()
 	
 func _show_main_menu():

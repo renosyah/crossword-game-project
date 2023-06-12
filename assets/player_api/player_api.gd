@@ -5,12 +5,12 @@ signal add(ok)
 signal get_one(ok, player)
 signal update(ok)
 
-const base_url :String = "http://192.168.100.236:8080"
+const base_url :String = "http://192.168.1.78:8080"
 
 @onready var _url_add_player :String = "%s/api/player/add.php" % base_url
 @onready var _url_one_player :String = "%s/api/player/one.php" % base_url
 @onready var _url_update_player :String = "%s/api/player/update.php" % base_url
-@onready var is_web :bool = "Web" == OS.get_name()
+@onready var _is_web :bool = "Web" == OS.get_name()
 
 var _http_request_add_player :HTTPRequest
 var _http_request_one_player :HTTPRequest
@@ -32,7 +32,7 @@ func _ready():
 	
 	
 func request_add_player(_player :Player):
-	if is_web:
+	if _is_web:
 		_http_request_add_player.accept_gzip = false
 		
 	var error = _http_request_add_player.request(
@@ -59,7 +59,7 @@ func _on_request_add_player_completed(result: int, _response_code: int, _headers
 	emit_signal("add", true)
 	
 func request_one_player(player_id :String):
-	if is_web:
+	if _is_web:
 		_http_request_one_player.accept_gzip = false
 		
 	var player :Dictionary = {
@@ -96,7 +96,7 @@ func _on_request_one_player_completed(result: int, _response_code: int, _headers
 	
 	
 func request_update_player(_player :Player):
-	if is_web:
+	if _is_web:
 		_http_request_update_player.accept_gzip = false
 		
 	var error = _http_request_update_player.request(
@@ -106,7 +106,7 @@ func request_update_player(_player :Player):
 		emit_signal("update", false)
 		return
 		
-func _on_request_update_player_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
+func _on_request_update_player_completed(result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
 		emit_signal("update", false)
 		return
