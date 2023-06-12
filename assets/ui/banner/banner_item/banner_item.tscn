@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8x5xw0iugxeg"]
+[gd_scene load_steps=4 format=3 uid="uid://c8x5xw0iugxeg"]
 
 [ext_resource type="Script" path="res://assets/ui/banner/banner_item/banner_item.gd" id="1_er18e"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="2_yhhwy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3mnt"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
 
 [node name="banner_item" type="MarginContainer"]
 custom_minimum_size = Vector2(100, 100)
@@ -10,9 +17,21 @@ offset_bottom = 100.0
 mouse_filter = 2
 script = ExtResource("1_er18e")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(100, 100)
+[node name="Panel2" type="Panel" parent="."]
+clip_children = 2
+custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3mnt")
+
+[node name="TextureRect" type="TextureRect" parent="Panel2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 expand_mode = 1
 

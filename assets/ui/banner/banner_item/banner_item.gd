@@ -3,9 +3,10 @@ class_name BannerItem
 
 @export var image_url :String
 
-@onready var _texture_rect = $TextureRect
+@onready var _texture_rect = $Panel2/TextureRect
 @onready var _loading = $loading
 @onready var _http_request = $HTTPRequest
+@onready var _panel_2 = $Panel2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +34,10 @@ func _on_http_request_request_completed(result: int, _response_code: int, _heade
 		return null
 		
 	_texture_rect.texture = ImageTexture.create_from_image(img)
+	await get_tree().process_frame
+	
+	_texture_rect.custom_minimum_size = size
+	_panel_2.custom_minimum_size = size
 	_loading.visible = false
 	
 func _check_image_format(body :PackedByteArray) -> Image:

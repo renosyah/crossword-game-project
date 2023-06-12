@@ -10,8 +10,12 @@ const base_url :String = "http://192.168.1.78:8080"
 
 @onready var _scroll_container = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ScrollContainer
 @onready var _h_box_container = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ScrollContainer/HBoxContainer
+@onready var _button_title = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close/CenterContainer/button_title
 
 var _banners :Array = []
+
+func _ready():
+	_button_title.text = tr("CLOSE")
 
 func request_banners():
 	if _is_web:

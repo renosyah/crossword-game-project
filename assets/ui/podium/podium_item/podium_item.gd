@@ -7,7 +7,7 @@ var player_name :String
 var player_avatar :String
 
 @onready var _player_level = $MarginContainer2/player_level
-@onready var _avatar = $MarginContainer/avatar
+@onready var _avatar = $MarginContainer/Panel2/avatar
 @onready var _player_name = $player_name
 @onready var _crown = $crown
 
@@ -25,4 +25,8 @@ func _ready():
 			_crown.texture = preload("res://assets/ui/icons/rank_3.png")
 			
 	_avatar.texture = await Global.get_avatar_image(self, player_id, player_avatar)
-
+		
+		
+		
+		
+		

@@ -3,7 +3,6 @@
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_b35r6"]
 [ext_resource type="Script" path="res://assets/ui/podium/podium_item/podium_item.gd" id="1_y7sha"]
 [ext_resource type="Texture2D" uid="uid://bi6e2hlycesqy" path="res://assets/ui/icons/rank_1.png" id="2_p0e1g"]
-[ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="3_68gym"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbrrb"]
 bg_color = Color(1, 1, 1, 0.2)
@@ -11,6 +10,13 @@ corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6ba3"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
 
 [node name="podium_item" type="VBoxContainer"]
 offset_right = 83.0
@@ -47,19 +53,24 @@ max_lines_visible = 10
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 
-[node name="avatar" type="TextureRect" parent="MarginContainer"]
+[node name="Panel2" type="Panel" parent="MarginContainer"]
+clip_children = 2
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_y6ba3")
 
-[node name="avatar2" type="TextureRect" parent="MarginContainer"]
-modulate = Color(0.521569, 0.137255, 0.27451, 1)
+[node name="avatar" type="TextureRect" parent="MarginContainer/Panel2"]
 custom_minimum_size = Vector2(54, 54)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("3_68gym")
 expand_mode = 1
 stretch_mode = 5
 

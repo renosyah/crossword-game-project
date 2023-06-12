@@ -3,7 +3,6 @@
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="1_3ikk3"]
 [ext_resource type="Script" path="res://assets/ui/rank_item/rank_item.gd" id="1_86cfo"]
 [ext_resource type="FontFile" uid="uid://cs126ybekixv6" path="res://assets/fonts/ttf/Poppins-Medium.ttf" id="2_qx73i"]
-[ext_resource type="Texture2D" uid="uid://qfaruyv2bkfh" path="res://assets/ui/icons/avatar_frame.png" id="4_fo6el"]
 [ext_resource type="Texture2D" uid="uid://bi6e2hlycesqy" path="res://assets/ui/icons/rank_1.png" id="5_pgi51"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7ra5"]
@@ -12,6 +11,13 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjy1a"]
+bg_color = Color(1, 0.972549, 0.901961, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
 
 [node name="rank_item" type="MarginContainer"]
 custom_minimum_size = Vector2(332, 0)
@@ -78,19 +84,24 @@ mouse_filter = 2
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
 
-[node name="avatar" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+[node name="Panel2" type="Panel" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+clip_children = 2
 custom_minimum_size = Vector2(54, 54)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_pjy1a")
 
-[node name="avatar2" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer"]
-modulate = Color(1, 0.972549, 0.901961, 1)
+[node name="avatar" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer/Panel2"]
 custom_minimum_size = Vector2(54, 54)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_fo6el")
 expand_mode = 1
 stretch_mode = 5
 

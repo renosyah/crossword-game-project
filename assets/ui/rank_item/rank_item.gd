@@ -8,7 +8,7 @@ var player_name :String
 var player_avatar :String
 
 @onready var _num = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/num
-@onready var _avatar = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer/avatar
+@onready var _avatar = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MarginContainer/Panel2/avatar
 @onready var _player_name = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/player_name
 @onready var _player_level = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/player_level
 @onready var _crown = $HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/crown
@@ -32,7 +32,6 @@ func show_rank():
 			_crown.texture = preload("res://assets/ui/icons/rank_3.png")
 			
 	_avatar.texture = await Global.get_avatar_image(self, player_id, player_avatar)
-		
 
 
 

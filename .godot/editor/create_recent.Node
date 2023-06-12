@@ -1,6 +1,6 @@
+Panel
 MarginContainer
 HBoxContainer
-Panel
 TextureRect
 VBoxContainer
 HTTPRequest
