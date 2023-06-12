@@ -1,4 +1,8 @@
 extends Node
+
+
+const server_host = "http://192.168.100.236:8080"
+
 ######################################################################
 
 const player_data_file = "player.data"
@@ -135,6 +139,7 @@ var rank_api :RanksApi
 
 func setup_rank_api():
 	rank_api = preload("res://assets/ranks_api/ranks_api.tscn").instantiate()
+	rank_api.server_host = server_host
 	add_child(rank_api)
 	
 ######################################################################
@@ -143,6 +148,7 @@ var player_api :PlayerApi
 
 func setup_player_api():
 	player_api = preload("res://assets/player_api/player_api.tscn").instantiate()
+	player_api.server_host = server_host
 	add_child(player_api)
 	
 func add_player_data_api() -> bool:

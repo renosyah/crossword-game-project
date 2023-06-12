@@ -85,6 +85,9 @@ func _ready():
 	
 	Global.rank_api.rank_added.connect(_on_rank_added)
 
+func back_to_gameplay():
+	animation_player.play_backwards("to_rank")
+
 func generate_puzzle():
 	gameplay_helper.custom_minimum_size.x = button_rank_container.size.x
 	margin_right.custom_minimum_size.x = button_rank_container.size.x
@@ -165,9 +168,6 @@ func generate_puzzle():
 		simple_panel_message.message = tr("FINAL_BOSS_DESCRIPTION")
 		simple_panel_message.show_panel()
 		
-func on_back_button_pressed():
-	_on_back_button_pressed()
-	
 func _display_input_tile():
 	var characters = []
 	for key in trimed_crossword.keys():
@@ -658,29 +658,14 @@ var _is_on_rank_menu :bool = false
 var _is_on_dictionary_menu :bool = false
 
 func _on_back_button_pressed():
-	
 	# RULE REVISION
 	# stop timer
 	timer_countdown.stop()
 	
-	sfx.stream = preload("res://assets/sound/click.wav")
-	sfx.play()
+	animation_player.play_backwards("show_puzzle")
+	await animation_player.animation_finished
+	emit_signal("back_press")
 	
-	if _is_on_rank_menu:
-		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
-		animation_player.play_backwards("to_rank")
-		_is_on_rank_menu = false
-		
-	elif _is_on_dictionary_menu:
-		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
-		animation_player.play_backwards("to_rank")
-		_is_on_dictionary_menu = false
-		
-	else:
-		animation_player.play_backwards("show_puzzle")
-		await animation_player.animation_finished
-		emit_signal("back_press", _is_on_rank_menu, _is_on_dictionary_menu)
-		
 func _on_rank_button_pressed():
 	_is_on_rank_menu = true
 	animation_player.play("to_rank")

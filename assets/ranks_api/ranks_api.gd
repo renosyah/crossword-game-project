@@ -5,11 +5,11 @@ signal one_rank(ok, data)
 signal rank_added(ok)
 signal ranks(ok, datas)
 
-const base_url :String = "http://192.168.1.78:8080"
+@export var server_host :String
 
-@onready var _url_one_rank :String = "%s/api/rank/one_player.php" % base_url
-@onready var _url_add_ranks :String = "%s/api/rank/add.php" % base_url
-@onready var _url_ranks :String = "%s/api/rank/list.php" % base_url
+@onready var _url_one_rank :String = "%s/api/rank/one_player.php" % server_host
+@onready var _url_add_ranks :String = "%s/api/rank/add.php" % server_host
+@onready var _url_ranks :String = "%s/api/rank/list.php" % server_host
 @onready var _is_web :bool = "Web" == OS.get_name()
 
 var _http_request_ranks :HTTPRequest

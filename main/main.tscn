@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://v68208pndkv8"]
+[gd_scene load_steps=13 format=3 uid="uid://v68208pndkv8"]
 
 [ext_resource type="Script" path="res://addons/SafeArea/SafeArea.gd" id="1_4bk0j"]
 [ext_resource type="PackedScene" uid="uid://d0vjpt4wshrte" path="res://assets/ui/animated_background/animated_background.tscn" id="1_887v3"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dqu1dnmrn7ay2" path="res://main/sub_main_scene/gameplay/gameplay.tscn" id="7_stpuy"]
 [ext_resource type="PackedScene" uid="uid://doevsa43xqs6q" path="res://main/sub_main_scene/rank/rank.tscn" id="8_1ytuf"]
 [ext_resource type="PackedScene" uid="uid://dsbwmk7mlwtqn" path="res://main/sub_main_scene/dictionary/dictionary.tscn" id="9_bhadj"]
+[ext_resource type="PackedScene" uid="uid://dugmxdxuxehc2" path="res://main/sub_main_scene/prize/prize.tscn" id="11_hiqmq"]
 [ext_resource type="PackedScene" uid="uid://diso4otal1vyl" path="res://assets/ui/banner/banner.tscn" id="11_oxqmf"]
 
 [node name="main" type="Control"]
@@ -74,13 +75,16 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="prize" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("11_hiqmq")]
+visible = false
+layout_mode = 2
+
 [node name="banner" parent="CanvasLayer/Control/SafeArea" instance=ExtResource("11_oxqmf")]
 visible = false
 layout_mode = 2
 
 [connection signal="retry" from="CanvasLayer/Control/error_display" to="." method="_on_error_display_retry"]
 [connection signal="login_completed" from="CanvasLayer/Control/SafeArea/login" to="." method="_on_login_login_completed"]
-[connection signal="back_press" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_back_press"]
 [connection signal="logout" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_logout"]
 [connection signal="play" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_play"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/main_menu" to="." method="_on_main_menu_rank"]
@@ -88,3 +92,7 @@ layout_mode = 2
 [connection signal="back_press" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_back_press"]
 [connection signal="dictionary" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_dictionary"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_rank"]
+[connection signal="back" from="CanvasLayer/Control/SafeArea/rank" to="." method="_on_rank_back"]
+[connection signal="prize" from="CanvasLayer/Control/SafeArea/rank" to="." method="_on_rank_prize"]
+[connection signal="back" from="CanvasLayer/Control/SafeArea/dictionary" to="." method="_on_dictionary_back"]
+[connection signal="back" from="CanvasLayer/Control/SafeArea/prize" to="." method="_on_prize_back"]

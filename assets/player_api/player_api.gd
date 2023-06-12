@@ -5,11 +5,11 @@ signal add(ok)
 signal get_one(ok, player)
 signal update(ok)
 
-const base_url :String = "http://192.168.1.78:8080"
+@export var server_host :String
 
-@onready var _url_add_player :String = "%s/api/player/add.php" % base_url
-@onready var _url_one_player :String = "%s/api/player/one.php" % base_url
-@onready var _url_update_player :String = "%s/api/player/update.php" % base_url
+@onready var _url_add_player :String = "%s/api/player/add.php" % server_host
+@onready var _url_one_player :String = "%s/api/player/one.php" % server_host
+@onready var _url_update_player :String = "%s/api/player/update.php" % server_host
 @onready var _is_web :bool = "Web" == OS.get_name()
 
 var _http_request_add_player :HTTPRequest

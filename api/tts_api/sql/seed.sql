@@ -15,6 +15,12 @@ INSERT INTO rank_table (id,player_id,player_name,player_avatar,player_email,rank
 (14,'14','Renosyah 14','https://lh3.googleusercontent.com/a/AAcHTteOdz1U8TR4M3oUPh4yvT-9sKsu2YNj5WfSQMn1=s96-c','renosyahdev@gmail.com',49),
 (15,'15','Renosyah 15','https://lh3.googleusercontent.com/a/AAcHTteOdz1U8TR4M3oUPh4yvT-9sKsu2YNj5WfSQMn1=s96-c','renosyahdev@gmail.com',33);
 
-INSERT INTO banner_table (id, banner_name, banner_image_url) VALUES (1, '1.png', 'http://192.168.1.78:8080/image/1.png'),
-(2, '2.png', 'http://192.168.1.78:8080/image/2.png'),
-(3, '3.png', 'http://192.168.1.78:8080/image/3.png');
+INSERT INTO banner_table (id, banner_name, banner_image_url) VALUES 
+(1, '1.png', 'http://192.168.100.236:8080/image/1.png'),
+(2, '2.png', 'http://192.168.100.236:8080/image/2.png'),
+(3, '3.png', 'http://192.168.100.236:8080/image/3.png');
+
+INSERT INTO prize_table (id, prize_name, prize_image_url, prize_level) VALUES 
+(1, 'Laptop', 'http://192.168.100.236:8080/image/laptop.png', 1000),
+(2, 'Hp', 'http://192.168.100.236:8080/image/hp.png', 980),
+(3, 'Mesin Cuci', 'http://192.168.100.236:8080/image/mesin_cuci.png', 960);

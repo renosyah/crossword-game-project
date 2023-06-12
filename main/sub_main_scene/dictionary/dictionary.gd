@@ -1,5 +1,7 @@
 extends Control
 
+signal back
+
 @export var words :Array
 
 @onready var label = $VBoxContainer/HBoxContainer2/Label
@@ -29,3 +31,6 @@ func refresh_dictionary():
 		dictionaries.add_child(item)
 		
 	empty_list.visible = dictionaries.get_children().is_empty()
+	
+func _on_back_button_pressed():
+	emit_signal("back")

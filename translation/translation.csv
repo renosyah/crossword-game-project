@@ -31,3 +31,4 @@ DROP_LEVEL_DESCRIPTION,your Level has been drop by 50, Tingkatan ditirunkan seba
 FINAL_BOSS_TITLE, Final Boss, Final Boss
 FINAL_BOSS_DESCRIPTION,"In this level you are given the opportunity for 5 minutes, if you fail you will go down 50 levels, if successful you will get the main prize", "Dalam level ini kamu diberi kesempatan selama 5 menit, jika gagal kamu akan turun 50 level, jika berhasil kamu akan mendapat hadiah utama"
 CLOSE,Close,Tutup
+PRIZE,Prize,Hadiah

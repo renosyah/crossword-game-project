@@ -1,5 +1,8 @@
 extends Control
 
+signal back
+signal prize
+
 const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var label = $VBoxContainer/HBoxContainer2/Label
 
@@ -12,6 +15,7 @@ const rank_item_scene = preload("res://assets/ui/rank_item/rank_item.tscn")
 @onready var loading = $loading
 @onready var player_rank = $player_rank
 @onready var rank_item_player = $player_rank/VBoxContainer/rank_item
+@onready var prize_button_label = $prize_button/MarginContainer/HBoxContainer/VBoxContainer/Label
 
 var _rank_offset :int = 0
 var _rank_limit :int = 10
@@ -23,6 +27,8 @@ var _enabler_visibler :bool = false
 func _ready():
 	loading.visible = true
 	label.text = tr("RANK").to_upper()
+	prize_button_label.text = tr("PRIZE")
+	
 	Global.rank_api.ranks.connect(_on_ranks)
 	Global.rank_api.one_rank.connect(_one_rank)
 
@@ -151,6 +157,13 @@ func _one_rank(ok :bool, data :RanksApi.Rank):
 	rank_item_player.player_name = data.player_name
 	rank_item_player.player_avatar = data.player_avatar
 	rank_item_player.show_rank()
+	
+func _on_prize_button_pressed():
+	emit_signal("prize")
+
+func _on_back_button_pressed():
+	emit_signal("back")
+
 
 
 

@@ -43,11 +43,11 @@ func _on_http_request_request_completed(result: int, _response_code: int, _heade
 func _check_image_format(body :PackedByteArray) -> Image:
 	var img = Image.new()
 	
-	var image_error = img.load_jpg_from_buffer(body)
+	var image_error = img.load_png_from_buffer(body)
 	if image_error == OK:
 		return img
 		
-	image_error = img.load_png_from_buffer(body)
+	image_error = img.load_jpg_from_buffer(body)
 	if image_error == OK:
 		return img
 		

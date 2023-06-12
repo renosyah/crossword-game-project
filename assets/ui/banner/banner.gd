@@ -2,15 +2,16 @@ extends Control
 class_name Banner
 
 const banner_item = preload("res://assets/ui/banner/banner_item/banner_item.tscn")
-const base_url :String = "http://192.168.1.78:8080"
 
-@onready var _url_banners :String = "%s/api/banner/list.php" % base_url
+@export var server_host :String
+
 @onready var _is_web :bool = "Web" == OS.get_name()
 @onready var _http_request = $HTTPRequest
 
 @onready var _scroll_container = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ScrollContainer
 @onready var _h_box_container = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/ScrollContainer/HBoxContainer
 @onready var _button_title = $VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer2/close/CenterContainer/button_title
+@onready var _animation_player = $AnimationPlayer
 
 var _banners :Array = []
 
@@ -30,7 +31,7 @@ func request_banners():
 		"limit": 10
 	}
 	var error = _http_request.request(
-		_url_banners, [], HTTPClient.METHOD_POST, JSON.stringify(body)
+		"%s/api/banner/list.php" % server_host, [], HTTPClient.METHOD_POST, JSON.stringify(body)
 	)
 	if error != OK:
 		return
@@ -69,6 +70,8 @@ func _display_banner():
 		banner.image_url = item.banner_image_url
 		banner.custom_minimum_size = _scroll_container_size
 		_h_box_container.add_child(banner)
+		
+	_animation_player.play("show_banner")
 	
 func _on_v_box_container_resized():
 	if not is_instance_valid(_h_box_container):
@@ -83,6 +86,8 @@ func _on_v_box_container_resized():
 		i.custom_minimum_size = _scroll_container_size
 		
 func _on_close_pressed():
+	_animation_player.play_backwards("show_banner")
+	await _animation_player.animation_finished
 	visible = false
 	
 class BannerData:

@@ -15,9 +15,10 @@ extends Control
 @onready var rank = $CanvasLayer/Control/SafeArea/rank
 @onready var dictionary = $CanvasLayer/Control/SafeArea/dictionary
 @onready var error_display = $CanvasLayer/Control/error_display
+@onready var prize = $CanvasLayer/Control/SafeArea/prize
 @onready var banner = $CanvasLayer/Control/SafeArea/banner
 
-var current_menu :String = "login"
+var navigations :Array = []
 var has_error :bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -27,14 +28,7 @@ func _ready():
 	
 	var is_web_app :bool = ["Web"].has(OS.get_name())
 	
-	loading.visible = false
-	main_menu.visible = false
-	gameplay.visible = false
-	login.visible = false
-	rank.visible = false
-	dictionary.visible = false
-	error_display.visible = false
-	banner.visible = false
+	_hide_all()
 	
 	Admob.banner_loaded.connect(_admob_banner_loaded)
 	
@@ -48,7 +42,6 @@ func _ready():
 			_show_panel_error()
 			return
 		
-		current_menu = "main_menu"
 		animated_background.set_stage(3)
 		loading.visible = false
 		_show_main_menu()
@@ -66,7 +59,6 @@ func _ready():
 	
 	animated_background.set_stage(2)
 	login.show_login_form()
-	current_menu = "login"
 	
 func _preparing():
 	# prepare admob, and regenerator
@@ -96,24 +88,18 @@ func _notification(what):
 			return
 			
 func on_back_pressed():
-	if current_menu == "rank":
-		_on_main_menu_back_press()
-		return
-		
-	if current_menu == "gameplay":
-		gameplay.on_back_button_pressed()
-		return
-		
-	if current_menu == "gameplay/rank":
-		gameplay.on_back_button_pressed()
-		return
-		
-	if current_menu == "gameplay/dictionary":
-		gameplay.on_back_button_pressed()
-		return
-		
-	if current_menu == "main_menu" or current_menu == "login":
-		get_tree().quit()
+	get_tree().quit()
+	
+func _hide_all():
+	loading.visible = false
+	main_menu.visible = false
+	gameplay.visible = false
+	login.visible = false
+	rank.visible = false
+	dictionary.visible = false
+	error_display.visible = false
+	prize.visible = false
+	banner.visible = false
 	
 func _show_panel_error():
 	error_display.visible = true
@@ -161,12 +147,12 @@ func _to_main_menu():
 	if has_error:
 		_show_panel_error()
 		return
-	
-	current_menu = "main_menu"
+		
 	animated_background.set_stage(3)
 	loading.visible = false
 	
 	banner.visible = true
+	banner.server_host = Global.server_host
 	banner.request_banners()
 	
 	_show_main_menu()
@@ -184,8 +170,10 @@ func _on_main_menu_play():
 	sfx.stream = click_sound
 	sfx.play()
 	
-	current_menu = "gameplay"
 	animated_background.set_stage(4)
+	navigations.append("gameplay")
+	_hide_all()
+	
 	gameplay.visible = true
 	gameplay.generate_puzzle()
 
@@ -209,27 +197,21 @@ func _on_main_menu_rank():
 	sfx.stream = click_sound
 	sfx.play()
 	
-	current_menu = "rank"
 	animated_background.set_stage(4)
+	navigations.append("rank")
+	_hide_all()
+	
 	rank.visible = true
 	rank.show_ranks()
-	
-func _on_main_menu_back_press():
-	sfx.stream = click_sound
-	sfx.play()
-	
-	current_menu = "main_menu"
-	rank.visible = false
-	animated_background.set_stage(4, true)
-	main_menu.show_menu(true)
 	
 #------------------------------ gameplay ------------------------------------#
 func _on_gameplay_rank():
 	sfx.stream = click_sound
 	sfx.play()
 	
-	current_menu = "gameplay/rank"
-	animated_background.set_stage(4, true)
+	navigations.append("rank")
+	_hide_all()
+	
 	rank.visible = true
 	rank.show_ranks()
 	
@@ -237,8 +219,9 @@ func _on_gameplay_dictionary():
 	sfx.stream = click_sound
 	sfx.play()
 	
-	current_menu = "gameplay/dictionary"
-	animated_background.set_stage(4, true)
+	navigations.append("dictionary")
+	_hide_all()
+	
 	dictionary.visible = true
 	dictionary.show_dictionary()
 	
@@ -249,20 +232,73 @@ func _on_gameplay_add_to_dictionary(word :String):
 	dictionary.words.append(word)
 	dictionary.refresh_dictionary()
 	
-func _on_gameplay_back_press(_is_on_rank_menu :bool, _is_on_dictionary_menu :bool):
-	if _is_on_rank_menu or _is_on_dictionary_menu:
-		current_menu = "gameplay"
-		rank.visible = false
-		dictionary.visible = false
-		
-		animated_background.set_stage(4)
+func _on_gameplay_back_press():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	animated_background.set_stage(4, true)
+	navigations.pop_back()
+	_hide_all()
+	
+	await get_tree().process_frame
+	main_menu.visible = true
+	main_menu.show_menu(true)
+	
+#------------------------------ rank ------------------------------------#
+func _on_rank_prize():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	navigations.append("prize")
+	_hide_all()
+	
+	prize.visible = true
+	
+func _on_rank_back():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	navigations.pop_back()
+	_hide_all()
+	
+	if navigations.is_empty():
+		animated_background.set_stage(4, true)
+		await get_tree().process_frame
+		main_menu.visible = true
+		main_menu.show_menu(true)
 		return
 		
-	current_menu = "main_menu"
-	animated_background.set_stage(4, true)
-	main_menu.show_menu(true)
-	await get_tree().process_frame
-	gameplay.visible = false
+	if navigations.back() == "gameplay":
+		gameplay.visible = true
+		gameplay.back_to_gameplay()
+		
+#------------------------------ dictionary ------------------------------------#
+func _on_dictionary_back():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	navigations.pop_back()
+	_hide_all()
+	
+	if navigations.back() == "gameplay":
+		gameplay.visible = true
+		gameplay.back_to_gameplay()
+		
+#------------------------------ prize ------------------------------------#
+func _on_prize_back():
+	sfx.stream = click_sound
+	sfx.play()
+	
+	navigations.pop_back()
+	_hide_all()
+	
+	if navigations.back() == "rank":
+		rank.visible = true
+
+
+
+
+
 
 
 
