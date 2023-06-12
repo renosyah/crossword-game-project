@@ -27,6 +27,7 @@ func _ready():
 	get_tree().set_auto_accept_quit(false)
 	
 	var is_web_app :bool = ["Web"].has(OS.get_name())
+	loading.visible = false
 	
 	_hide_all()
 	
@@ -105,13 +106,12 @@ func on_back_pressed():
 	
 	
 func _hide_all():
-	loading.visible = false
 	main_menu.visible = false
 	gameplay.visible = false
 	login.visible = false
-	rank.visible = false
 	dictionary.visible = false
 	error_display.visible = false
+	rank.visible = false
 	prize.visible = false
 	banner.visible = false
 	
@@ -310,7 +310,7 @@ func _on_prize_back():
 	
 	if navigations.back() == "rank":
 		rank.visible = true
-
+		rank.show_ranks()
 
 
 

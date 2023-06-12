@@ -504,6 +504,9 @@ func _player_earned_rewarded(_reward_type :String, _amount:int):
 		Global.player_hint += 2
 		hint_left.text = str(Global.player_hint)
 	
+	Global.update_player_data_api()
+	
+	
 func _player_lose():
 	# RULE REVISION
 	# if player reach more than lvl 1000
@@ -654,9 +657,6 @@ func _regenerate_hp_complete():
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
 	
-var _is_on_rank_menu :bool = false
-var _is_on_dictionary_menu :bool = false
-
 func _on_back_button_pressed():
 	# RULE REVISION
 	# stop timer
@@ -667,13 +667,13 @@ func _on_back_button_pressed():
 	emit_signal("back_press")
 	
 func _on_rank_button_pressed():
-	_is_on_rank_menu = true
 	animation_player.play("to_rank")
+	await animation_player.animation_finished
 	emit_signal("rank")
 	
 func _on_list_button_pressed():
-	_is_on_dictionary_menu = true
 	animation_player.play("to_rank")
+	await animation_player.animation_finished
 	emit_signal("dictionary")
 
 

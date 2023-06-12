@@ -33,14 +33,7 @@ func _ready():
 	Global.rank_api.one_rank.connect(_one_rank)
 
 func show_ranks():
-	animation_player.play("RESET")
-	loading.visible = true
-	_enabler_visibler = false
-	player_rank.visible = false
-	_rank_offset = 0
-	_top_3.clear()
-	_remove_child(top_rank)
-	_remove_child(ranks)
+	_reset_all()
 	
 	if _top_3.is_empty():
 		if _on_request_rank:
@@ -73,7 +66,17 @@ func _remove_child(node :Control):
 		i.queue_free()
 		
 	node.custom_minimum_size.y = 0
-		
+	
+func _reset_all():
+	animation_player.play("RESET")
+	_enabler_visibler = false
+	loading.visible = true
+	player_rank.visible = false
+	_rank_offset = 0
+	_top_3.clear()
+	_remove_child(top_rank)
+	_remove_child(ranks)
+	
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	if not _enabler_visibler or not visible:
 		return
@@ -162,6 +165,7 @@ func _on_prize_button_pressed():
 	emit_signal("prize")
 
 func _on_back_button_pressed():
+	_reset_all()
 	emit_signal("back")
 
 

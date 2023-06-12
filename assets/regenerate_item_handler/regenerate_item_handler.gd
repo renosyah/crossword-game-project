@@ -57,8 +57,9 @@ func get_save_data() -> Array:
 	return regenerating_items_datas
 	
 func _save_data():
-	SaveLoad.save("%s_regenerating_items_datas.data" % item_name, get_save_data())
-	emit_signal("on_save", regenerating_items)
+	var save_data = get_save_data()
+	SaveLoad.save("%s_regenerating_items_datas.data" % item_name,save_data)
+	emit_signal("on_save", save_data)
 	
 func _load_last_data():
 	regenerating_items.clear()
@@ -71,7 +72,9 @@ func _load_last_data():
 			item.from_dict(i)
 			item.current_time = _current_time.copy()
 			regenerating_items.append(item)
-			item_count -= 1
+			
+			if item.is_regenerating:
+				item_count -= 1
 	
 func add_generate_item(count :int = 1):
 	if item_count <= 0 or not _valid:

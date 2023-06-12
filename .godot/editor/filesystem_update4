@@ -22,3 +22,4 @@ res://main/sub_main_scene/gameplay/gameplay.gd
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/dictionary/dictionary.tscn
 res://main/sub_main_scene/dictionary/dictionary.gd
+res://assets/regenerate_item_handler/regenerate_item_handler.gd
