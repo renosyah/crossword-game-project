@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dugmxdxuxehc2"]
+[gd_scene load_steps=12 format=3 uid="uid://dugmxdxuxehc2"]
 
 [ext_resource type="Script" path="res://main/sub_main_scene/prize/prize.gd" id="1_ul55q"]
 [ext_resource type="Texture2D" uid="uid://gmpkklh2jf5y" path="res://assets/ui/icons/back.png" id="2_dbv7i"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_i4su7"]
 [ext_resource type="PackedScene" uid="uid://dqqet8nw8jrnv" path="res://assets/ui/loading/loading.tscn" id="4_f6omx"]
+[ext_resource type="PackedScene" uid="uid://3cfnaoodpu2" path="res://assets/ui/redeem_prize/redeem_prize.tscn" id="5_73b5y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jy04i"]
 
@@ -20,6 +21,33 @@ corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
+
+[sub_resource type="Animation" id="Animation_r3jw0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/player_prize_redeem:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_d28fu"]
 resource_name = "show_prize"
@@ -47,33 +75,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_r3jw0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer/player_prize_redeem:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h6ayp"]
@@ -262,9 +263,14 @@ layout_mode = 2
 [node name="loading" parent="." instance=ExtResource("4_f6omx")]
 layout_mode = 1
 
+[node name="redeem_prize" parent="." instance=ExtResource("5_73b5y")]
+layout_mode = 1
+mouse_filter = 2
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_h6ayp")
 }
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="redeem_completed" from="redeem_prize" to="." method="_on_redeem_prize_redeem_completed"]

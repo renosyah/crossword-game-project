@@ -1,7 +1,7 @@
 extends MarginContainer
 class_name PrizeItem
 
-signal redeem(_id)
+signal redeem(_id, _name)
 
 @export var id :int
 @export var prize_name :String
@@ -29,10 +29,11 @@ func _ready():
 	rng.seed = id
 	
 	_panel_style.bg_color = Color(rng.randf(), rng.randf(), rng.randf(), 1.0)
-	_redeem_button.modulate.a = 1 if can_redeem else 0.5
+	_redeem_button.modulate.a = 1.0 if can_redeem else 0.5
 	
 	_prize_name.text = prize_name
 	_level.text = "%s %s" % [tr("LEVEL") ,prize_level]
+	_button_redeem_label.text = tr("REDEEM")
 	
 	if prize_image_url.is_empty():
 		return
@@ -48,7 +49,7 @@ func _on_redeem_pressed():
 	if not can_redeem:
 		return
 		
-	emit_signal("redeem", id)
+	emit_signal("redeem", id, prize_name)
 	
 func _on_http_request_request_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:

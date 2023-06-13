@@ -32,3 +32,7 @@ FINAL_BOSS_TITLE, Final Boss, Final Boss
 FINAL_BOSS_DESCRIPTION,"In this level you are given the opportunity for 5 minutes, if you fail you will go down 50 levels, if successful you will get the main prize", "Dalam level ini kamu diberi kesempatan selama 5 menit, jika gagal kamu akan turun 50 level, jika berhasil kamu akan mendapat hadiah utama"
 CLOSE,Close,Tutup
 PRIZE,Prize,Hadiah
+REDEEM,Redeem,Tukar
+REDEEM_PRIZE,Redeem Prize,Tukar Hadiah
+WANT_REDEEM_PRIZE,Are you sure want redeem,Apa kamu yakin ingin menukar hadiah
+REDEEM_PRIZE_SUCCESS,"Yey congratulations you have successfully claimed your prize in the form of %s, our team will contact you via email, please wait.","Yey selamat kamu berhasil klaim hadiah kamu berupa %s, tim kita akan menghubungi kamu lewat email, ditunggu ya."

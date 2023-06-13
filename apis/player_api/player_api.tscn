@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://cj7777xdgqioc"]
 
-[ext_resource type="Script" path="res://apis/player_api/player_api.gd" id="1_cyfji"]
+[ext_resource type="Script" path="res://apis/player_api/player_api.gd" id="1_esdye"]
 
 [node name="player_api" type="Node"]
-script = ExtResource("1_cyfji")
+script = ExtResource("1_esdye")

@@ -13,3 +13,9 @@ res://main/main.gd
 res://assets/ui/prize_item/prize_item.gd
 res://assets/ui/rank_item/rank_item.tscn
 res://main/sub_main_scene/rank/rank.gd
+res://apis/player_api/player_api.tscn
+res://main/sub_main_scene/main_menu/main_menu.gd
+res://translation/translation.en.translation
+res://translation/translation.id.translation
+res://assets/ui/redeem_prize/redeem_prize.tscn
+res://assets/ui/redeem_prize/redeem_prize.gd

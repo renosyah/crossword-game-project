@@ -26,7 +26,6 @@ signal logout
 @onready var sfx = Global.sfx
 
 var _is_mutted :bool = false
-var _can_back :bool = false
 var _tween :Tween
 
 func _ready():
