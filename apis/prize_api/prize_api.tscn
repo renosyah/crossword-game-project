@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7cgpiwhbslln"]
+
+[ext_resource type="Script" path="res://apis/prize_api/prize_api.gd" id="1_wchlp"]
+
+[node name="prize_api" type="Node"]
+script = ExtResource("1_wchlp")

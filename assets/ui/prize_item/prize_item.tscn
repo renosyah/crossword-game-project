@@ -24,10 +24,11 @@ shadow_size = 4
 shadow_offset = Vector2(0, 2)
 
 [node name="prize_item" type="MarginContainer"]
-custom_minimum_size = Vector2(374, 122)
-offset_right = 479.0
-offset_bottom = 122.0
-size_flags_horizontal = 0
+custom_minimum_size = Vector2(374, 180)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 script = ExtResource("1_1tk3q")
 
 [node name="Panel" type="Panel" parent="."]
@@ -43,16 +44,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(200, 100)
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Control"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -187.0
+offset_right = 457.0
+offset_bottom = 126.0
+grow_vertical = 2
 size_flags_horizontal = 3
 expand_mode = 1
+stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
+alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="prize_name" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -60,10 +78,12 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_mwbw2")
 theme_override_font_sizes/font_size = 20
 text = "..."
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -127,6 +147,10 @@ theme_override_font_sizes/font_size = 13
 text = "Redeem"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(16, 0)

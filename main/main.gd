@@ -268,6 +268,7 @@ func _on_rank_prize():
 	_hide_all()
 	
 	prize.visible = true
+	prize.show_prize()
 	
 func _on_rank_back():
 	sfx.stream = click_sound

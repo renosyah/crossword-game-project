@@ -1,3 +1,4 @@
+
 CREATE TABLE player_table(
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     player_id TEXT,

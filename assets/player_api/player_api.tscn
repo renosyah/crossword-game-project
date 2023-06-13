@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://t4r8t0o5t6e0"]
-
-[ext_resource type="Script" path="res://assets/player_api/player_api.gd" id="1_cyfji"]
-
-[node name="player_api" type="Node"]
-script = ExtResource("1_cyfji")

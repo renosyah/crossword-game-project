@@ -162,6 +162,7 @@ func _one_rank(ok :bool, data :RanksApi.Rank):
 	rank_item_player.show_rank()
 	
 func _on_prize_button_pressed():
+	_reset_all()
 	emit_signal("prize")
 
 func _on_back_button_pressed():

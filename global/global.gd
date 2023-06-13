@@ -1,7 +1,6 @@
 extends Node
 
-
-const server_host = "http://192.168.100.236:8080"
+const server_host = "http://192.168.1.78:8080"
 
 ######################################################################
 
@@ -26,6 +25,7 @@ func _ready():
 	
 	setup_player_api()
 	setup_rank_api()
+	setup_prize_api()
 	setup_regenerate_hp_hint()
 	setup_sound()
 
@@ -141,7 +141,7 @@ func _current_time_error(_msg :String):
 var rank_api :RanksApi
 
 func setup_rank_api():
-	rank_api = preload("res://assets/ranks_api/ranks_api.tscn").instantiate()
+	rank_api = preload("res://apis/ranks_api/ranks_api.tscn").instantiate()
 	rank_api.server_host = server_host
 	add_child(rank_api)
 	
@@ -150,7 +150,7 @@ func setup_rank_api():
 var player_api :PlayerApi
 
 func setup_player_api():
-	player_api = preload("res://assets/player_api/player_api.tscn").instantiate()
+	player_api = preload("res://apis/player_api/player_api.tscn").instantiate()
 	player_api.server_host = server_host
 	add_child(player_api)
 	
@@ -187,6 +187,15 @@ func update_player_data_api():
 		"save_data_json": _save_data_json
 	}
 	player_api.request_update_player(PlayerApi.Player.new(_player))
+	
+######################################################################
+# prize api
+var prize_api :PrizeApi
+
+func setup_prize_api():
+	prize_api = preload("res://apis/prize_api/prize_api.tscn").instantiate()
+	prize_api.server_host = server_host
+	add_child(prize_api)
 	
 ######################################################################
 

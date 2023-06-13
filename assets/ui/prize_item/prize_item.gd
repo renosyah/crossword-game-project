@@ -13,12 +13,12 @@ signal redeem(_id)
 @onready var _prize_name = $Panel/HBoxContainer/VBoxContainer/prize_name
 @onready var _level = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/level
 @onready var _button_redeem_label = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/redeem/CenterContainer/Label
-@onready var _texture_rect = $Panel/HBoxContainer/TextureRect
+@onready var _texture_rect = $Panel/HBoxContainer/Control/TextureRect
 @onready var _redeem_button = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/redeem
 @onready var _http_request = $HTTPRequest
 
-@onready var _panel_style :StyleBoxFlat = $Control/Panel.get_theme_stylebox(StringName("panel")).duplicate()
-@onready var _panel = $Control/Panel
+@onready var _panel_style :StyleBoxFlat = $Panel.get_theme_stylebox(StringName("panel")).duplicate()
+@onready var _panel = $Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
