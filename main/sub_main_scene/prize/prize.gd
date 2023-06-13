@@ -1,6 +1,7 @@
 extends Control
 
 signal back
+signal error
 
 @onready var player_prize_redeem = $VBoxContainer/player_prize_redeem
 @onready var label = $VBoxContainer/HBoxContainer2/Label
@@ -34,6 +35,10 @@ func show_prize():
 	Global.prize_api.request_prizes(0, 10)
 	
 func _on_prizes(ok :bool, datas :Array):
+	if not ok:
+		emit_signal("error")
+		return
+		
 	loading.visible = false
 	animation_player.play("show_prize")
 	

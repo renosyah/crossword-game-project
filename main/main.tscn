@@ -93,6 +93,8 @@ layout_mode = 2
 [connection signal="dictionary" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_dictionary"]
 [connection signal="rank" from="CanvasLayer/Control/SafeArea/gameplay" to="." method="_on_gameplay_rank"]
 [connection signal="back" from="CanvasLayer/Control/SafeArea/rank" to="." method="_on_rank_back"]
+[connection signal="error" from="CanvasLayer/Control/SafeArea/rank" to="." method="_on_rank_error"]
 [connection signal="prize" from="CanvasLayer/Control/SafeArea/rank" to="." method="_on_rank_prize"]
 [connection signal="back" from="CanvasLayer/Control/SafeArea/dictionary" to="." method="_on_dictionary_back"]
 [connection signal="back" from="CanvasLayer/Control/SafeArea/prize" to="." method="_on_prize_back"]
+[connection signal="error" from="CanvasLayer/Control/SafeArea/prize" to="." method="_on_prize_error"]

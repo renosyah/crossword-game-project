@@ -6,6 +6,7 @@ signal rank_added(ok)
 signal ranks(ok, datas)
 
 @export var server_host :String
+@export var max_timeout :int
 
 @onready var _url_one_rank :String = "%s/api/rank/one_player.php" % server_host
 @onready var _url_add_ranks :String = "%s/api/rank/add.php" % server_host
@@ -20,14 +21,17 @@ var _datas :Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_http_request_ranks = HTTPRequest.new()
+	_http_request_ranks.timeout = max_timeout
 	_http_request_ranks.request_completed.connect(_on_request_ranks_completed)
 	add_child(_http_request_ranks)
 	
 	_http_request_one_rank = HTTPRequest.new()
+	_http_request_one_rank.timeout = max_timeout
 	_http_request_one_rank.request_completed.connect(_on_request_one_rank_completed)
 	add_child(_http_request_one_rank)
 	
 	_http_request_add_rank = HTTPRequest.new()
+	_http_request_add_rank.timeout = max_timeout
 	_http_request_add_rank.request_completed.connect(_on_request_add_ranks_completed)
 	add_child(_http_request_add_rank)
 	

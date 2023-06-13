@@ -6,6 +6,7 @@ signal get_one(ok, player)
 signal update(ok)
 
 @export var server_host :String
+@export var max_timeout :int
 
 @onready var _url_add_player :String = "%s/api/player/add.php" % server_host
 @onready var _url_one_player :String = "%s/api/player/one.php" % server_host
@@ -19,14 +20,17 @@ var _http_request_update_player :HTTPRequest
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_http_request_add_player = HTTPRequest.new()
+	_http_request_add_player.timeout = max_timeout
 	_http_request_add_player.request_completed.connect(_on_request_add_player_completed)
 	add_child(_http_request_add_player)
 	
 	_http_request_one_player = HTTPRequest.new()
+	_http_request_one_player.timeout = max_timeout
 	_http_request_one_player.request_completed.connect(_on_request_one_player_completed)
 	add_child(_http_request_one_player)
 	
 	_http_request_update_player = HTTPRequest.new()
+	_http_request_update_player.timeout = max_timeout
 	_http_request_update_player.request_completed.connect(_on_request_update_player_completed)
 	add_child(_http_request_update_player)
 	

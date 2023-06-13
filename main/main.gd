@@ -110,24 +110,20 @@ func _hide_all():
 	gameplay.visible = false
 	login.visible = false
 	dictionary.visible = false
-	error_display.visible = false
 	rank.visible = false
 	prize.visible = false
 	banner.visible = false
 	
 func _show_panel_error():
+	navigations.clear()
+	
 	error_display.visible = true
 	error_display.error_title = tr("NO_INTERNET")
 	error_display.error_description = tr("NO_INTERNET_DESCRIPTION")
 	error_display.show_error()
 	
 	loading.visible = false
-	main_menu.visible = false
-	gameplay.visible = false
-	login.visible = false
-	rank.visible = false
-	dictionary.visible = false
-	banner.visible = false
+	_hide_all()
 	
 #------------------------------ login ------------------------------------#
 func _on_login_login_completed():
@@ -288,7 +284,10 @@ func _on_rank_back():
 		animated_background.set_stage(4)
 		gameplay.visible = true
 		gameplay.back_to_gameplay()
-		
+
+func _on_rank_error():
+	_show_panel_error()
+	
 #------------------------------ dictionary ------------------------------------#
 func _on_dictionary_back():
 	sfx.stream = click_sound
@@ -312,6 +311,13 @@ func _on_prize_back():
 	if navigations.back() == "rank":
 		rank.visible = true
 		rank.show_ranks()
+		
+func _on_prize_error():
+	_show_panel_error()
+
+
+
+
 
 
 

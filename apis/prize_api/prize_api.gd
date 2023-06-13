@@ -5,6 +5,7 @@ signal prizes(ok,datas)
 signal redeemed(ok)
 
 @export var server_host :String
+@export var max_timeout :int
 
 @onready var _url_redeem :String = "%s/api/redeem/add.php" % server_host
 @onready var _url_prizes :String = "%s/api/prize/list.php" % server_host
@@ -16,10 +17,12 @@ var _http_request_get_prizes :HTTPRequest
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_http_request_redeem = HTTPRequest.new()
+	_http_request_redeem.timeout = max_timeout
 	_http_request_redeem.request_completed.connect(_on_request_redeem_completed)
 	add_child(_http_request_redeem)
 	
 	_http_request_get_prizes = HTTPRequest.new()
+	_http_request_get_prizes.timeout = max_timeout
 	_http_request_get_prizes.request_completed.connect(_on_request_get_prizes_completed)
 	add_child(_http_request_get_prizes)
 	

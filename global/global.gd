@@ -1,6 +1,7 @@
 extends Node
 
 const server_host = "http://192.168.1.78:8080"
+const max_timeout = 10
 
 ######################################################################
 
@@ -142,6 +143,7 @@ var rank_api :RanksApi
 
 func setup_rank_api():
 	rank_api = preload("res://apis/ranks_api/ranks_api.tscn").instantiate()
+	rank_api.max_timeout = max_timeout
 	rank_api.server_host = server_host
 	add_child(rank_api)
 	
@@ -151,6 +153,7 @@ var player_api :PlayerApi
 
 func setup_player_api():
 	player_api = preload("res://apis/player_api/player_api.tscn").instantiate()
+	player_api.max_timeout = max_timeout
 	player_api.server_host = server_host
 	add_child(player_api)
 	
@@ -195,6 +198,7 @@ var prize_api :PrizeApi
 func setup_prize_api():
 	prize_api = preload("res://apis/prize_api/prize_api.tscn").instantiate()
 	prize_api.server_host = server_host
+	prize_api.max_timeout = max_timeout
 	add_child(prize_api)
 	
 ######################################################################
