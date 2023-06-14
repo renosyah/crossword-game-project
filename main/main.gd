@@ -239,7 +239,6 @@ func _on_gameplay_add_to_dictionary(word :String):
 		return
 		
 	dictionary.words.append(word)
-	dictionary.refresh_dictionary()
 	
 func _on_gameplay_back_press():
 	sfx.stream = click_sound

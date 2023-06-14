@@ -16,21 +16,31 @@ func _ready():
 	empty_list.text = tr("EMPTY_LIST")
 
 func show_dictionary():
-	animation_player.play("show_dictionary")
-	refresh_dictionary()
-	margin_container_3.visible = (dictionaries.get_child_count() > 0)
-
-func refresh_dictionary():
+	margin_container_3.visible = false
+	empty_list.visible = false
+	
 	for i in dictionaries.get_children():
 		dictionaries.remove_child(i)
 		i.queue_free()
 		
+	await get_tree().process_frame
+	
+	var is_empty :bool = words.is_empty()
+	margin_container_3.visible = not is_empty
+	empty_list.visible = is_empty
+	
+	animation_player.play("RESET")
+	await animation_player.animation_finished
+	
+	_show_words()
+	
+	animation_player.play("show_dictionary")
+	
+func _show_words():
 	for i in words:
 		var item = preload("res://assets/ui/dictionary_item/dictionary_item.tscn").instantiate()
 		item.data = i
 		dictionaries.add_child(item)
-		
-	empty_list.visible = dictionaries.get_children().is_empty()
 	
 func _on_back_button_pressed():
 	emit_signal("back")
