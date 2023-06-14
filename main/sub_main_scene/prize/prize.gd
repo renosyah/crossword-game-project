@@ -9,7 +9,8 @@ signal error
 @onready var loading = $loading
 @onready var animation_player = $AnimationPlayer
 
-var player_rank_level :int = 0
+var _player :PlayerApi.Player = null
+var _player_rank_level :int = 0
 
 @onready var label_player_name = $VBoxContainer/player_prize_redeem/VBoxContainer/label_player_name
 @onready var label_player_level = $VBoxContainer/player_prize_redeem/VBoxContainer/label_player_level
@@ -32,6 +33,16 @@ func show_prize():
 	animation_player.play("RESET")
 	loading.visible = true
 	_remove_child(v_box_container)
+	
+	# request player data
+	if _player == null:
+		Global.player_api.request_one_player(Global.player.player_id)
+		var result :Array = await Global.player_api.get_one
+		if not result[0]:
+			return
+			
+		_player = result[1]
+		
 	Global.prize_api.request_prizes(0, 10)
 	
 func _on_prizes(ok :bool, datas :Array):
@@ -47,17 +58,37 @@ func _on_prizes(ok :bool, datas :Array):
 		
 	for i in datas:
 		var item :PrizeApi.Prize = i
-		var prize = preload("res://assets/ui/prize_item/prize_item.tscn").instantiate()
+		var prize :PrizeItem = preload("res://assets/ui/prize_item/prize_item.tscn").instantiate()
 		prize.id = item.id
 		prize.prize_name = item.prize_name
 		prize.prize_image_url = item.prize_image_url
 		prize.prize_level = item.prize_level
-		prize.can_redeem = true #(player_rank_level > item.prize_level)
+		prize.can_redeem = false
 		prize.redeem.connect(_on_prize_redeem)
 		v_box_container.add_child(prize)
+		
+	_validate_can_redeem_prizes()
+	
+func _validate_can_redeem_prizes():
+	if _player == null:
+		return
+		
+	for i in v_box_container.get_children():
+		var prize :PrizeItem = i
+		Global.prize_api.request_check_redeem(_player.id, prize.id)
+		var result :Array = await Global.prize_api.check_redeem
+		if not result[0]:
+			return
+			
+		var is_exist :bool = result[1]
+		prize.set_can_redeem(not is_exist)
 	
 func _on_prize_redeem(_prize_id :int, _prize_name :String):
+	if _player == null:
+		return
+		
 	redeem_prize_dialog.visible = true
+	redeem_prize_dialog.player_id = _player.id
 	redeem_prize_dialog.prize_id = _prize_id
 	redeem_prize_dialog.prize_name = _prize_name
 	redeem_prize_dialog.show_redeem_confirm()
@@ -73,7 +104,7 @@ func _one_rank(ok :bool, data :RanksApi.Rank):
 	if not ok:
 		return
 		
-	player_rank_level = data.rank_level
+	_player_rank_level = data.rank_level
 	
 	player_prize_redeem.visible = true
 	label_player_name.text = data.player_name

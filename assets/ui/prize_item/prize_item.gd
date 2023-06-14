@@ -45,6 +45,10 @@ func _ready():
 	if error != OK:
 		return
 	
+func set_can_redeem(_can :bool):
+	can_redeem = _can
+	_redeem_button.modulate.a = 1.0 if can_redeem else 0.5
+	
 func _on_redeem_pressed():
 	if not can_redeem:
 		return

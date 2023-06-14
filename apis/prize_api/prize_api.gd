@@ -1,6 +1,7 @@
 extends Node
 class_name PrizeApi
 
+signal check_redeem(ok,exist)
 signal prizes(ok,datas)
 signal redeemed(ok)
 
@@ -9,10 +10,12 @@ signal redeemed(ok)
 
 @onready var _url_redeem :String = "%s/api/redeem/add.php" % server_host
 @onready var _url_prizes :String = "%s/api/prize/list.php" % server_host
+@onready var _url_check_redeem :String = "%s/api/redeem/one_exist.php" % server_host
 @onready var _is_web :bool = "Web" == OS.get_name()
 
 var _http_request_redeem :HTTPRequest
 var _http_request_get_prizes :HTTPRequest
+var _http_request_check_redeem :HTTPRequest
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +28,11 @@ func _ready():
 	_http_request_get_prizes.timeout = max_timeout
 	_http_request_get_prizes.request_completed.connect(_on_request_get_prizes_completed)
 	add_child(_http_request_get_prizes)
+	
+	_http_request_check_redeem = HTTPRequest.new()
+	_http_request_check_redeem.timeout = max_timeout
+	_http_request_check_redeem.request_completed.connect(_on_request_check_redeem_completed)
+	add_child(_http_request_check_redeem)
 	
 func redeem_prizes(player_id :int, prize_id :int):
 	if _is_web:
@@ -97,6 +105,38 @@ func _on_request_get_prizes_completed(result: int, _response_code: int, _headers
 		datas.append(Prize.new(i))
 		
 	emit_signal("prizes", true, datas)
+	
+func request_check_redeem(player_id :int, prize_id :int):
+	if _is_web:
+		_http_request_check_redeem.accept_gzip = false
+		
+	var body :Dictionary = {
+		"id": 0,
+		"prize_id": prize_id,
+		"player_id": player_id,
+	}
+	var error = _http_request_check_redeem.request(
+		_url_check_redeem, [], HTTPClient.METHOD_POST, JSON.stringify(body)
+	)
+	if error != OK:
+		emit_signal("check_redeem", false, false)
+		return
+	
+func _on_request_check_redeem_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray):
+	if result != HTTPRequest.RESULT_SUCCESS:
+		emit_signal("check_redeem", false, false)
+		return
+		
+	var json :Dictionary = JSON.parse_string(body.get_string_from_utf8())
+	if json == null:
+		emit_signal("check_redeem", true, false)
+		return
+		
+	if json["data"] == null:
+		emit_signal("check_redeem", true, false)
+		return
+		
+	emit_signal("check_redeem", true, true)
 	
 class Prize:
 	var id :int

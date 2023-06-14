@@ -62,6 +62,37 @@ class redeem {
         $db->close();
         return $result_query;
     }
+
+    public function one_exist($db) {
+        $result_query = new result_query();
+        
+        $query = "SELECT id, prize_id, player_id FROM redeem_table WHERE prize_id = '$this->prize_id' AND player_id = '$this->player_id' LIMIT 1";
+        $stmt = $db->query($query);
+        if (!$stmt){
+            $result_query->error = "error at query one : ".$stmt->error;
+            $db->close();
+            return $result_query;
+        }
+
+        $result = mysqli_fetch_assoc($stmt);
+        if($result == null){
+            $db->close();
+            return $result_query;
+        }
+
+        if($result['id'] == null){
+            $db->close();
+            return $result_query;
+        }
+
+        $one = new redeem();
+        $one->id = (int) $result['id'];
+        $one->prize_id = (int) $result['prize_id'];
+        $one->player_id = (int) $result['player_id'];
+        $result_query->data = $one;
+        $db->close();
+        return $result_query;
+    }
     
     public function all($db,$list_query) {
         $result_query = new result_query();

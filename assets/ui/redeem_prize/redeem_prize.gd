@@ -2,9 +2,9 @@ extends Control
 
 signal redeem_completed(ok)
 
+@export var player_id :int
 @export var prize_id :int
 @export var prize_name :String
-var _player :PlayerApi.Player = null
 
 @onready var _confirm_redeem_title = $confirm_redeem_dialog/VBoxContainer/title
 @onready var _confirm_redeem_description = $confirm_redeem_dialog/VBoxContainer/HBoxContainer2/description
@@ -31,26 +31,13 @@ func show_redeem_confirm():
 	_confirm_redeem_description.text = "%s %s?" % [tr("WANT_REDEEM_PRIZE"), prize_name]
 	_success_redeem_description.text = tr("REDEEM_PRIZE_SUCCESS") % prize_name
 	
-	# request player data
-	if _player == null:
-		Global.player_api.request_one_player(Global.player.player_id)
-		var result :Array = await Global.player_api.get_one
-		if not result[0]:
-			return
-			
-		_player = result[1]
-		
 	_animation_player.play("show_redeem_confirm")
 	
 func _on_redeem_button_pressed():
-	if _player == null:
-		_on_no_button_pressed()
-		return
-		
 	_animation_player.play("redeeming")
 	await _animation_player.animation_finished
 	
-	Global.prize_api.redeem_prizes(prize_id, _player.id)
+	Global.prize_api.redeem_prizes(player_id, prize_id)
 	var ok :bool = await Global.prize_api.redeemed
 	if not ok:
 		_animation_player.play("RESET")
