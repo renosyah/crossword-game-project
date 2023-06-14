@@ -40,11 +40,11 @@ func generate_words():
 	words_count = 5
 	
 	var input = 0
-	while (input < level):
+	while (input < level and level > 1):
 		input += 10;
 		words_count += 2
 	
-	words_count = clamp(words_count, 5, 25)
+	words_count = clamp(words_count, 1, 25)
 	
 	while count < words_count:
 		randomize()

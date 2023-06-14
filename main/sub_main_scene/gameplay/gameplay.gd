@@ -181,6 +181,8 @@ func _display_input_tile():
 	_set_input_character(characters)
 	
 func _calculate_tile_size():
+	default_size = Vector2(50, 50)
+	
 	var _trimed :Dictionary = util.trim(crossword.rows, crossword.grid)
 	var row_x_size = (default_size.x + 8) * util.rows
 	var col_y_size = (default_size.y + 8) * util.cols
