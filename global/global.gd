@@ -30,9 +30,6 @@ func _ready():
 	setup_regenerate_hp_hint()
 	setup_sound()
 
-func reset_player():
-	level = 1
-	
 func generate_words():
 	word_list.clear()
 	word_list_founded.clear()
@@ -42,9 +39,9 @@ func generate_words():
 	
 	words_count = 5
 	
-	var input = level
-	while (input >= 10 and input % 10 == 0):
-		input = input / 10;
+	var input = 0
+	while (input < level):
+		input += 10;
 		words_count += 2
 	
 	words_count = clamp(words_count, 5, 25)
@@ -125,6 +122,10 @@ func _current_time_ready(_current_time :Dictionary):
 					
 				if _json.has("player_hint"):
 					player_hint = _json["player_hint"] as int
+					
+				if _json.has("level"):
+					level = _json["level"] as int
+					generate_words()
 				
 	regenerate_hp.run_regenerating(_current_time, regenerate_hp_progress)
 	regenerate_reward_hp.run_regenerating(_current_time)
@@ -161,7 +162,8 @@ func add_player_data_api() -> bool:
 	var _empty_save_data_json :String = JSON.stringify({
 		"regenerate_hp_progress" : [],
 		"player_hp" : regenerate_hp.item_max,
-		"player_hint" : player_max_hint
+		"player_hint" : player_max_hint,
+		"level" : level,
 	})
 	var _player :Dictionary = {
 		"id": 0,
@@ -180,6 +182,7 @@ func update_player_data_api():
 		"regenerate_hp_progress" : regenerate_hp.get_save_data(),
 		"player_hp" : regenerate_hp.item_count,
 		"player_hint" : player_hint,
+		"level" : level,
 	})
 	var _player :Dictionary = {
 		"id": 0,

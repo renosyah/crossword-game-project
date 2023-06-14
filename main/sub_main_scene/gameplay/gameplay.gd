@@ -525,7 +525,7 @@ func _player_lose():
 		generate_puzzle()
 		return
 	
-	Global.reset_player()
+	#Global.reset_player()
 	Global.generate_words()
 	_on_back_button_pressed()
 	
@@ -539,6 +539,9 @@ func _submit_rank():
 		"rank_level" : Global.level,
 	})
 	Global.rank_api.request_add_ranks(_rank)
+	await Global.rank_api.rank_added
+	
+	Global.update_player_data_api()
 	
 func _on_rank_added(_ok :bool):
 	pass

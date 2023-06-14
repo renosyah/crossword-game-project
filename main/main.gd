@@ -169,8 +169,6 @@ func _to_main_menu():
 	
 func _show_main_menu():
 	main_menu.visible = true
-	Global.reset_player()
-	Global.generate_words()
 	main_menu.show_menu()
 	
 func _admob_banner_loaded():

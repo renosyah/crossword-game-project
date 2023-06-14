@@ -81,6 +81,7 @@ func _validate_can_redeem_prizes():
 			return
 			
 		var is_exist :bool = result[1]
+		var require_level_ok :bool = (prize.prize_level < Global.level)
 		prize.set_can_redeem(not is_exist)
 	
 func _on_prize_redeem(_prize_id :int, _prize_name :String):
