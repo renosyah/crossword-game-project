@@ -543,8 +543,6 @@ func _submit_rank():
 	Global.rank_api.request_add_ranks(_rank)
 	await Global.rank_api.rank_added
 	
-	Global.update_player_data_api()
-	
 func _on_rank_added(_ok :bool):
 	pass
 	
@@ -575,6 +573,8 @@ func _show_solved():
 	
 	Global.level += 1
 	Global.generate_words()
+	
+	Global.update_player_data_api()
 	
 	if Admob.get_is_interstitial_loaded():
 		# hide banner!
