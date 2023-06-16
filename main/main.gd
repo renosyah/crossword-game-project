@@ -197,7 +197,13 @@ func _on_main_menu_logout():
 	animated_background.set_stage(3, true)
 	await animated_background.stage_finish
 	
+	# delete all
 	Global.player.delete_data(Global.player_data_file)
+	SaveLoad.delete_save("current_word_list.dat")
+	SaveLoad.delete_save("crossword_progress.dat")
+	SaveLoad.delete_save("trimed_crossword.dat")
+	SaveLoad.delete_save("row_col.dat")
+	
 	Global.player = PlayerData.new()
 	get_tree().reload_current_scene()
 	

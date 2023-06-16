@@ -29,7 +29,7 @@ func _ready():
 	setup_prize_api()
 	setup_regenerate_hp_hint()
 	setup_sound()
-
+	
 func generate_words():
 	word_list.clear()
 	word_list_founded.clear()

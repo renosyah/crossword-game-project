@@ -6,3 +6,6 @@ res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
 res://addons/crossword_gen_remake/crossword_gen_remake.gd
 res://global/utils.gd
+res://main/main.tscn
+res://main/main.gd
+res://main/sub_main_scene/main_menu/main_menu.tscn
