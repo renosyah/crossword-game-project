@@ -332,7 +332,7 @@ func _load_crossword_progress():
 	var data_3 = SaveLoad.load_save("row_col.dat")
 	if data_3 != null:
 		_trimed_crossword_row_count = data_3["row"] as int
-		_trimed_crossword_row_count = data_3["col"] as int
+		_trimed_crossword_col_count = data_3["col"] as int
 	
 func _delete_crossword_progress():
 	_crossword_progress = {}
