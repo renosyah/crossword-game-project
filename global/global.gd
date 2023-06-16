@@ -1,6 +1,6 @@
 extends Node
 
-const server_host = "http://192.168.1.78:8080"
+const server_host = "http://apaantu.id"
 const max_timeout = 10
 
 ######################################################################

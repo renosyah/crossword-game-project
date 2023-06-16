@@ -16,6 +16,7 @@ signal redeem(_id, _name)
 @onready var _texture_rect = $Panel/HBoxContainer/Control/TextureRect
 @onready var _redeem_button = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/redeem
 @onready var _http_request = $HTTPRequest
+@onready var _texture_rect_2 = $Panel/HBoxContainer/Control/TextureRect2
 
 @onready var _panel_style :StyleBoxFlat = $Panel.get_theme_stylebox(StringName("panel")).duplicate()
 @onready var _panel = $Panel
@@ -30,6 +31,8 @@ func _ready():
 	
 	_panel_style.bg_color = Color(rng.randf(), rng.randf(), rng.randf(), 1.0)
 	_redeem_button.modulate.a = 1.0 if can_redeem else 0.5
+	_texture_rect.modulate = Color.WHITE if can_redeem else Color.BLACK
+	_texture_rect_2.visible = not can_redeem
 	
 	_prize_name.text = prize_name
 	_level.text = "%s %s" % [tr("LEVEL") ,prize_level]
@@ -48,6 +51,8 @@ func _ready():
 func set_can_redeem(_can :bool):
 	can_redeem = _can
 	_redeem_button.modulate.a = 1.0 if can_redeem else 0.5
+	_texture_rect.modulate = Color.WHITE if can_redeem else Color.BLACK
+	_texture_rect_2.visible = not can_redeem
 	
 func _on_redeem_pressed():
 	if not can_redeem:

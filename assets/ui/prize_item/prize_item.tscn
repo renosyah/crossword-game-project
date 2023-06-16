@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b05o8n1wl7igo"]
+[gd_scene load_steps=9 format=3 uid="uid://b05o8n1wl7igo"]
 
 [ext_resource type="Script" path="res://assets/ui/prize_item/prize_item.gd" id="1_1tk3q"]
 [ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="1_mwbw2"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="2_b8et7"]
+[ext_resource type="Texture2D" uid="uid://c4v4npiwpoef5" path="res://assets/ui/icons/unknown.png" id="2_gml76"]
 [ext_resource type="Texture2D" uid="uid://dq0qkundn533s" path="res://assets/ui/icons/lolipop.png" id="3_mbmth"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4y0q"]
@@ -51,16 +52,38 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/Control"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -187.0
-offset_right = 457.0
-offset_bottom = 126.0
+offset_left = -126.0
+offset_top = -117.0
+offset_right = 245.0
+offset_bottom = 112.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 expand_mode = 1
 stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/HBoxContainer/Control"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -117.0
+offset_right = 245.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_gml76")
+stretch_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
@@ -73,6 +96,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="prize_name" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_mwbw2")
