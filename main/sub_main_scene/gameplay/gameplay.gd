@@ -58,12 +58,13 @@ var solved_tiles :Array = []
 
 var default_size :Vector2 = Vector2(50, 50)
 var grid_container_size :Vector2
-var trimed_crossword :Dictionary
 var reward_for :String
 
-var _trimed_crossword_row_count :int
-var _trimed_crossword_col_count :int
-var _crossword_progress :Dictionary
+var trimed_crossword :Dictionary
+var trimed_crossword_row_count :int
+var trimed_crossword_col_count :int
+var crossword_progress :Dictionary
+var current_word_list :Array
 
 func _ready():
 	rank_label.text = tr("RANK")
@@ -111,7 +112,7 @@ func generate_puzzle():
 	
 	_load_crossword_progress()
 	
-	if _crossword_progress.is_empty():
+	if crossword_progress.is_empty():
 		crossword = crossword_lib.Crossword.new(64, 64, '', 5000, Global.word_list)
 		crossword.compute_crossword(0)
 		crossword.display()
@@ -119,13 +120,15 @@ func generate_puzzle():
 		# to make sure same generate display as before
 		Global.word_list.clear()
 		Global.word_list_founded.clear()
+		current_word_list = crossword.current_word_list
 		
-		for word in crossword.current_word_list:
+		for word in current_word_list:
 			Global.word_list.append([word.word, "clue"])
 		
 		trimed_crossword = util.trim(crossword.rows, crossword.grid)
-		_trimed_crossword_row_count = util.rows
-		_trimed_crossword_col_count = util.cols
+		trimed_crossword_row_count = util.rows
+		trimed_crossword_col_count = util.cols
+		
 		_save_crossword_progress()
 	
 	_display_input_tile()
@@ -194,8 +197,8 @@ func _display_input_tile():
 func _calculate_tile_size():
 	default_size = Vector2(50, 50)
 	
-	var col_size = _trimed_crossword_col_count
-	var row_size = _trimed_crossword_row_count
+	var col_size = trimed_crossword_col_count
+	var row_size = trimed_crossword_row_count
 	
 	var row_x_size = (default_size.x + 8) * row_size
 	var col_y_size = (default_size.y + 8) * col_size
@@ -214,7 +217,7 @@ func _build_crossword_grid():
 		grid.remove_child(i)
 		i.queue_free()
 		
-	grid.columns = _trimed_crossword_row_count
+	grid.columns = trimed_crossword_row_count
 	
 	for key in trimed_crossword.keys():
 		if not trimed_crossword[key].is_empty():
@@ -280,10 +283,10 @@ func _create_tile_id(row :int, col :int):
 	return"{row}-{column}".format({"row":row,"column":col})
 	
 func _display_clue():
-	if not _crossword_progress.is_empty():
-			for key in _crossword_progress.keys():
+	if not crossword_progress.is_empty():
+			for key in crossword_progress.keys():
 				var tile :WordTile = get_node_or_null(key)
-				if is_instance_valid(tile) and _crossword_progress[key]:
+				if is_instance_valid(tile) and crossword_progress[key]:
 					tile.show_data()
 			
 	else:
@@ -299,7 +302,7 @@ func _display_clue():
 				var tile :WordTile = _get_tile(id)
 				var show_data :bool = is_instance_valid(tile) and c % 2 == clue_pass
 				
-				_crossword_progress[tile.get_path()] = show_data
+				crossword_progress[tile.get_path()] = show_data
 				
 				if show_data:
 					tile.show_data()
@@ -313,17 +316,18 @@ func _display_clue():
 		
 func _save_crossword_progress():
 	var col_row :Dictionary = {
-		"row" : _trimed_crossword_row_count,
-		"col" : _trimed_crossword_col_count
+		"row" : trimed_crossword_row_count,
+		"col" : trimed_crossword_col_count
 	}
 	SaveLoad.save("row_col.dat", col_row)
 	SaveLoad.save("trimed_crossword.dat", trimed_crossword)
-	SaveLoad.save("crossword_progress.dat", _crossword_progress)
+	SaveLoad.save("crossword_progress.dat", crossword_progress)
+	SaveLoad.save("current_word_list.dat", current_word_list)
 	
 func _load_crossword_progress():
 	var data_1 = SaveLoad.load_save("crossword_progress.dat")
 	if data_1 != null:
-		_crossword_progress = data_1 as Dictionary
+		crossword_progress = data_1 as Dictionary
 		
 	var data_2 = SaveLoad.load_save("trimed_crossword.dat")
 	if data_2 != null:
@@ -331,13 +335,19 @@ func _load_crossword_progress():
 		
 	var data_3 = SaveLoad.load_save("row_col.dat")
 	if data_3 != null:
-		_trimed_crossword_row_count = data_3["row"] as int
-		_trimed_crossword_col_count = data_3["col"] as int
-	
+		trimed_crossword_row_count = data_3["row"] as int
+		trimed_crossword_col_count = data_3["col"] as int
+		
+	var data_4 = SaveLoad.load_save("current_word_list.dat")
+	if data_4 != null:
+		current_word_list = data_4 as Array
+		
 func _delete_crossword_progress():
-	_crossword_progress = {}
+	crossword_progress = {}
 	trimed_crossword = {}
+	current_word_list = []
 	
+	SaveLoad.delete_save("current_word_list.dat")
 	SaveLoad.delete_save("crossword_progress.dat")
 	SaveLoad.delete_save("trimed_crossword.dat")
 	SaveLoad.delete_save("row_col.dat")
@@ -353,7 +363,7 @@ func _get_tile(id :String):
 	return null
 	
 func _find_and_show_word(word :String):
-	for i in crossword.current_word_list:
+	for i in current_word_list:
 		if i.word == word:
 			var row = i.row
 			var col = i.col
@@ -675,7 +685,7 @@ func _display_hint():
 			sfx.stream = preload("res://assets/sound/pop.wav")
 			sfx.play()
 			
-			_crossword_progress[i.get_path()] = true
+			crossword_progress[i.get_path()] = true
 			_save_crossword_progress()
 			return
 	

@@ -450,10 +450,6 @@ class Crossword:
 		
 		
 		
-		
-		
-		
-		
  
 ### end class, start execution
  
