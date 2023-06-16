@@ -582,6 +582,7 @@ func _player_lose():
 	# if player lose, drop 50 lvl
 	if Global.level >= 1000:
 		Global.level -= 50
+		_delete_crossword_progress()
 		Global.generate_words()
 		
 		# show panel
@@ -591,11 +592,14 @@ func _player_lose():
 		simple_panel_message.show_panel()
 		
 		# reset puzzle
+		
 		generate_puzzle()
 		return
 	
 	#Global.reset_player()
+	_delete_crossword_progress()
 	Global.generate_words()
+	
 	_on_back_button_pressed()
 	
 func _submit_rank():
