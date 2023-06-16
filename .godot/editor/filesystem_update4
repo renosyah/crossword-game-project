@@ -9,3 +9,4 @@ res://global/utils.gd
 res://main/main.tscn
 res://main/main.gd
 res://main/sub_main_scene/main_menu/main_menu.tscn
+res://assets/regenerate_item_handler/regenerate_item_handler.gd

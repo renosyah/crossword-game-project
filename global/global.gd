@@ -117,8 +117,8 @@ func _current_time_ready(_current_time :Dictionary):
 				if _json.has("regenerate_hp_progress"):
 					regenerate_hp_progress = _json["regenerate_hp_progress"] as Array
 					
-				if _json.has("player_hp"):
-					regenerate_hp.item_count = _json["player_hp"] as int
+#				if _json.has("player_hp"):
+#					regenerate_hp.item_count = _json["player_hp"] as int
 					
 				if _json.has("player_hint"):
 					player_hint = _json["player_hint"] as int
@@ -161,7 +161,7 @@ func setup_player_api():
 func add_player_data_api() -> bool:
 	var _empty_save_data_json :String = JSON.stringify({
 		"regenerate_hp_progress" : [],
-		"player_hp" : regenerate_hp.item_max,
+		#"player_hp" : regenerate_hp.item_max,
 		"player_hint" : player_max_hint,
 		"level" : level,
 	})
@@ -180,7 +180,7 @@ func add_player_data_api() -> bool:
 func update_player_data_api():
 	var _save_data_json :String = JSON.stringify({
 		"regenerate_hp_progress" : regenerate_hp.get_save_data(),
-		"player_hp" : regenerate_hp.item_count,
+		#"player_hp" : regenerate_hp.item_count,
 		"player_hint" : player_hint,
 		"level" : level,
 	})
