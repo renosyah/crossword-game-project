@@ -120,7 +120,7 @@ func generate_puzzle():
 		# to make sure same generate display as before
 		Global.word_list.clear()
 		Global.word_list_founded.clear()
-		current_word_list = crossword.current_word_list
+		current_word_list = crossword.current_word_list_to_arr_of_dict()
 		
 		for word in current_word_list:
 			Global.word_list.append([word.word, "clue"])
@@ -367,7 +367,7 @@ func _find_and_show_word(word :String):
 		if i.word == word:
 			var row = i.row
 			var col = i.col
-			var down_across = i.down_across()
+			var down_across = i.down_across
 			
 			var _solved_tile :Array = []
 			var _animated_items :Array = []

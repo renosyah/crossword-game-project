@@ -448,8 +448,13 @@ class Crossword:
 			outStr += '%d. %s (%d,%d) %s: %s\n' % [word.number, word.word, word.col, word.row, word.down_across(), word.clue ]
 		return outStr
 		
-		
-		
+	func current_word_list_to_arr_of_dict() -> Array:
+		var temps :Array = []
+		for word in self.current_word_list:
+			temps.append({
+				"number" : word.number,"word": word.word,"col": word.col,"row": word.row,"down_across": word.down_across(),"clue": word.clue
+			})
+		return temps
  
 ### end class, start execution
  
