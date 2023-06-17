@@ -1,8 +1,2 @@
 res://default_env.tres
-res://assets/ui/prize_item/prize_item.tscn
-res://assets/ui/prize_item/prize_item.gd
-res://global/global.gd
-res://main/sub_main_scene/gameplay/gameplay.tscn
-res://main/sub_main_scene/gameplay/gameplay.gd
-res://main/sub_main_scene/main_menu/main_menu.gd
 res://main/sub_main_scene/main_menu/main_menu.tscn

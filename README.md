@@ -1,4 +1,4 @@
-# Crossword game project
+# Crossword game project AKA Apaan.tu
 
 is a simple puzzle game of crossword, with feature login with google account.
 list of extensive word from indonesian big dictionary and layout generation for crossword it self
@@ -13,13 +13,12 @@ link : not yet release
 
 ## Gameplay Web
 
-<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/1.png"/>
+<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/store_4.png"/>
 
-<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/2.png" />
+<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/store_5.png" />
 
-<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/3.png" />
+<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/store_6.png" />
 
-<img src="https://raw.githubusercontent.com/renosyah/crossword-game-project/master/ss/4.png" />
 
 
 
