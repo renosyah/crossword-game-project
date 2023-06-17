@@ -2,8 +2,7 @@ extends Node
 
 signal on_sign_in_success(_user)
 signal on_sign_in_failed(_code)
-signal on_sign_out_success
-signal on_sign_out_failed
+signal on_sign_out
 
 var _android_play_service_plugin
 var _is_android_app :bool = false
@@ -80,10 +79,13 @@ func _on_sign_in_failed():
 	emit_signal("on_sign_in_failed", _code)
 	
 func _on_sign_out_success():
-	emit_signal("on_sign_out_success")
+	_on_sign_out()
 	
 func _on_sign_out_failed():
-	emit_signal("on_sign_out_failed")
+	_on_sign_out()
+	
+func _on_sign_out():
+	emit_signal("on_sign_out")
 	
 class User:
 	var id: String
