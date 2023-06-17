@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvhmhj8eit6p6"]
+[gd_scene load_steps=16 format=3 uid="uid://bvhmhj8eit6p6"]
 
 [ext_resource type="Texture2D" uid="uid://curmu5oivd1km" path="res://assets/ui/icons/icon.png" id="1_4oi27"]
 [ext_resource type="Script" path="res://main/sub_main_scene/login/login.gd" id="1_qrl7g"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="4_wbybf"]
 [ext_resource type="Texture2D" uid="uid://rerywpejgvl3" path="res://main/sub_main_scene/main_menu/google.png" id="6_etqxc"]
 [ext_resource type="FontFile" uid="uid://bqlmj2xwvkrst" path="res://assets/fonts/ttf/Poppins-SemiBold.ttf" id="7_cgl2e"]
+[ext_resource type="Texture2D" uid="uid://cdfym2gie1mlu" path="res://assets/ui/icons/google_play_service.png" id="8_tab7p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x2nh"]
 bg_color = Color(1, 1, 1, 1)
@@ -180,7 +181,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [176.0, -320.0]
+"values": [176.0, -471.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -192,7 +193,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [382.0, -99.0]
+"values": [382.0, -136.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -290,9 +291,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -250.0
+offset_left = -247.0
 offset_top = 176.0
-offset_right = 250.0
+offset_right = 253.0
 offset_bottom = 382.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -353,14 +354,14 @@ alignment = 1
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="sign_in_button" type="Button" parent="panelLogin/VBoxContainer/HBoxContainer"]
+[node name="google_sign_in_button" type="Button" parent="panelLogin/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8i576")
 flat = true
 
-[node name="Panel" type="Panel" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]
+[node name="Panel" type="Panel" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button"]
 custom_minimum_size = Vector2(375, 80)
 layout_mode = 1
 anchors_preset = 15
@@ -371,7 +372,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pb7kr")
 
-[node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button"]
+[node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -380,16 +381,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer4" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
@@ -397,12 +398,12 @@ texture = ExtResource("6_etqxc")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="MarginContainer3" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="sign_in_button" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+[node name="sign_in_button" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -412,12 +413,103 @@ theme_override_font_sizes/font_size = 16
 text = "Sign in with Google"
 vertical_alignment = 2
 
-[node name="MarginContainer5" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/sign_in_button/CenterContainer/HBoxContainer"]
+[node name="MarginContainer5" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer"]
+layout_mode = 2
+
+[node name="sign_in_description" type="Label" parent="panelLogin/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.380392, 0.380392, 0.380392, 1)
+theme_override_fonts/font = ExtResource("4_qxarm")
+theme_override_font_sizes/font_size = 16
+text = "or"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="panelLogin/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="google_play_sign_in_button" type="Button" parent="panelLogin/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8i576")
+flat = true
+
+[node name="Panel" type="Panel" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button"]
+custom_minimum_size = Vector2(375, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pb7kr")
+
+[node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("8_tab7p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="sign_in_button" type="Label" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_cgl2e")
+theme_override_font_sizes/font_size = 16
+text = "Sign in with Google Play"
+vertical_alignment = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="panelLogin/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
@@ -430,4 +522,5 @@ libraries = {
 "": SubResource("AnimationLibrary_tnyv8")
 }
 
-[connection signal="pressed" from="panelLogin/VBoxContainer/HBoxContainer/sign_in_button" to="." method="_on_sign_in_button_pressed"]
+[connection signal="pressed" from="panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button" to="." method="_on_google_sign_in_button_pressed"]
+[connection signal="pressed" from="panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button" to="." method="_on_google_play_sign_in_button_pressed"]

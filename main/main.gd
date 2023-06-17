@@ -126,18 +126,35 @@ func _show_panel_error():
 	_hide_all()
 	
 #------------------------------ login ------------------------------------#
-func _on_login_login_completed():
+var _login_with :String
+
+func _on_login_login_completed(_with :String):
+	_login_with = _with
 	_to_main_menu()
 	
 func _get_profile():
-	OAuth2.get_profile_info()
-	var result = await OAuth2.profile_info
-	if result != null:
-		var profile :OAuth2.OAuth2UserInfo = result
-		Global.player.player_id = profile.id
-		Global.player.player_email = profile.email
-		Global.player.player_name = profile.given_name
-		Global.player.player_avatar = profile.picture
+	if _login_with == "google":
+		OAuth2.get_profile_info()
+		var result = await OAuth2.profile_info
+		if result != null:
+			var profile :OAuth2.OAuth2UserInfo = result
+			Global.player.player_id = profile.id
+			Global.player.player_email = profile.email
+			Global.player.player_name = profile.given_name
+			Global.player.player_avatar = profile.picture
+			Global.player.save_data(Global.player_data_file)
+			
+			await get_tree().process_frame
+			
+			# register new player
+			await Global.add_player_data_api()
+			
+	if _login_with == "google_play_service":
+		var _player :PlayService.User = login.play_service_player
+		Global.player.player_id = _player.id
+		Global.player.player_email = _player.email
+		Global.player.player_name = _player.displayName
+		Global.player.player_avatar = ""
 		Global.player.save_data(Global.player_data_file)
 		
 		await get_tree().process_frame

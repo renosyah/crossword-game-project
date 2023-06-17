@@ -23,6 +23,7 @@ Network="*res://addons/network/Network.gd"
 NetworkLobbyManager="*res://addons/network/lobby-manager/NetworkLobbyManager.gd"
 OAuth2="*res://addons/google_auth/OAuth2.gd"
 Admob="*res://addons/google_admob/Admob.gd"
+PlayService="*res://addons/google_play_service/PlayService.gd"
 
 [display]
 
