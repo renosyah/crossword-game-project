@@ -119,7 +119,6 @@ func generate_puzzle():
 		
 		# to make sure same generate display as before
 		Global.word_list.clear()
-		Global.word_list_founded.clear()
 		current_word_list = crossword.current_word_list_to_arr_of_dict()
 		
 		for word in current_word_list:
@@ -280,7 +279,7 @@ func _create_tile_id(row :int, col :int):
 func _display_clue():
 	if _is_displayed_tiles_exist():
 		_display_clue_from_last_progress()
-		
+	
 	else:
 		_display_clue_new_progress()
 		
@@ -295,29 +294,32 @@ func _display_clue_from_last_progress():
 		var tile :WordTile = get_node_or_null(key)
 		if is_instance_valid(tile) and crossword_displayed_tiles[key]:
 			tile.show_data()
-		
+			
 func _display_clue_new_progress():
+	crossword_displayed_tiles.clear()
+	
 	for i in current_word_list:
 		var row = i.row
 		var col = i.col
 		var down_across = i.down_across
 		
-		var clue_pass = 0 if randf() > 0.5 else 1
-		
+		var count :int = 0
 		for c in range(len(i.word)):
 			var id = _create_tile_id(row, col)
 			var tile :WordTile = _get_tile(id)
-			var show_data :bool = is_instance_valid(tile) and c % 2 == clue_pass
-			
-			crossword_displayed_tiles[tile.get_path()] = show_data
-			
-			if show_data:
-				tile.show_data()
+			if is_instance_valid(tile):
+				var show_data :bool = count % 2 == 0
+				if show_data:
+					tile.show_data()
+					
+				crossword_displayed_tiles[tile.get_path()] = show_data
 				
 			if down_across == "down":
 				row += 1
 			elif down_across == "across":
 				col += 1
+				
+			count += 1
 	
 func _is_progress_exist():
 	return not current_word_list.is_empty()
@@ -417,7 +419,6 @@ func _find_and_show_word(word :String):
 				timer_delay.start()
 				await timer_delay.timeout
 				
-			Global.word_list_founded.append(word)
 			return
 			
 	# run to dictionary
@@ -713,9 +714,6 @@ func _on_check_word_pressed():
 		_word += i
 		
 	if _word.is_empty():
-		return
-		
-	if Global.word_list_founded.has(_word):
 		return
 		
 	_find_and_show_word(_word)

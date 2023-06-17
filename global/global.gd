@@ -11,9 +11,7 @@ const player_data_file = "player.data"
 @onready var player :PlayerData = PlayerData.new()
 
 @onready var level :int = 1
-@onready var words_count :int = 5
 @onready var word_list :Array = []
-@onready var word_list_founded :Array= []
 
 @onready var player_hint :int = 5
 @onready var player_max_hint :int = 5
@@ -32,25 +30,27 @@ func _ready():
 	
 func generate_words():
 	word_list.clear()
-	word_list_founded.clear()
 	
 	var list = []
 	var count = 0
 	
-	words_count = 5
+	var words_count :int = 5
+	var words_length :int = 5
 	
 	var input = 0
 	while (input < level and level > 1):
 		input += 10;
 		words_count += 2
+		words_length += 1
 	
 	words_count = clamp(words_count, 1, 25)
+	words_length = clamp(words_length, 5, 10)
 	
 	while count < words_count:
 		randomize()
 		var words :Array = wordData.dictionaries[wordData.dictionaries.keys().pick_random()]
 		var word = words.pick_random()
-		if len(word) > 10:
+		if len(word) > words_length:
 			continue
 			
 		if list.has(word):

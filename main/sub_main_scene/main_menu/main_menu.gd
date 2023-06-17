@@ -36,6 +36,7 @@ func _ready():
 	
 	play_button.pivot_offset = play_button.size / 2
 	
+	AudioServer.set_bus_mute(0, _is_mutted)
 	_check_is_mute()
 	
 func show_menu(re_show :bool = false):
