@@ -210,8 +210,9 @@ func _on_main_menu_logout():
 	OAuth2.sign_out()
 	await OAuth2.sign_out_completed
 	
-	PlayService.signOut()
-	await PlayService.on_sign_out
+	if ["Android"].has(OS.get_name()):
+		PlayService.signOut()
+		await PlayService.on_sign_out
 	
 	loading.visible = false
 	animated_background.set_stage(3, true)

@@ -8,6 +8,7 @@ signal login_completed(_with)
 @onready var sign_in_description = $panelLogin/VBoxContainer/HBoxContainer2/sign_in_description
 @onready var google_sign_in_button = $panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer/sign_in_button
 @onready var google_play_sign_in_button = $panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer/sign_in_button
+@onready var label_or = $panelLogin/VBoxContainer/CenterContainer/Label
 
 @onready var sfx = Global.sfx
 
@@ -22,6 +23,7 @@ func _ready():
 	sign_in_description.text = tr("SIGN_IN_DESCRIPTION")
 	google_sign_in_button.text = tr("SIGN_IN_BUTTON")
 	google_play_sign_in_button.text = tr("SIGN_IN_BUTTON_GOOGLE_PLAY")
+	label_or.text = tr("OR")
 	
 	animation_player.play("RESET")
 	

@@ -425,7 +425,7 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="panelLogin/VBoxContainer"]
 layout_mode = 2
 
-[node name="sign_in_description" type="Label" parent="panelLogin/VBoxContainer/CenterContainer"]
+[node name="Label" type="Label" parent="panelLogin/VBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3

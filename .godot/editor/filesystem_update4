@@ -1,11 +1,8 @@
+res://translation/translation.en.translation
+res://translation/translation.id.translation
 res://default_env.tres
-res://main/sub_main_scene/main_menu/main_menu.tscn
-res://addons/google_auth/credentials.gd
-res://addons/google_play_service/PlayService.gd
 res://main/sub_main_scene/login/login.tscn
 res://main/sub_main_scene/login/login.gd
 res://main/main.tscn
+res://main/sub_main_scene/main_menu/main_menu.tscn
 res://main/main.gd
-res://translation/translation.en.translation
-res://translation/translation.id.translation
-res://addons/google_play_service/PlayServiceConfig.gd
