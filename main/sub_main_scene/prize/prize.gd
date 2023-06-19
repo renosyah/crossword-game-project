@@ -63,6 +63,7 @@ func _on_prizes(ok :bool, datas :Array):
 		prize.prize_name = item.prize_name
 		prize.prize_image_url = item.prize_image_url
 		prize.prize_level = item.prize_level
+		prize.background_color = Color.from_string(item.background_color, Color.BURLYWOOD)
 		prize.can_redeem = false
 		prize.redeem.connect(_on_prize_redeem)
 		v_box_container.add_child(prize)

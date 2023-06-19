@@ -7,6 +7,7 @@ signal redeem(_id, _name)
 @export var prize_name :String
 @export var prize_image_url :String
 @export var prize_level :int
+@export var background_color :Color
 
 @export var can_redeem :bool
 
@@ -28,7 +29,7 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.seed = id
 	
-	_panel_style.bg_color = Color(rng.randf(), rng.randf(), rng.randf(), 1.0)
+	_panel_style.bg_color = background_color
 	_redeem_button.modulate.a = 1.0 if can_redeem else 0.5
 	
 	_prize_name.text = prize_name

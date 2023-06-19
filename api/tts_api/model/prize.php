@@ -7,6 +7,7 @@ class prize {
     public $prize_name;
     public $prize_image_url;
     public $prize_level;
+    public $background_color;
 
     public function __construct(){
     }
@@ -16,12 +17,13 @@ class prize {
         $this->prize_name = $data->prize_name;
         $this->prize_image_url = $data->prize_image_url;
         $this->prize_level = $data->prize_level;
+        $this->background_color = $data->background_color;
     }
     
     public function add($db) {
         $result_query = new result_query();
         $result_query->data = "ok add";
-        $query = "INSERT INTO prize_table (prize_name,prize_image_url,prize_level) VALUES ('$this->prize_name','$this->prize_image_url','$this->prize_level')";
+        $query = "INSERT INTO prize_table (prize_name,prize_image_url,prize_level, background_color) VALUES ('$this->prize_name','$this->prize_image_url','$this->prize_level', '$this->background_color')";
         $stmt = $db->query($query);
         if (!$stmt){
             $result_query->error = "error at add new : ".$stmt->error;
@@ -37,7 +39,7 @@ class prize {
     public function one($db) {
         $result_query = new result_query();
         
-        $query = "SELECT id,prize_name,prize_image_url,prize_level FROM prize_table WHERE id='$this->id' LIMIT 1";
+        $query = "SELECT id,prize_name,prize_image_url,prize_level,background_color FROM prize_table WHERE id='$this->id' LIMIT 1";
         $stmt = $db->query($query);
         if (!$stmt){
             $result_query->error = "error at query one : ".$stmt->error;
@@ -61,6 +63,7 @@ class prize {
         $one->prize_name = $result['prize_name'];
         $one->prize_image_url = $result['prize_image_url'];
         $one->prize_level = $result['prize_level'];
+        $one->background_color = $result['background_color'];
         $result_query->data = $one;
         $db->close();
         return $result_query;
@@ -70,7 +73,7 @@ class prize {
         $result_query = new result_query();
         $all = array();
         $query = "SELECT 
-                    id,prize_name,prize_image_url,prize_level
+                    id,prize_name,prize_image_url,prize_level,background_color
                 FROM 
                     prize_table
                 WHERE
@@ -98,6 +101,7 @@ class prize {
             $one->prize_name = $result['prize_name'];
             $one->prize_image_url = $result['prize_image_url'];
             $one->prize_level = $result['prize_level'];
+            $one->background_color = $result['background_color'];
             array_push($all,$one);
         }
         $result_query->data = $all;
@@ -109,7 +113,7 @@ class prize {
     public function update($db) {
         $result_query = new result_query();
         $result_query->data = "ok update";
-        $query = "UPDATE prize_table SET prize_name = '$this->prize_name',prize_image_url = '$this->prize_image_url',prize_level = '$this->prize_level' WHERE id = '$this->id'";
+        $query = "UPDATE prize_table SET prize_name = '$this->prize_name',prize_image_url = '$this->prize_image_url',prize_level = '$this->prize_level', background_color = '$this->background_color' WHERE id = '$this->id'";
         $stmt = $db->query($query);
         if (!$stmt){
             $result_query->error = "error at update : ".$stmt->error;

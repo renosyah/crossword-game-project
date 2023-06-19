@@ -143,12 +143,14 @@ class Prize:
 	var prize_name :String
 	var prize_image_url :String
 	var prize_level :int
+	var background_color :String
 	
 	func _init(_data :Dictionary):
 		self.id = _data["id"]
 		self.prize_name = _data["prize_name"]
 		self.prize_image_url = _data["prize_image_url"]
 		self.prize_level = _data["prize_level"]
+		self.background_color = _data["background_color"]
 
 
 

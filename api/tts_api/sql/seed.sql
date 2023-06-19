@@ -20,7 +20,8 @@ INSERT INTO banner_table (id, banner_name, banner_image_url) VALUES
 (2, '2.png', 'http://192.168.1.78:8080/image/2.png'),
 (3, '3.png', 'http://192.168.1.78:8080/image/3.png');
 
-INSERT INTO prize_table (id, prize_name, prize_image_url, prize_level) VALUES 
-(1, 'Laptop', 'http://192.168.1.78:8080/image/laptop.png', 1000),
-(2, 'Hp', 'http://192.168.1.78:8080/image/hp.png', 980),
-(3, 'Mesin Cuci', 'http://192.168.1.78:8080/image/mesin_cuci.png', 960);
+INSERT INTO prize_table (id, prize_name, prize_image_url, prize_level, background_color) VALUES 
+(1, 'Laptop', 'http://192.168.1.78:8080/image/laptop.png', 1000, '#8FAC91'),
+(2, 'Hp', 'http://192.168.1.78:8080/image/hp.png', 980, '#ACD1D3'),
+(3, 'Mesin Cuci', 'http://192.168.1.78:8080/image/mesin_cuci.png', 960, '#E9C96C');
+(4, 'Lainnya', 'http://192.168.1.78:8080/image/mesin_cuci.png', 260, '#B8B8B8');

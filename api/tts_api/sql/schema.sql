@@ -15,6 +15,7 @@ CREATE TABLE prize_table(
     prize_name TEXT,
     prize_image_url TEXT,
     prize_level INT(11),
+    background_color TEXT,
     flag INT(11) NOT NULL DEFAULT 1,
     create_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
