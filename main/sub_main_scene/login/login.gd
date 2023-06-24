@@ -9,10 +9,15 @@ signal login_completed(_with)
 @onready var google_sign_in_button = $panelLogin/VBoxContainer/HBoxContainer/google_sign_in_button/CenterContainer/HBoxContainer/sign_in_button
 @onready var google_play_sign_in_button = $panelLogin/VBoxContainer/HBoxContainer3/google_play_sign_in_button/CenterContainer/HBoxContainer/sign_in_button
 @onready var label_or = $panelLogin/VBoxContainer/CenterContainer/Label
-
 @onready var sfx = Global.sfx
 
 var play_service_player :PlayService.User
+
+var checked :bool = true
+@onready var agree_checkbox = $panelLogin/VBoxContainer/HBoxContainer4/agree_checkbox
+@onready var h_box_container = $panelLogin/VBoxContainer/HBoxContainer
+@onready var h_box_container_3 = $panelLogin/VBoxContainer/HBoxContainer3
+
 
 func _ready():
 	OAuth2.sign_in_completed.connect(_sign_in_completed)
@@ -26,6 +31,7 @@ func _ready():
 	label_or.text = tr("OR")
 	
 	animation_player.play("RESET")
+	_on_agree_checkbox_pressed()
 	
 func _sign_in_completed():
 	await hide_login_form()
@@ -45,12 +51,18 @@ func show_login_form():
 	await animation_player.animation_finished
 	
 func _on_google_sign_in_button_pressed():
+	if not checked:
+		return
+		
 	sfx.stream = preload("res://assets/sound/click.wav")
 	sfx.play()
 	
 	OAuth2.sign_in()
 	
 func _on_google_play_sign_in_button_pressed():
+	if not checked:
+		return
+		
 	sfx.stream = preload("res://assets/sound/click.wav")
 	sfx.play()
 	
@@ -62,6 +74,16 @@ func hide_login_form():
 	
 	animation_player.play_backwards("show_icon")
 	await animation_player.animation_finished
+	
+func _on_agree_checkbox_pressed():
+	checked = not checked
+	h_box_container.modulate.a = 1.0 if checked else 0.5
+	h_box_container_3.modulate.a = 1.0 if checked else 0.5
+	
+func _on_check_term_pressed():
+	OS.shell_open("https://apaantu.id/terms_service.html")
+
+
 
 
 

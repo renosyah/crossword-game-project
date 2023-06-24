@@ -1,7 +1,3 @@
 res://default_env.tres
-res://apis/prize_api/prize_api.tscn
-res://apis/prize_api/prize_api.gd
-res://assets/ui/prize_item/prize_item.tscn
-res://assets/ui/prize_item/prize_item.gd
-res://main/sub_main_scene/prize/prize.tscn
-res://main/sub_main_scene/prize/prize.gd
+res://main/sub_main_scene/login/login.tscn
+res://main/sub_main_scene/login/login.gd
