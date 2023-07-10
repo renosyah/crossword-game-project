@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "adb00d44-6c04-46b1-a7a0-9aa8fb2f2964",
+		"_postman_id": "d0c9d95a-ea58-49b5-81ed-2ffad1428c2b",
 		"name": "tts_api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "rank",
+			"name": "banner",
 			"item": [
 				{
 					"name": "add",
@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"15\",\n    \"player_name\": \"Renosyah 15\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 33\n}",
+							"raw": "{\n    \"id\": 0,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,18 +23,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/add.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/banner/add.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"rank",
+								"banner",
 								"add.php"
 							]
 						}
@@ -48,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"rank_level\",\n    \"order_dir\": \"desc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"raw": "{\n    \"search_by\": \"banner_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"banner_name\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -56,18 +51,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/list.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/banner/list.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"rank",
+								"banner",
 								"list.php"
 							]
 						}
@@ -81,7 +71,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"game_id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"score\" : 0\n}",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -89,18 +79,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/one.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/banner/one.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"rank",
+								"banner",
 								"one.php"
 							]
 						}
@@ -114,7 +99,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"game_id\": 4,\n    \"player_id\": \"admin001\",\n    \"player_name\": \"admin\",\n    \"score\" : 300\n}",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"banner\",\n    \"banner_image_url\": \"http://apaantu.id/image/banner.png\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -122,18 +107,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/update.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/update.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"rank",
+								"player",
 								"update.php"
 							]
 						}
@@ -147,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 16\n}",
+							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"banner\",\n    \"banner_image_url\": \"http://apaantu.id/image/banner.png\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,18 +135,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/delete.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/delete.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"rank",
+								"player",
 								"delete.php"
 							]
 						}
@@ -185,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"15\",\n    \"player_name\": \"Renosyah 15\",\n    \"player_email\": \"renosyahdev@gmail.com\",\n    \"rank_level\" : 33\n}",
+							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"player_avatar\": \"\",\n    \"player_email\": \"\",\n    \"save_data_json\": \"{}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,12 +168,299 @@
 							}
 						},
 						"url": {
-							"raw": "https://web-game.coretanstudio.com/api/rank/add.php",
-							"protocol": "https",
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/add.php",
 							"host": [
-								"web-game",
-								"coretanstudio",
-								"com"
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"player",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"player_name\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/list.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"player",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"player_id\": \"107365005110470861707\",\n    \"player_name\": \"666\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtfUEiwvBNOhc-voPMKZd5Xmu3StrzE-FDYaHqxXlED6mQ=s96-c\",\n    \"player_email\": \"kingandlions@gmail.com\",\n    \"save_data_json\": \"{\\\"level\\\":12,\\\"player_hint\\\":0,\\\"regenerate_hp_progress\\\":[]}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/one.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"player",
+								"one.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"player_id\": \"107365005110470861707\",\n    \"player_name\": \"666\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtfUEiwvBNOhc-voPMKZd5Xmu3StrzE-FDYaHqxXlED6mQ=s96-c\",\n    \"player_email\": \"kingandlions@gmail.com\",\n    \"save_data_json\": \"{\\\"level\\\":12,\\\"player_hint\\\":0,\\\"regenerate_hp_progress\\\":[]}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/update.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"player",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"player_id\": \"107365005110470861707\",\n    \"player_name\": \"666\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtfUEiwvBNOhc-voPMKZd5Xmu3StrzE-FDYaHqxXlED6mQ=s96-c\",\n    \"player_email\": \"kingandlions@gmail.com\",\n    \"save_data_json\": \"{\\\"level\\\":12,\\\"player_hint\\\":0,\\\"regenerate_hp_progress\\\":[]}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/player/delete.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"player",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "prize",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 0,\n    \"prize_name\": \"\",\n    \"prize_image_url\": \"\",\n    \"prize_level\": \"\",\n    \"background_color\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/prize/add.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"prize",
+								"add.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_by\": \"prize_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"prize_name\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/prize/list.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"prize",
+								"list.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"prize_name\": \"Hadiah Misteri\",\n    \"prize_image_url\": \"http://apaantu.id/image/icon.png\",\n    \"prize_level\": \"250\",\n    \"background_color\": \"#8FAC91\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/prize/one.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"prize",
+								"one.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"prize_name\": \"Hadiah Misteri\",\n    \"prize_image_url\": \"http://apaantu.id/image/icon.png\",\n    \"prize_level\": \"250\",\n    \"background_color\": \"#8FAC91\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/prize/update.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"prize",
+								"update.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"prize_name\": \"Hadiah Misteri\",\n    \"prize_image_url\": \"http://apaantu.id/image/icon.png\",\n    \"prize_level\": \"250\",\n    \"background_color\": \"#8FAC91\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/prize/delete.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
+							],
+							"path": [
+								"api",
+								"prize",
+								"delete.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rank",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"player_avatar\": \"\",\n    \"player_email\": \"\",\n    \"rank_level\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}{{port}}/api/rank/add.php",
+							"host": [
+								"{{protocol}}{{host}}{{port}}"
 							],
 							"path": [
 								"api",
@@ -216,7 +478,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"rank_level\",\n    \"order_dir\": \"desc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"raw": "{\n    \"search_by\": \"player_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"rank_level\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,12 +486,9 @@
 							}
 						},
 						"url": {
-							"raw": "https://web-game.coretanstudio.com/api/rank/list.php",
-							"protocol": "https",
+							"raw": "{{protocol}}{{host}}{{port}}/api/rank/list.php",
 							"host": [
-								"web-game",
-								"coretanstudio",
-								"com"
+								"{{protocol}}{{host}}{{port}}"
 							],
 							"path": [
 								"api",
@@ -247,7 +506,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"game_id\": 0,\n    \"player_id\": \"\",\n    \"player_name\": \"\",\n    \"score\" : 0\n}",
+							"raw": "{\n    \"id\": 18,\n    \"player_id\": \"110213930106683396672\",\n    \"player_name\": \"Reno\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtcAlmysYE0S_BcyUhll9ABek7pZtojH8b1Mf-Swbw=s96-c\",\n    \"player_email\": \"syahputrareno975@gmail.com\",\n    \"rank_level\": 1,\n    \"number\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -255,15 +514,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/one.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/rank/one.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rank",
@@ -280,7 +534,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"game_id\": 4,\n    \"player_id\": \"admin001\",\n    \"player_name\": \"admin\",\n    \"score\" : 300\n}",
+							"raw": "{\n    \"id\": 18,\n    \"player_id\": \"110213930106683396672\",\n    \"player_name\": \"Reno\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtcAlmysYE0S_BcyUhll9ABek7pZtojH8b1Mf-Swbw=s96-c\",\n    \"player_email\": \"syahputrareno975@gmail.com\",\n    \"rank_level\": 1,\n    \"number\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -288,15 +542,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/update.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/rank/update.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rank",
@@ -313,7 +562,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 16\n}",
+							"raw": "{\n    \"id\": 18,\n    \"player_id\": \"110213930106683396672\",\n    \"player_name\": \"Reno\",\n    \"player_avatar\": \"https://lh3.googleusercontent.com/a/AAcHTtcAlmysYE0S_BcyUhll9ABek7pZtojH8b1Mf-Swbw=s96-c\",\n    \"player_email\": \"syahputrareno975@gmail.com\",\n    \"rank_level\": 1,\n    \"number\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,15 +570,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/rank/delete.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/rank/delete.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"rank",
@@ -342,7 +586,7 @@
 			]
 		},
 		{
-			"name": "banner",
+			"name": "redeem",
 			"item": [
 				{
 					"name": "add",
@@ -351,7 +595,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"1.png\",\n    \"banner_image_url\": \"http://192.168.1.78:8080/image/1.png\"\n}",
+							"raw": "{\n    \"id\": 0,\n    \"prize_id\": 0,\n    \"player_id\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -359,18 +603,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/banner/add.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/redeem/add.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"banner",
+								"redeem",
 								"add.php"
 							]
 						}
@@ -384,7 +623,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"search_by\": \"banner_name\",\n    \"search_value\": \"\",\n    \"order_by\": \"id\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
+							"raw": "{\n    \"search_by\": \"player_id\",\n    \"search_value\": \"\",\n    \"order_by\": \"player_id\",\n    \"order_dir\": \"asc\",\n    \"offset\": 0,\n    \"limit\": 10\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -392,18 +631,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/banner/list.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/redeem/list.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"banner",
+								"redeem",
 								"list.php"
 							]
 						}
@@ -417,7 +651,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
+							"raw": "{\n    \"id\": 0,\n    \"prize_id\": 0,\n    \"player_id\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -425,18 +659,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/banner/one.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/redeem/one.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"banner",
+								"redeem",
 								"one.php"
 							]
 						}
@@ -450,7 +679,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"1.png\",\n    \"banner_image_url\": \"http://192.168.1.78:8080/image/1.png\"\n}",
+							"raw": "{\n    \"id\": 0,\n    \"prize_id\": 0,\n    \"player_id\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -458,18 +687,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/banner/update.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/redeem/update.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"banner",
+								"redeem",
 								"update.php"
 							]
 						}
@@ -483,7 +707,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"banner_name\": \"\",\n    \"banner_image_url\": \"\"\n}",
+							"raw": "{\n    \"id\": 0,\n    \"prize_id\": 0,\n    \"player_id\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -491,18 +715,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.78:8080/api/banner/delete.php",
-							"protocol": "http",
+							"raw": "{{protocol}}{{host}}{{port}}/api/redeem/delete.php",
 							"host": [
-								"192",
-								"168",
-								"1",
-								"78"
+								"{{protocol}}{{host}}{{port}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
-								"banner",
+								"redeem",
 								"delete.php"
 							]
 						}

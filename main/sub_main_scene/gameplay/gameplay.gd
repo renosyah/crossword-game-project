@@ -52,6 +52,7 @@ var util = Utils.new()
 var crossword :crossword_lib.Crossword
 var crossword_size :int
 var output_sets: Array = []
+var input_sets :Array = []
 var max_row_grid = 6
 var max_output_set_size = 12
 var solved_tiles :Array = []
@@ -73,8 +74,11 @@ func _ready():
 	check_label.text = tr("CHECK")
 	chance_left.text = tr("CHANCE_LEFT")
 	
-	add_more_hp.visible = false
-	add_more_hint.visible = false
+	add_more_hp.set_enable(false)
+	add_more_hint.set_enable(false)
+	
+	add_more_hint.update_progress(0, 1)
+	add_more_hp.update_progress(0, 1)
 	
 	list_button.pivot_offset = list_button.size / 2
 	
@@ -87,6 +91,8 @@ func _ready():
 	Admob.user_earned_rewarded.connect(_player_earned_rewarded)
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
+	Global.regenerate_reward_hint.one_second_pass.connect(_regenerate_reward_hint_on_tick)
+	Global.regenerate_reward_hp.one_second_pass.connect(_regenerate_reward_hp_on_tick)
 	
 	Global.rank_api.rank_added.connect(_on_rank_added)
 
@@ -180,7 +186,7 @@ func _display_input_tile():
 	var characters = []
 	for key in trimed_crossword.keys():
 		var data :String = trimed_crossword[key]
-		if not data.is_empty() and not characters.has(data):
+		if not data.is_empty():
 			characters.append(data)
 			
 	randomize()
@@ -232,6 +238,8 @@ func _build_crossword_grid():
 			
 	
 func _set_input_character(characters :Array):
+	input_sets.clear()
+	
 	for i in grid_input_container.get_children():
 		grid_input_container.remove_child(i)
 		i.queue_free()
@@ -245,20 +253,26 @@ func _set_input_character(characters :Array):
 		input.data = c
 		input.connect("on_press", Callable(self, "_on_input_press"))
 		rows.add_child(input)
+		input_sets.append(input)
 		
 		if rows.get_child_count() > max_row_grid:
 			rows = HBoxContainer.new()
 			rows.alignment = BoxContainer.ALIGNMENT_CENTER
 			grid_input_container.add_child(rows)
-			
-func _on_input_press(c :String):
+	
+func _on_input_press(button :WordInput, c :String):
 	if output_sets.size() > max_output_set_size:
 		return
 		
 	sfx.stream = preload("res://assets/sound/typing.wav")
 	sfx.play()
 		
-	output_sets.append(c)
+	if button.is_pressed:
+		output_sets.append(c)
+		
+	else:
+		output_sets.erase(c)
+		
 	_clear_output()
 		
 	for i in output_sets:
@@ -266,8 +280,8 @@ func _on_input_press(c :String):
 		output.data = i
 		word_output_container.add_child(output)
 		
-	clear_word.visible = true
-		
+	clear_word.visible = not output_sets.is_empty()
+	
 func _clear_output():
 	for i in word_output_container.get_children():
 		word_output_container.remove_child(i)
@@ -561,11 +575,11 @@ func _watch_reward_ads(_for :String):
 func _rewarded_ad_loaded():
 	if Global.regenerate_hp.item_count == 0:
 		var _has_reward_quota_ok :bool = Global.regenerate_reward_hp.item_count > 0
-		add_more_hp.visible = _has_reward_quota_ok
+		add_more_hp.set_enable(_has_reward_quota_ok)
 		
 	if Global.player_hint < Global.player_max_hint:
 		var _has_reward_quota_ok :bool = Global.regenerate_reward_hint.item_count > 0
-		add_more_hint.visible = _has_reward_quota_ok
+		add_more_hint.set_enable(_has_reward_quota_ok)
 	
 func _rewarded_closed():
 	if Admob.get_is_banner_loaded():
@@ -574,8 +588,8 @@ func _rewarded_closed():
 	if not Admob.get_is_rewarded_loaded():
 		Admob.load_rewarded()
 		
-	add_more_hp.visible = false
-	add_more_hint.visible = false
+	add_more_hp.set_enable(false)
+	add_more_hint.set_enable(false)
 	
 func _player_earned_rewarded(_reward_type :String, _amount:int):
 	# add 1 more hp
@@ -721,7 +735,7 @@ func _on_check_word_pressed():
 func _on_hint_button_pressed():
 	if Global.player_hint < Global.player_max_hint:
 		var _has_reward_quota_ok :bool = Global.regenerate_reward_hint.item_count > 0
-		add_more_hint.visible = Admob.get_is_rewarded_loaded() and _has_reward_quota_ok
+		add_more_hint.set_enable(Admob.get_is_rewarded_loaded() and _has_reward_quota_ok)
 		
 	if Global.player_hint == 0:
 		_offer_watch_ads_to_get_hint()
@@ -745,10 +759,36 @@ func _on_clear_word_pressed():
 	_clear_output()
 	output_sets.clear()
 	
+	for i in input_sets:
+		var input :WordInput = i
+		input.is_pressed = false
+		input.check_is_pressed() 
+	
 func _regenerate_hp_complete():
 	hit_point_display.hp = Global.regenerate_hp.item_count
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
+	
+func _regenerate_reward_hint_on_tick():
+	var items :Array = Global.regenerate_reward_hint.regenerating_items
+	var max_time :int = Global.regenerate_reward_hint.cooldown
+	
+	if items.is_empty():
+		return
+		
+	var item :RegenerateItemHandler.regenerateItem = items.back()
+	add_more_hint.update_progress(item.get_remaining(), max_time)
+	
+func _regenerate_reward_hp_on_tick():
+	var items :Array = Global.regenerate_reward_hp.regenerating_items
+	var max_time :int = Global.regenerate_reward_hp.cooldown
+	
+	if items.is_empty():
+		return
+		
+	var item :RegenerateItemHandler.regenerateItem = items.back()
+	add_more_hp.update_progress(item.get_remaining(), max_time)
+	
 	
 func _on_back_button_pressed():
 	# RULE REVISION

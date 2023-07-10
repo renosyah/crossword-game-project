@@ -1,9 +1,10 @@
 extends MarginContainer
 class_name WordInput
 
-signal on_press(data)
+signal on_press(button,data)
 
 @export var data :String
+@export var is_pressed :bool = false
 
 @onready var label = $CenterContainer/Button/Label
 @onready var button = $CenterContainer/Button
@@ -14,8 +15,12 @@ var tween :Tween
 func _ready():
 	label.add_theme_font_size_override("font_size", custom_minimum_size.x * 0.8)
 	label.text = data.to_upper()
+	check_is_pressed()
 	
 func _on_button_pressed():
+	is_pressed = not is_pressed
+	check_is_pressed()
+	
 	if tween:
 		tween.kill()
 	
@@ -24,4 +29,8 @@ func _on_button_pressed():
 	button.scale = Vector2.ONE * 0.8
 	tween.tween_property(button, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE)
 	
-	emit_signal("on_press", data)
+	emit_signal("on_press", self, data)
+
+func check_is_pressed():
+	modulate.a = 0.5 if is_pressed else 1.0
+	

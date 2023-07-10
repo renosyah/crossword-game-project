@@ -80,20 +80,20 @@ func setup_regenerate_hp_hint():
 	
 	regenerate_hp = scene.instantiate()
 	regenerate_hp.item_name = "hp"
-	regenerate_hp.cooldown = 60
+	regenerate_hp.cooldown = 1800 # 30 minute
 	regenerate_hp.item_count = 5
 	regenerate_hp.item_max = 5
 	regenerate_hp.on_save.connect(_regenerate_hp_on_save)
 	
 	regenerate_reward_hp = scene.instantiate()
 	regenerate_reward_hp.item_name = "free_hp_reward_ads"
-	regenerate_reward_hp.cooldown = 30
+	regenerate_reward_hp.cooldown = 300 # 5 minute
 	regenerate_reward_hp.item_count = 1
 	regenerate_reward_hp.item_max = 1
 	
 	regenerate_reward_hint = scene.instantiate()
 	regenerate_reward_hint.item_name = "free_hint_reward_ads"
-	regenerate_reward_hint.cooldown = 30
+	regenerate_reward_hint.cooldown = 300 # 5 minute
 	regenerate_reward_hint.item_count = 1
 	regenerate_reward_hint.item_max = 1
 	

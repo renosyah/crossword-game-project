@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://de1qukub4idoi" path="res://main/sub_main_scene/gameplay/hint.png" id="6_mi1bp"]
 [ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="7_qsvik"]
 [ext_resource type="PackedScene" uid="uid://bac3jnsksju3k" path="res://assets/ui/hit_point_display/hit_point_display.tscn" id="8_bmk5m"]
-[ext_resource type="Texture2D" uid="uid://cc5m8olxg6cgv" path="res://assets/ui/icons/add.png" id="10_wr0ih"]
 [ext_resource type="PackedScene" uid="uid://dihaanvb3byoj" path="res://assets/ui/panel_reward/panel_reward.tscn" id="11_pncey"]
+[ext_resource type="PackedScene" uid="uid://26xwfns8xla" path="res://assets/ui/button_add_reward/button_add_reward.tscn" id="11_q15ch"]
 [ext_resource type="PackedScene" uid="uid://cyytys2xts5tu" path="res://assets/ui/simple_panel_message/simple_panel_message.tscn" id="13_n6l5v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k7lx3"]
@@ -715,21 +715,8 @@ layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
-[node name="add_more_hint" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer"]
-custom_minimum_size = Vector2(24, 24)
+[node name="add_more_hint" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer" instance=ExtResource("11_q15ch")]
 layout_mode = 2
-size_flags_vertical = 4
-flat = true
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer/add_more_hint"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
-mouse_filter = 2
-texture = ExtResource("10_wr0ih")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="hint_button" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control/gameplay_helper/HBoxContainer"]
 custom_minimum_size = Vector2(85, 100)
@@ -825,20 +812,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="add_more_hp" type="Button" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(24, 24)
+[node name="add_more_hp" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer" instance=ExtResource("11_q15ch")]
 layout_mode = 2
-flat = true
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer4/Control/Control2/VBoxContainer/HBoxContainer/add_more_hp"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
-mouse_filter = 2
-texture = ExtResource("10_wr0ih")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="Control" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 290)
@@ -963,13 +938,16 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
+[node name="CenterContainer" type="ScrollContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-mouse_filter = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
 [node name="grid_input_container" type="VBoxContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer/CenterContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 

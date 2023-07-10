@@ -37,6 +37,7 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(20, 20)
+mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7gb4y")
 flat = true
 
