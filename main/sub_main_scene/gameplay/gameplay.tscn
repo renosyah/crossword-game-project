@@ -939,7 +939,7 @@ custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
 [node name="CenterContainer" type="ScrollContainer" parent="VBoxContainer/Control/MarginContainer3/VBoxContainer"]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 170)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0

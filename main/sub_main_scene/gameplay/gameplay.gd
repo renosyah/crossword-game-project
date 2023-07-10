@@ -421,6 +421,7 @@ func _find_and_show_word(word :String):
 				elif down_across == "across":
 					col += 1
 					
+			_froze_input_word_buttons()
 			_on_clear_word_pressed()
 			
 			for idx in _solved_tile.size():
@@ -462,6 +463,15 @@ func _find_and_show_word(word :String):
 	# not found
 	_on_clear_word_pressed()
 	_player_hurt()
+	
+func _froze_input_word_buttons():
+	# cannot use same character
+	# disable it tile
+	for i in input_sets:
+		var input :WordInput = i
+		if input.is_pressed:
+			input.is_enable = false
+			input.check_is_enable()
 	
 func _run_animated_solved(item :WordOutput, solved_tile :WordTile):
 	item.speed = 935
@@ -761,8 +771,9 @@ func _on_clear_word_pressed():
 	
 	for i in input_sets:
 		var input :WordInput = i
-		input.is_pressed = false
-		input.check_is_pressed() 
+		if input.is_enable:
+			input.is_pressed = false
+			input.check_is_pressed() 
 	
 func _regenerate_hp_complete():
 	hit_point_display.hp = Global.regenerate_hp.item_count

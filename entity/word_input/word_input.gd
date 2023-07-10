@@ -5,6 +5,7 @@ signal on_press(button,data)
 
 @export var data :String
 @export var is_pressed :bool = false
+@export var is_enable :bool = true
 
 @onready var label = $CenterContainer/Button/Label
 @onready var button = $CenterContainer/Button
@@ -18,6 +19,9 @@ func _ready():
 	check_is_pressed()
 	
 func _on_button_pressed():
+	if not is_enable:
+		return
+		
 	is_pressed = not is_pressed
 	check_is_pressed()
 	
@@ -34,3 +38,5 @@ func _on_button_pressed():
 func check_is_pressed():
 	modulate.a = 0.5 if is_pressed else 1.0
 	
+func check_is_enable():
+	modulate.a = 0.5 if not is_enable else 1.0
