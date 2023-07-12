@@ -1,9 +1,8 @@
 res://default_env.tres
-res://assets/regenerate_item_handler/regenerate_item_handler.tscn
-res://addons/google_admob/AdmobConfig.gd
+res://main/main.tscn
+res://data/words_data/words_data.gd
+res://global/global.gd
 res://main/sub_main_scene/gameplay/gameplay.tscn
 res://main/sub_main_scene/gameplay/gameplay.gd
-res://entity/word_input/word_input.tscn
-res://entity/word_input/word_input.gd
-res://assets/ui/button_add_reward/button_add_reward.tscn
-res://assets/ui/button_add_reward/button_add_reward.gd
+res://main/main.gd
+res://main/sub_main_scene/main_menu/main_menu.tscn

@@ -91,6 +91,8 @@ func _ready():
 	Admob.user_earned_rewarded.connect(_player_earned_rewarded)
 	
 	Global.regenerate_hp.regenerate_complete.connect(_regenerate_hp_complete)
+	Global.regenerate_reward_hint.regenerate_complete.connect(_regenerate_reward_hint_complete)
+	
 	Global.regenerate_reward_hint.one_second_pass.connect(_regenerate_reward_hint_on_tick)
 	Global.regenerate_reward_hp.one_second_pass.connect(_regenerate_reward_hp_on_tick)
 	
@@ -183,12 +185,34 @@ func generate_puzzle():
 		simple_panel_message.show_panel()
 		
 func _display_input_tile():
-	var characters = []
-	for key in trimed_crossword.keys():
-		var data :String = trimed_crossword[key]
-		if not data.is_empty():
-			characters.append(data)
+	var word_list :Array = []
+	
+	for word in current_word_list:
+		word_list.append(word.word)
+		
+	var max_character_cap :Dictionary = {}
+	for word in word_list:
+		for i in word:
+			max_character_cap[str(i)] = 0
+		
+	for key in max_character_cap.keys():
+		for word in word_list:
+			var cap :int = 0
 			
+			for i in word:
+				if key == str(i):
+					cap += 1
+					
+			if cap > max_character_cap[key]:
+				max_character_cap[key] = cap
+		
+	var characters = []
+	for key in max_character_cap:
+		var character :String = key
+		var cap :int = max_character_cap[key]
+		for _i in range(cap):
+			characters.append(character)
+		
 	randomize()
 	characters.shuffle()
 	
@@ -421,7 +445,6 @@ func _find_and_show_word(word :String):
 				elif down_across == "across":
 					col += 1
 					
-			_froze_input_word_buttons()
 			_on_clear_word_pressed()
 			
 			for idx in _solved_tile.size():
@@ -463,15 +486,6 @@ func _find_and_show_word(word :String):
 	# not found
 	_on_clear_word_pressed()
 	_player_hurt()
-	
-func _froze_input_word_buttons():
-	# cannot use same character
-	# disable it tile
-	for i in input_sets:
-		var input :WordInput = i
-		if input.is_pressed:
-			input.is_enable = false
-			input.check_is_enable()
 	
 func _run_animated_solved(item :WordOutput, solved_tile :WordTile):
 	item.speed = 935
@@ -682,6 +696,13 @@ func _show_solved():
 	await get_tree().create_timer(1.5).timeout
 	
 	Global.level += 1
+	
+	# RULE REVISION
+	# hell puzzle lvl 50
+	if Global.level >= 50 and Global.wordData.difficulty != WordsData.hard:
+		Global.wordData.difficulty = WordsData.hard
+		Global.wordData.load_words_data()
+		
 	Global.generate_words()
 	
 	Global.update_player_data_api()
@@ -779,6 +800,10 @@ func _regenerate_hp_complete():
 	hit_point_display.hp = Global.regenerate_hp.item_count
 	hit_point_display.max_hp = Global.regenerate_hp.item_max
 	hit_point_display.display_hp()
+	
+func _regenerate_reward_hint_complete():
+	var _has_reward_quota_ok :bool = Global.regenerate_reward_hint.item_count > 0
+	add_more_hint.set_enable(Admob.get_is_rewarded_loaded() and _has_reward_quota_ok)
 	
 func _regenerate_reward_hint_on_tick():
 	var items :Array = Global.regenerate_reward_hint.regenerating_items

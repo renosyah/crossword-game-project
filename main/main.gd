@@ -199,6 +199,12 @@ func _on_main_menu_play():
 	navigations.append("gameplay")
 	_hide_all()
 	
+	# RULE REVISION
+	# hell puzzle lvl 50
+	if Global.level >= 50 and Global.wordData.difficulty != WordsData.hard:
+		Global.wordData.difficulty = WordsData.hard
+		Global.wordData.load_words_data()
+		
 	gameplay.visible = true
 	gameplay.generate_puzzle()
 

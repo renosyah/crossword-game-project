@@ -2,6 +2,7 @@ extends Node
 class_name WordsData
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
+const kids = "dictionaries_kids"
 const easy = "dictionaries_easy"
 const hard = "dictionaries_hard"
 
@@ -45,10 +46,10 @@ func is_in_dictionary(word :String) -> bool:
 			return true
 			
 	return false
-# for extract only
+	
 #static func load_and_store():
 #	var words = []
-#	var file = FileAccess.open("res://data/words_data/indonesia_word_2.csv", FileAccess.READ)
+#	var file = FileAccess.open("res://data/DatasetMudahTTS.csv", FileAccess.READ)
 #	while !file.eof_reached():
 #		var csv = file.get_csv_line()
 #		words.append(csv[0])
@@ -65,7 +66,7 @@ func is_in_dictionary(word :String) -> bool:
 #
 #	for key in dictionary.keys():
 #		var _file = FileAccess.open(
-#			"res://data/words_data/dictionaries_hard/{index}.csv".format({"index" : key}), FileAccess.WRITE
+#			"res://data/words_data/dictionaries_kids/{index}.csv".format({"index" : key}), FileAccess.WRITE
 #		)
 #		for word in dictionary[key]:
 #			_file.store_csv_line([word])
@@ -73,7 +74,7 @@ func is_in_dictionary(word :String) -> bool:
 #		_file.close()
 #
 #		var _file_import = FileAccess.open(
-#			"res://data/words_data/dictionaries_hard/{index}.csv.import".format({"index" : key}), FileAccess.WRITE
+#			"res://data/words_data/dictionaries_kids/{index}.csv.import".format({"index" : key}), FileAccess.WRITE
 #		)
 #		_file_import.store_line("[remap]\nimporter=\"keep\"\n")
 #		_file_import.close()

@@ -17,7 +17,7 @@ const player_data_file = "player.data"
 @onready var player_max_hint :int = 5
 
 func _ready():
-	wordData.difficulty = wordData.hard
+	wordData.difficulty = WordsData.kids
 	wordData.load_words_data()
 	
 	player.load_data(player_data_file)
