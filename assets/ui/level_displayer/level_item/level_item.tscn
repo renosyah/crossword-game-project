@@ -1,0 +1,138 @@
+[gd_scene load_steps=7 format=3 uid="uid://badngkyoxmihb"]
+
+[ext_resource type="Texture2D" uid="uid://byc5exa7vhy2c" path="res://assets/ui/level_displayer/level_item/locked.png" id="1_pxorl"]
+[ext_resource type="Script" path="res://assets/ui/level_displayer/level_item/level_item.gd" id="1_tr6r0"]
+[ext_resource type="FontFile" uid="uid://j5lmvns8gupg" path="res://assets/fonts/ttf/Poppins-Bold.ttf" id="2_7bm86"]
+[ext_resource type="Texture2D" uid="uid://sqjfjqt3vpav" path="res://assets/ui/level_displayer/level_item/line.png" id="2_dfveo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15gmd"]
+bg_color = Color(1, 0.894118, 0.635294, 1)
+corner_radius_top_left = 59
+corner_radius_top_right = 59
+corner_radius_bottom_right = 59
+corner_radius_bottom_left = 59
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1v7h"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0.894118, 0.635294, 1)
+corner_radius_top_left = 59
+corner_radius_top_right = 59
+corner_radius_bottom_right = 59
+corner_radius_bottom_left = 59
+
+[node name="level_item" type="HBoxContainer"]
+custom_minimum_size = Vector2(300, 90)
+offset_right = 300.0
+offset_bottom = 64.0
+mouse_filter = 2
+script = ExtResource("1_tr6r0")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control3" type="Control" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="dot" type="Control" parent="Control3"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control3/dot"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 49.0
+offset_top = -39.0
+offset_right = 199.0
+offset_bottom = 41.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_dfveo")
+expand_mode = 1
+
+[node name="Control" type="Control" parent="Control3"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="bg" type="Panel" parent="Control3/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_15gmd")
+
+[node name="border" type="Panel" parent="Control3/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r1v7h")
+
+[node name="locked" type="TextureRect" parent="Control3/Control"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_pxorl")
+expand_mode = 1
+
+[node name="level" type="Label" parent="Control3/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.521569, 0.137255, 0.27451, 1)
+theme_override_fonts/font = ExtResource("2_7bm86")
+theme_override_font_sizes/font_size = 32
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+mouse_filter = 2

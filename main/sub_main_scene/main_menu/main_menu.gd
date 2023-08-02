@@ -23,6 +23,8 @@ signal logout
 
 @onready var panel_logout = $panel_logout
 
+@onready var level_displayer = $level_displayer
+
 @onready var sfx = Global.sfx
 
 var _is_mutted :bool = false
@@ -45,6 +47,8 @@ func show_menu(re_show :bool = false):
 	level.text = "%s %s" % [tr("LEVEL") ,Global.level]
 	login_name.text = "%s %s" % [tr("SIGNED_IN_AS"),Global.player.player_name] 
 	login_email.text = Global.player.player_email
+	
+	level_displayer.display_level()
 	
 	if re_show:
 		animation_player.play("re_show_menu")
