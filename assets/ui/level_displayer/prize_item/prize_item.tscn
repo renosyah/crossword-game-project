@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://d334xhduj75u"]
+
+[ext_resource type="Script" path="res://assets/ui/level_displayer/prize_item/prize_item.gd" id="1_2m4we"]
+[ext_resource type="Texture2D" uid="uid://curmu5oivd1km" path="res://assets/ui/icons/icon.png" id="1_fwhjy"]
+[ext_resource type="FontFile" uid="uid://dsbdko653sao5" path="res://assets/fonts/ttf/Poppins-ExtraBold.ttf" id="2_k2brj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iacef"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="prize_item" type="Control"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 20.0
+offset_bottom = 20.0
+pivot_offset = Vector2(10, 10)
+script = ExtResource("1_2m4we")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -10.0
+offset_right = 115.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="pos" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/pos"]
+custom_minimum_size = Vector2(150, 210)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -105.0
+offset_right = 75.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/pos/MarginContainer"]
+clip_children = 2
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iacef")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/pos/MarginContainer/Panel"]
+custom_minimum_size = Vector2(72, 95)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -70.0
+offset_right = 56.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="prize_name" type="Label" parent="HBoxContainer/pos/MarginContainer/Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_k2brj")
+theme_override_font_sizes/font_size = 20
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/pos"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = -158.0
+offset_right = 41.0
+offset_bottom = -78.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("1_fwhjy")
+expand_mode = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

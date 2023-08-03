@@ -11,9 +11,12 @@ extends HBoxContainer
 @onready var _locked = $Control3/Control/locked
 @onready var _level = $Control3/Control/level
 @onready var _dot = $Control3/dot
+@onready var _dot_image = $Control3/dot/TextureRect
 
 @onready var panel_bg_style :StyleBoxFlat = _bg.get_theme_stylebox(StringName("panel")).duplicate()
 @onready var panel_border_style :StyleBoxFlat = _border.get_theme_stylebox(StringName("panel")).duplicate()
+
+@onready var item = $Control3/Control
 
 func _ready():
 	_bg.remove_theme_stylebox_override("panel")
@@ -38,7 +41,8 @@ func _ready():
 	if is_locked:
 		panel_bg_style.bg_color = Color("#BBBBBB")
 		panel_border_style.border_color = Color("#A5A5A5")
-		
+		_dot_image.modulate = Color("#BBBBBB")
+
 		_level.visible = false
 		_locked.visible = true
 		return
@@ -50,6 +54,7 @@ func _ready():
 	panel_bg_style.bg_color = Color("#FFE4A2")
 	panel_border_style.border_color = Color("#FFE4A2")
 	_level.add_theme_color_override("font_color","#852346")
+	_dot_image.modulate = Color("#FFE4A2")
 	
 	if is_current:
 		panel_bg_style.bg_color = Color("#000000")

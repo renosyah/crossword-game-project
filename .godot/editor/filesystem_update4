@@ -2,10 +2,14 @@ res://default_env.tres
 res://main/sub_main_scene/main_menu/main_menu.tscn
 res://assets/ui/level_displayer/level_displayer.tscn
 res://assets/ui/level_displayer/level_item/level_item.tscn
-res://assets/ui/level_displayer/level_item/level_item.gd
-res://assets/ui/level_displayer/level_displayer.gd
 res://entity/word_input/word_input.tscn
 res://entity/word_tile/word_tile.tscn
 res://main/sub_main_scene/gameplay/gameplay.tscn
-res://main/sub_main_scene/main_menu/main_menu.gd
 res://main/main.tscn
+res://assets/ui/level_displayer/level_displayer.gd
+res://assets/ui/level_displayer/prize_item/prize_item.tscn
+res://assets/ui/level_displayer/prize_item/prize_item.gd
+res://assets/ui/prize_item/prize_item.tscn
+res://assets/ui/level_displayer/level_item/level_item.gd
+res://main/sub_main_scene/prize/prize.tscn
+res://assets/ui/banner/banner.tscn

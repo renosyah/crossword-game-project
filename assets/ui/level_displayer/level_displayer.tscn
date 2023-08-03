@@ -11,6 +11,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_355vg")
 
+[node name="banners" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -47,4 +52,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="screen_entered" from="HBoxContainer/ScrollContainer/VBoxContainer/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
